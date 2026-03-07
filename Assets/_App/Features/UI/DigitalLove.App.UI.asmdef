@@ -1,0 +1,24 @@
+{
+    "name": "DigitalLove.App.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:419b7d0928d0e45169aa9c2404172a61",
+        "GUID:f9b9d0d9d89c248679a7d7b8e214e95d",
+        "GUID:61cabdb1d1ba1498b9976183d3c71895",
+        "GUID:57c3bc16adb014f818bb7e6d9c9b1a36",
+        "GUID:7b565516de3634743a2bab4f2b8a627b",
+        "GUID:9f19307718f0e4ba7a6d6c188029fd97",
+        "GUID:8e39609c8254c4ca9b8a4e2ce32463b6",
+        "GUID:1a0aee1a290dee9468b0162415a0dcc1",
+        "GUID:447181e61705f4d6f954add1124817a5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
