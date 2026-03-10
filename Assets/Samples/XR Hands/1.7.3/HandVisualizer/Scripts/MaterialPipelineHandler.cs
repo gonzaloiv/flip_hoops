@@ -6,40 +6,6 @@ using UnityEditor;
 
 namespace UnityEngine.XR.Hands.Samples.VisualizerSample
 {
-#if UNITY_EDITOR
-    [InitializeOnLoad]
-    static class RenderPipelineValidation
-    {
-        static RenderPipelineValidation()
-        {
-            // Use delayCall to ensure this runs after the editor is fully initialized and all assets are imported.
-            // Without delayCall, this script may execute before new assets (such as newly imported samples)
-            // are registered in the AssetDatabase, so they won't be found or converted.
-            EditorApplication.delayCall += () =>
-            {
-                foreach (var pipelineHandler in GetAllInstances())
-                    pipelineHandler.AutoRefreshPipelineShaders();
-            };
-        }
-
-        static List<MaterialPipelineHandler> GetAllInstances()
-        {
-            var instances = new List<MaterialPipelineHandler>();
-
-            // Find all GUIDs for objects that match the type MaterialPipelineHandler
-            var guids = AssetDatabase.FindAssets("t:MaterialPipelineHandler");
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                var asset = AssetDatabase.LoadAssetAtPath<MaterialPipelineHandler>(path);
-                if (asset != null)
-                    instances.Add(asset);
-            }
-
-            return instances;
-        }
-    }
-#endif
 
     /// <summary>
     /// Serializable class that contains the shader information for a material.

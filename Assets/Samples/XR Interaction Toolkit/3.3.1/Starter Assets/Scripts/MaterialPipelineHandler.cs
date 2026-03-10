@@ -6,35 +6,6 @@ using UnityEditor;
 
 namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
 {
-#if UNITY_EDITOR
-    [InitializeOnLoad]
-    static class RenderPipelineValidation
-    {
-        static RenderPipelineValidation()
-        {
-            foreach (var pipelineHandler in GetAllInstances())
-                pipelineHandler.AutoRefreshPipelineShaders();
-        }
-
-        static List<MaterialPipelineHandler> GetAllInstances()
-        {
-            var instances = new List<MaterialPipelineHandler>();
-
-            // Find all GUIDs for objects that match the type MaterialPipelineHandler
-            var guids = AssetDatabase.FindAssets("t:MaterialPipelineHandler");
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                var asset = AssetDatabase.LoadAssetAtPath<MaterialPipelineHandler>(path);
-                if (asset != null)
-                    instances.Add(asset);
-            }
-
-            return instances;
-        }
-    }
-#endif
-
     /// <summary>
     /// Serializable class that contains the shader information for a material.
     /// </summary>

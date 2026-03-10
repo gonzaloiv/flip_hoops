@@ -32,7 +32,6 @@
   <Project Path="DigitalLove.FX.csproj" />
   <Project Path="Unity.XR.Hands.Samples.Gestures.csproj" />
   <Project Path="DigitalLove.Casual.Analytics.csproj" />
-  <Project Path="Unity.XR.Hands.Samples.Gestures.Editor.csproj" />
   <Project Path="DigitalLove.XR.MRUK.csproj" />
   <Project Path="DigitalLove.DataAccess.Local.csproj" />
   <Project Path="DigitalLove.Timeline.Integrations.csproj" />
@@ -45,9 +44,7 @@
   <Project Path="Simple360Render.Runtime.csproj" />
   <Project Path="DigitalLove.Global.Editor.csproj" />
   <Project Path="DigitalLove.Reflex.csproj" />
-  <Project Path="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj" />
   <Project Path="DigitalLove.FlowControl.Routes.Editor.csproj" />
-  <Project Path="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor.csproj" />
   <Project Path="TrinarySoftware.MEC.Runtime.csproj" />
   <Project Path="DigitalLove.App.Play.csproj" />
   <Project Path="DigitalLove.DataAccess.Integrations.csproj" />
