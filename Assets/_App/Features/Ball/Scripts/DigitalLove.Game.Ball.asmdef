@@ -1,0 +1,17 @@
+{
+    "name": "DigitalLove.Game.Ball",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2a230cb87a1d3ba4a98bdc0ddae76e6c",
+        "GUID:f5eda1afa2a1241a59c4db6830e1c890"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

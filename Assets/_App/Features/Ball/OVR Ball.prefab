@@ -296,9 +296,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallBehaviour
   grabbable: {fileID: 4111780593419608101}
   rb: {fileID: 9163818528921441707}
-  maxQueueValues: 10
-  forceMultiplier: 50
-  gravityMultiplier: 5
+  maxQueueValues: 18
+  forceMultiplier: 90
+  gravityMultiplier: 6
 --- !u!1 &3793315736553346107
 GameObject:
   m_ObjectHideFlags: 0

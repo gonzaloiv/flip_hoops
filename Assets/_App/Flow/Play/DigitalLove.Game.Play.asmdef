@@ -1,0 +1,18 @@
+{
+    "name": "DigitalLove.Game.Play",
+    "rootNamespace": "",
+    "references": [
+        "GUID:65917f6bc12bb4a4cad49ea83a119a2b",
+        "GUID:e92401e0d4937944f9a0beae62ddf4b5",
+        "GUID:fe5d69302f4d8a940849caf8ffb59889"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,4 @@
 ﻿<Solution>
-  <Project Path="DigitalLove.App.Setup.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="DigitalLove.TTS.csproj" />
   <Project Path="BuildReportTool.csproj" />
@@ -13,6 +12,7 @@
   <Project Path="DigitalLove.App.States.Setup.csproj" />
   <Project Path="DigitalLove.UI.Behaviours.csproj" />
   <Project Path="DigitalLove.UI.DesignSystem.csproj" />
+  <Project Path="DigitalLove.Game.Basket.csproj" />
   <Project Path="DigitalLove.FlowControl.csproj" />
   <Project Path="DigitalLove.FlowControl.Integrations.csproj" />
   <Project Path="DOTween.Modules.csproj" />
@@ -33,8 +33,11 @@
   <Project Path="Unity.XR.Hands.Samples.Gestures.csproj" />
   <Project Path="DigitalLove.Casual.Analytics.csproj" />
   <Project Path="DigitalLove.XR.MRUK.csproj" />
+  <Project Path="DigitalLove.Game.Ball.csproj" />
+  <Project Path="DigitalLove.Game.Play.csproj" />
   <Project Path="DigitalLove.DataAccess.Local.csproj" />
   <Project Path="DigitalLove.Timeline.Integrations.csproj" />
+  <Project Path="DigitalLove.Game.Gravities.csproj" />
   <Project Path="DigitalLove.FX.ShadowLike.csproj" />
   <Project Path="DigitalLove.Audio.Runtime.csproj" />
   <Project Path="DigitalLove.XR.ARFoundation.csproj" />
@@ -45,7 +48,7 @@
   <Project Path="DigitalLove.Global.Editor.csproj" />
   <Project Path="DigitalLove.Reflex.csproj" />
   <Project Path="DigitalLove.FlowControl.Routes.Editor.csproj" />
+  <Project Path="DigitalLove.Casual.Flow.Setup.MRUK.csproj" />
   <Project Path="TrinarySoftware.MEC.Runtime.csproj" />
-  <Project Path="DigitalLove.App.Play.csproj" />
   <Project Path="DigitalLove.DataAccess.Integrations.csproj" />
 </Solution>

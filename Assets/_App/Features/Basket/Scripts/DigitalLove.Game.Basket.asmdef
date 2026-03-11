@@ -1,0 +1,16 @@
+{
+    "name": "DigitalLove.Game.Basket",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f5eda1afa2a1241a59c4db6830e1c890"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

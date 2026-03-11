@@ -835,6 +835,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4733c5f009d26ad49b3685117b8d3eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &344778238
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01393
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.06742
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.04305
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_Name
+      value: OVR Ball
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
 --- !u!1001 &362779747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -951,6 +1008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 550383218}
   - component: {fileID: 550383217}
+  - component: {fileID: 550383219}
   m_Layer: 0
   m_Name: BasketSpawner
   m_TagString: Untagged
@@ -970,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d14e43228043c04db9e374568cb89a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnOnStart: 2
+  SpawnOnStart: 0
   SpawnObject: {fileID: 4010251320025188349, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
   SpawnAmount: 5
   MaxIterations: 1000
@@ -997,6 +1055,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1235757812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550383219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550383216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a5b6b1dbe8d1e44b17e8ed58a6990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DigitalLove.Game.Ball.BallSpawner
+  findSpawnPositions: {fileID: 550383217}
 --- !u!1 &587785173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,7 +1689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1292219471
 Transform:
   m_ObjectHideFlags: 0
@@ -3952,6 +4023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7206423110247988457}
   - component: {fileID: 7206423110247988464}
+  - component: {fileID: 7206423110247988465}
   m_Layer: 0
   m_Name: BallSpawner
   m_TagString: Untagged
@@ -3971,7 +4043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d14e43228043c04db9e374568cb89a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnOnStart: 2
+  SpawnOnStart: 0
   SpawnObject: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
   SpawnAmount: 50
   MaxIterations: 1000
@@ -3983,6 +4055,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   SurfaceClearanceDistance: 0.1
+--- !u!114 &7206423110247988465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7206423110247988463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a5b6b1dbe8d1e44b17e8ed58a6990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DigitalLove.Game.Ball.BallSpawner
+  findSpawnPositions: {fileID: 7206423110247988464}
 --- !u!224 &7794655644957992884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4313,3 +4398,4 @@ SceneRoots:
   - {fileID: 1230944916}
   - {fileID: 1235757812}
   - {fileID: 1292219471}
+  - {fileID: 344778238}
