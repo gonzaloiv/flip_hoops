@@ -44,6 +44,6 @@ MonoBehaviour:
   _insightPassthroughSupport: 2
   isPassthroughCameraAccessEnabled: 0
   _processorFavor: 0
-  systemSplashScreen: {fileID: 2800000, guid: b5215ba0dd8766f4e87b6160440f1a2e, type: 3}
+  systemSplashScreen: {fileID: 0}
   systemSplashScreenType: 0
   _systemLoadingScreenBackground: 1

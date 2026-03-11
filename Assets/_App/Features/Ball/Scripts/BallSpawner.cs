@@ -11,5 +11,10 @@ namespace DigitalLove.Game.Ball
         {
             findSpawnPositions.StartSpawn();
         }
+
+        public void Unspawn()
+        {
+            findSpawnPositions.ClearSpawnedPrefabs();
+        }
     }
 }

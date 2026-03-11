@@ -33,8 +33,9 @@
   <Project Path="Unity.XR.Hands.Samples.Gestures.csproj" />
   <Project Path="DigitalLove.Casual.Analytics.csproj" />
   <Project Path="DigitalLove.XR.MRUK.csproj" />
-  <Project Path="DigitalLove.Game.Ball.csproj" />
   <Project Path="DigitalLove.Game.Play.csproj" />
+  <Project Path="DigitalLove.Game.Ball.csproj" />
+  <Project Path="DigitalLove.Game.UI.csproj" />
   <Project Path="DigitalLove.DataAccess.Local.csproj" />
   <Project Path="DigitalLove.Timeline.Integrations.csproj" />
   <Project Path="DigitalLove.Game.Gravities.csproj" />

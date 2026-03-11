@@ -6,26 +6,28 @@ using UnityEngine;
 
 namespace DigitalLove.Game
 {
-    public class CountdownState : MonoState
+    public class RoundCompleteState : MonoState
     {
-        private int CountdownSecs = 3;
+        private int RoundCompleteSecs = 3;
 
         [SerializeField] private BallSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
+        [SerializeField] private AudioSource audioSource;
+
         [SerializeField] private MonoState nextState;
 
         public override void Enter()
         {
-            // ballSpawner.Spawn();
-            // basketSpawner.Spawn();
+            ballSpawner.Unspawn();
+            basketSpawner.Unspawn();
             CountDown();
         }
 
         private void CountDown()
         {
-            IEnumerator CountdownRoutine()
+            int countdown = RoundCompleteSecs;
+            IEnumerator CoundownRoutine()
             {
-                int countdown = CountdownSecs;
                 while (countdown > 0)
                 {
                     yield return new WaitForSecondsRealtime(1);
@@ -33,7 +35,7 @@ namespace DigitalLove.Game
                 }
                 parent.SetCurrentState(nextState.RouteId);
             }
-            StartCoroutine(CountdownRoutine());
+            StartCoroutine(CoundownRoutine());
         }
 
         public override void Exit()

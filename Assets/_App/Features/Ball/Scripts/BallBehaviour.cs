@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using DigitalLove.Global;
 using Oculus.Interaction;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DigitalLove.Game.Ball
 {
@@ -12,6 +14,11 @@ namespace DigitalLove.Game.Ball
         [SerializeField] private int maxQueueValues = 10;
         [SerializeField] private float forceMultiplier = 10;
         [SerializeField] private float gravityMultiplier = 9.8f;
+
+        public UnityEvent hover;
+        public UnityEvent unhover;
+        public UnityEvent select;
+        public UnityEvent unselect;
 
         private Queue<Vector3> queue = new();
         private bool isSelected = false;
@@ -25,20 +32,34 @@ namespace DigitalLove.Game.Ball
 
         private void ListenPointer(PointerEvent pointer)
         {
+            if (pointer.Type == PointerEventType.Hover)
+                OnHover();
+            if (pointer.Type == PointerEventType.Unhover)
+                OnUnhover();
             if (pointer.Type == PointerEventType.Select)
-            {
-                queue.Clear();
-                isSelected = true;
-            }
+                OnSelect();
             if (pointer.Type == PointerEventType.Unselect)
-            {
-                isSelected = false;
                 OnUnselect();
-            }
         }
 
+        [Button]
+        private void OnHover() => hover.Invoke();
+
+        [Button]
+        private void OnUnhover() => unhover.Invoke();
+
+        [Button]
+        private void OnSelect()
+        {
+            isSelected = true;
+            queue.Clear();
+            select.Invoke();
+        }
+
+        [Button]
         private void OnUnselect()
         {
+            isSelected = false;
             Vector3 total = Vector3.zero;
             foreach (Vector3 value in queue)
             {
@@ -47,6 +68,7 @@ namespace DigitalLove.Game.Ball
             Vector3 median = total / queue.Count();
             rb.isKinematic = false;
             rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
+            unselect.Invoke();
         }
 
         private void FixedUpdate()
