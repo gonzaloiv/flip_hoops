@@ -3,8 +3,8 @@ using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.UI;
+using DigitalLove.Global;
 using Reflex.Attributes;
-using UnityEditor;
 using UnityEngine;
 
 namespace DigitalLove.Game
@@ -20,6 +20,7 @@ namespace DigitalLove.Game
         [Inject] private MemoryDataClient memoryDataClient;
 
         private Round round;
+        private int countdown;
 
         public override void Init(StateMachine parent)
         {
@@ -42,7 +43,7 @@ namespace DigitalLove.Game
 
         private void CountDown()
         {
-            int countdown = RoundSecs;
+            countdown = RoundSecs;
             IEnumerator CoundownRoutine()
             {
                 while (countdown > 0)
@@ -55,6 +56,9 @@ namespace DigitalLove.Game
             StartCoroutine(CoundownRoutine());
         }
 
+        [Button]
+        public void CompleteRound() => countdown = 0;
+
         private void OnCountdownComplete()
         {
             parent.SetCurrentState(nextState.RouteId);
@@ -63,7 +67,6 @@ namespace DigitalLove.Game
         public override void Exit()
         {
             basketSpawner.scored -= OnScored;
-
             scorePanel.Hide();
         }
     }

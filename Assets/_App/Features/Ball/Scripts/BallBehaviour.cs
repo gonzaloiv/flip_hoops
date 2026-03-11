@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DigitalLove.Game.Court;
 using DigitalLove.Global;
 using Oculus.Interaction;
 using UnityEngine;
@@ -13,20 +14,25 @@ namespace DigitalLove.Game.Ball
         [SerializeField] private Rigidbody rb;
         [SerializeField] private int maxQueueValues = 10;
         [SerializeField] private float forceMultiplier = 10;
-        [SerializeField] private float gravityMultiplier = 9.8f;
+        [SerializeField] private GameObject trailPrefab;
+        [SerializeField] private Transform body;
 
         public UnityEvent hover;
         public UnityEvent unhover;
         public UnityEvent select;
         public UnityEvent unselect;
 
+        private GravityData gravity;
         private Queue<Vector3> queue = new();
-        private bool isSelected = false;
+        private bool isSelected;
+        private bool hasBeenUnselected;
         private Vector3 previousPosition;
 
-        private void OnEnable()
+        public GravityData Gravity { set { gravity = value; } }
+        public bool HasBeenUnselected => hasBeenUnselected;
+
+        private void Awake()
         {
-            isSelected = false;
             grabbable.WhenPointerEventRaised += ListenPointer;
         }
 
@@ -60,6 +66,7 @@ namespace DigitalLove.Game.Ball
         private void OnUnselect()
         {
             isSelected = false;
+            hasBeenUnselected = true;
             Vector3 total = Vector3.zero;
             foreach (Vector3 value in queue)
             {
@@ -69,6 +76,8 @@ namespace DigitalLove.Game.Ball
             rb.isKinematic = false;
             rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
             unselect.Invoke();
+            if (trailPrefab)
+                Instantiate(trailPrefab, body);
         }
 
         private void FixedUpdate()
@@ -81,9 +90,9 @@ namespace DigitalLove.Game.Ball
                 queue.Enqueue(delta);
                 previousPosition = transform.position;
             }
-            else if (queue.Count > 0)
+            else if (queue.Count > 0 && gravity != null)
             {
-                rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Force);
+                rb.AddForce(gravity.direction * gravity.force, ForceMode.Force);
             }
         }
     }

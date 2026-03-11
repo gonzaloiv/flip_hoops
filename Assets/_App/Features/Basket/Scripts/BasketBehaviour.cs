@@ -9,8 +9,11 @@ namespace DigitalLove.Game.Basket
     {
         [SerializeField] private int maxBallsInside = 3;
         [SerializeField] private LayerMask ballLayerMask;
+        [SerializeField] private float radius;
 
         private List<GameObject> ballsInside = new();
+
+        public float Radius => radius;
 
         public UnityEvent scored;
 
@@ -18,14 +21,24 @@ namespace DigitalLove.Game.Basket
         {
             if (ballLayerMask.Contains(other.gameObject.layer))
             {
-                scored.Invoke();
-                ballsInside.Add(other.attachedRigidbody.gameObject);
-                if (ballsInside.Count > maxBallsInside)
-                    Destroy(ballsInside[0]);
+                GameObject ball = other.attachedRigidbody.gameObject;
+                if (!ballsInside.Contains(ball))
+                {
+                    scored.Invoke();
+                    ballsInside.Add(ball);
+                    if (ballsInside.Count > maxBallsInside)
+                        Destroy(ballsInside[0]);
+                }
             }
         }
 
         [Button]
         public void InvokeScored() => scored.Invoke();
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.orange;
+            Gizmos.DrawWireSphere(transform.position, radius);
+        }
     }
 }

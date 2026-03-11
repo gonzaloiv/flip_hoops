@@ -1,11 +1,9 @@
 {
-    "name": "DigitalLove.Game.Ball",
+    "name": "DigitalLove.Game.Court",
     "rootNamespace": "",
     "references": [
-        "GUID:2a230cb87a1d3ba4a98bdc0ddae76e6c",
         "GUID:f5eda1afa2a1241a59c4db6830e1c890",
-        "GUID:447181e61705f4d6f954add1124817a5",
-        "GUID:85ce956ae0925e443918fea86f1e0898"
+        "GUID:cc5a16b5df4e88847912f0b8ab24239f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

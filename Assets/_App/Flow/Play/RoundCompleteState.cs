@@ -2,6 +2,7 @@ using System.Collections;
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Ball;
 using DigitalLove.Game.Basket;
+using DigitalLove.Game.Court;
 using UnityEngine;
 
 namespace DigitalLove.Game
@@ -10,6 +11,7 @@ namespace DigitalLove.Game
     {
         private int RoundCompleteSecs = 3;
 
+        [SerializeField] private GravityBehaviour gravitiesBehaviour;
         [SerializeField] private BallSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private AudioSource audioSource;
@@ -18,6 +20,7 @@ namespace DigitalLove.Game
 
         public override void Enter()
         {
+            gravitiesBehaviour.Unspawn();
             ballSpawner.Unspawn();
             basketSpawner.Unspawn();
             CountDown();
