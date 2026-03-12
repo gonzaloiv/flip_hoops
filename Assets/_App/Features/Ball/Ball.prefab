@@ -209,6 +209,8 @@ GameObject:
   - component: {fileID: 4111780593419608101}
   - component: {fileID: 550548915678113984}
   - component: {fileID: 7151832531939601433}
+  - component: {fileID: 1276884474229303951}
+  - component: {fileID: 5292154112738979658}
   m_Layer: 11
   m_Name: Ball
   m_TagString: Untagged
@@ -230,7 +232,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 887313401967117469}
-  - {fileID: 4920867240104640410}
   - {fileID: 6975196285266109119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -320,8 +321,6 @@ MonoBehaviour:
   rb: {fileID: 9163818528921441707}
   maxQueueValues: 5
   forceMultiplier: 54
-  trailPrefab: {fileID: 3752862010233526746, guid: 6610168b50dec374a8bf0fcff23acdd0, type: 3}
-  body: {fileID: 3809598318649538530}
   hover:
     m_PersistentCalls:
       m_Calls:
@@ -391,21 +390,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  unselect:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1276884474229303951}
+        m_TargetAssemblyTypeName: DigitalLove.Game.Ball.DisableIfOutOfZone, DigitalLove.Game.Ball
+        m_MethodName: OnGrabStart
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
+  unselect:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 1717519441795320248}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
@@ -421,6 +420,30 @@ MonoBehaviour:
       - m_Target: {fileID: 7464518578101486220}
         m_TargetAssemblyTypeName: DigitalLove.FX.ScalePunch, DigitalLove.FX
         m_MethodName: Animate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1276884474229303951}
+        m_TargetAssemblyTypeName: DigitalLove.Game.Ball.DisableIfOutOfZone, DigitalLove.Game.Ball
+        m_MethodName: OnGrabStop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5292154112738979658}
+        m_TargetAssemblyTypeName: DigitalLove.Game.Ball.BallTrail, DigitalLove.Game.Ball
+        m_MethodName: SpawnTrail
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -458,6 +481,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Ball::AutoDisable
   secsBeforeDisable: 5
+--- !u!114 &1276884474229303951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333988485701845152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b1a4bd045b9ee49828303e03d23d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Ball::DisableIfOutOfZone
+  maxMetersToOnGrabPosition: 1
+--- !u!114 &5292154112738979658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333988485701845152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167c48525340dfb4c9aac5808b04fa2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Ball.BallTrail
+  trailPrefab: {fileID: 3752862010233526746, guid: 6610168b50dec374a8bf0fcff23acdd0, type: 3}
+  body: {fileID: 3809598318649538530}
 --- !u!1 &3793315736553346107
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,7 +540,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2590799862095003302}
+  m_Father: {fileID: 887313401967117469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5330876795442895291
 MeshFilter:
@@ -7798,6 +7848,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3809598318649538530}
+  - {fileID: 4920867240104640410}
   m_Father: {fileID: 2590799862095003302}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9086859690814871549

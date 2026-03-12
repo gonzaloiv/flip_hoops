@@ -704,7 +704,7 @@ MonoBehaviour:
     sessionCount: 0
     cookies: []
   locale: {fileID: 11400000, guid: 1ff9a9496d38d4717a5d7a03bcc77233, type: 2}
-  analyticsProviderInstaller: {fileID: 0}
+  analyticsProviderInstaller: {fileID: 1210227671}
   forceLocalPlayerData:
     value: 0
 --- !u!114 &284223193

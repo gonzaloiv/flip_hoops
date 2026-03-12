@@ -99,7 +99,7 @@ MonoBehaviour:
   ballLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  radius: 0.33
+  radius: 0.26
   scored:
     m_PersistentCalls:
       m_Calls:

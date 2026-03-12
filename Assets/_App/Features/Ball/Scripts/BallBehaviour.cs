@@ -14,8 +14,6 @@ namespace DigitalLove.Game.Ball
         [SerializeField] private Rigidbody rb;
         [SerializeField] private int maxQueueValues = 10;
         [SerializeField] private float forceMultiplier = 10;
-        [SerializeField] private GameObject trailPrefab;
-        [SerializeField] private Transform body;
 
         public UnityEvent hover;
         public UnityEvent unhover;
@@ -79,8 +77,6 @@ namespace DigitalLove.Game.Ball
             rb.isKinematic = false;
             rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
             unselect.Invoke();
-            if (trailPrefab)
-                Instantiate(trailPrefab, body);
         }
 
         private void FixedUpdate()
