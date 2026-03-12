@@ -59,7 +59,8 @@ namespace DigitalLove.Game.Basket
             bool isInSpawnZone = distanceToReference > minDistanceToReference && distanceToReference < maxDistanceToReference;
             if (!isInSpawnZone)
                 return Vector3.zero;
-            Vector3 checkSpherePosition = new(candidate.x, -gravity.direction.y * basket.Radius, candidate.z);
+            Vector3 checkSpherePosition = candidate - gravity.direction * basket.Radius;
+            Debug.LogWarning(checkSpherePosition);
             bool isColliding = Physics.CheckSphere(checkSpherePosition, basket.Radius, layerMask);
             if (isColliding)
                 return Vector3.zero;

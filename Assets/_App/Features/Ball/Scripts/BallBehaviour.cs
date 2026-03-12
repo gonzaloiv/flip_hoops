@@ -22,6 +22,8 @@ namespace DigitalLove.Game.Ball
         public UnityEvent select;
         public UnityEvent unselect;
 
+        public UnityEvent collisionEnter;
+
         private GravityData gravity;
         private Queue<Vector3> queue = new();
         private bool isSelected;
@@ -30,6 +32,7 @@ namespace DigitalLove.Game.Ball
 
         public GravityData Gravity { set { gravity = value; } }
         public bool HasBeenUnselected => hasBeenUnselected;
+        public bool IsActive => gameObject.activeInHierarchy;
 
         private void Awake()
         {
@@ -94,6 +97,11 @@ namespace DigitalLove.Game.Ball
             {
                 rb.AddForce(gravity.direction * gravity.force, ForceMode.Force);
             }
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            collisionEnter.Invoke();
         }
     }
 }

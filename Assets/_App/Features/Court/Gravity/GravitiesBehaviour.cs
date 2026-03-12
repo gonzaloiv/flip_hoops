@@ -15,7 +15,7 @@ namespace DigitalLove.Game.Court
 
         public GravityData SpawnRandomGravity()
         {
-            if (current == null)
+            if (current == null || gravities.Length == 1)
             {
                 current = gravities[Random.Range(0, gravities.Length)];
             }

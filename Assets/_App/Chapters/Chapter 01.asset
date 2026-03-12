@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ceab21697f635a40827f07692bcd3b2, type: 3}
+  m_Name: Chapter 01
+  m_EditorClassIdentifier: DigitalLove.Casual.Levels::DigitalLove.Casual.Levels.ChapterData
+  id: 01
+  levels:
+  - {fileID: 11400000, guid: f2ef402efc13609409775b7e934177fe, type: 2}
+  - {fileID: 11400000, guid: 0c2931950baa8054db2ded6460d95f73, type: 2}

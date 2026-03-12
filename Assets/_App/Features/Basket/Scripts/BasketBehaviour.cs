@@ -26,9 +26,17 @@ namespace DigitalLove.Game.Basket
                 {
                     scored.Invoke();
                     ballsInside.Add(ball);
-                    if (ballsInside.Count > maxBallsInside)
-                        Destroy(ballsInside[0]);
                 }
+            }
+        }
+
+        private void Update()
+        {
+            if (ballsInside.Count > maxBallsInside)
+            {
+                GameObject ballToDisable = ballsInside[0];
+                ballsInside.Remove(ballToDisable);
+                ballToDisable.SetActive(false);
             }
         }
 

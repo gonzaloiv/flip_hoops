@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DigitalLove.Game.Court;
 using DigitalLove.Global;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace DigitalLove.Game.Ball
     public class BallSpawner : MonoBehaviour
     {
         private const float SecsBeforeSpawn = 0.66f;
+        private const float TotalBalls = 25;
 
         [SerializeField] private BallSpawnPoint[] points;
         [SerializeField] private BallBehaviour prefab;
@@ -18,12 +20,22 @@ namespace DigitalLove.Game.Ball
 
         private bool IsSpawning => gravity != null;
 
+        private void Awake()
+        {
+            for (int i = 0; i < TotalBalls; i++)
+            {
+                BallBehaviour ball = Instantiate(prefab, transform);
+                ball.SetActive(false);
+                balls.Add(ball);
+            }
+        }
+
         public void Spawn(GravityData gravity)
         {
             this.gravity = gravity;
             foreach (BallSpawnPoint point in points)
             {
-                InstantiateBallForPoint(point);
+                SetupBallForPoint(point);
             }
         }
 
@@ -45,18 +57,16 @@ namespace DigitalLove.Game.Ball
             foreach (BallSpawnPoint point in points)
             {
                 if (!point.HasGrabbableBall)
-                    InstantiateBallForPoint(point, SecsBeforeSpawn);
+                    SetupBallForPoint(point, SecsBeforeSpawn);
             }
         }
 
-        private void InstantiateBallForPoint(BallSpawnPoint point, float secsBeforeSpawn = 0)
+        private void SetupBallForPoint(BallSpawnPoint point, float secsBeforeSpawn = 0)
         {
-            BallBehaviour ball = Instantiate(prefab, transform);
+            BallBehaviour ball = balls.FirstOrDefault(b => !b.IsActive);
             ball.transform.position = point.reference.position;
             ball.Gravity = gravity;
-            balls.Add(ball);
             point.ball = ball;
-            ball.SetActive(false);
             if (secsBeforeSpawn != 0)
             {
                 this.InvokeAfterSecs(secsBeforeSpawn, () => ball.SetActive(true));

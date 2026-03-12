@@ -1,0 +1,16 @@
+{
+    "name": "DigitalLove.Game.Levels",
+    "rootNamespace": "",
+    "references": [
+        "GUID:acb6b1ebdd4e55347b7c3d5e5127d357"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
