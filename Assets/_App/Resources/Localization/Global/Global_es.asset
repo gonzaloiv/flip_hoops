@@ -19,23 +19,25 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 110538082985103360
-    m_Localized: Salir {0}
+    m_Localized: Salida {0}
     m_Metadata:
       m_Items: []
   - m_Id: 112382969409884160
-    m_Localized: Este dispositivo no tiene funcionalidad AR
+    m_Localized: La realidad aumentada no es compatible. Se requiere Meta Quest 3
+      o Meta Quest 3S.
     m_Metadata:
       m_Items: []
   - m_Id: 112382969447632896
-    m_Localized: Sin acceso a internet :(
+    m_Localized: "Se requiere conexi\xF3n a Internet. Reiniciar cuando se tenga conexi\xF3n."
     m_Metadata:
       m_Items: []
   - m_Id: 112382969447632897
-    m_Localized: "Configuraci\xF3n de escena requerida"
+    m_Localized: "Aseg\xFArese de que haya una escena de realidad aumentada configurada
+      en su dispositivo para reproducirla."
     m_Metadata:
       m_Items: []
-  - m_Id: 112382969447632898
-    m_Localized: Blocking
+  - m_Id: 114711600341635072
+    m_Localized: Coge cualquier pelota para empezar
     m_Metadata:
       m_Items: []
   references:

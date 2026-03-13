@@ -23,15 +23,23 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 236612931585
-    m_Localized: Calentamiento
+    m_Localized: 'Calentamiento '
     m_Metadata:
       m_Items: []
   - m_Id: 236612931586
-    m_Localized: Anota 5 canastas
+    m_Localized: Anota {0} canastas
     m_Metadata:
       m_Items: []
   - m_Id: 320478040064
-    m_Localized: "Obtenga la mejor puntuaci\xF3n"
+    m_Localized: "Alcanza tu puntuaci\xF3n m\xE1s alta"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27025301229568
+    m_Localized: Ronda {0} Completada
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27025301229569
+    m_Localized: "Enfr\xEDalo"
     m_Metadata:
       m_Items: []
   references:

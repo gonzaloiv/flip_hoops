@@ -1,3 +1,4 @@
+using DigitalLove.FX;
 using DigitalLove.Global;
 using TMPro;
 using UnityEngine;
@@ -6,22 +7,40 @@ namespace DigitalLove.Game.Basket
 {
     public class BasketPanel : MonoBehaviour
     {
-        [SerializeField] private string tableName;
+        [Header("Main")]
         [SerializeField] private TextMeshProUGUI initLabel;
         [SerializeField] private TextMeshProUGUI infoLabel;
         [SerializeField] private float secsActive = 5;
+        [SerializeField] private GameObject content;
+        [SerializeField] private ScalePunch scalePunch;
+
+        [Header("Score")]
+        [SerializeField] private TextMeshProUGUI scoreLabel;
+        [SerializeField] private float scoreSecsActive = 2;
 
         public void Show(string initText, string infoText)
         {
             gameObject.SetActive(true);
             initLabel.text = initText;
-            initLabel.text = infoText;
-            this.InvokeAfterSecs(secsActive, Hide);
+            infoLabel.text = infoText;
+            this.InvokeAfterSecs(secsActive, () => content.SetActive(false));
+            content.SetActive(true);
+            scoreLabel.enabled = false;
         }
 
-        public void Hide()
+        public void ShowScore(int score)
         {
-            gameObject.SetActive(false);
+            content.SetActive(false);
+            scalePunch.Animate();
+            scoreLabel.text = $"+{score}";
+            scoreLabel.enabled = true;
+            this.InvokeAfterSecs(scoreSecsActive, () => scoreLabel.enabled = false);
+        }
+
+        public void HideAll()
+        {
+            content.SetActive(false);
+            scoreLabel.enabled = false;
         }
     }
 }

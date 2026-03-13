@@ -23,19 +23,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 112382969409884160
-    m_Localized: AR not supported. Meta Quest 3 or Meta Quest 3S required
+    m_Localized: AR not supported. Meta Quest 3 or Meta Quest 3S required.
     m_Metadata:
       m_Items: []
   - m_Id: 112382969447632896
-    m_Localized: Internet required. Relaunch when connected
+    m_Localized: Internet required. Relaunch when connected.
     m_Metadata:
       m_Items: []
   - m_Id: 112382969447632897
-    m_Localized: Please ensure an AR scene is configured on your device to play
+    m_Localized: Please ensure an AR scene is configured on your device to play.
     m_Metadata:
       m_Items: []
-  - m_Id: 112382969447632898
-    m_Localized: Blitz
+  - m_Id: 114711600341635072
+    m_Localized: Grab any ball to start
     m_Metadata:
       m_Items: []
   references:

@@ -1,4 +1,3 @@
-using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Levels;
@@ -16,22 +15,17 @@ namespace DigitalLove.Game
 
         [Inject] private MemoryDataClient memoryDataClient;
 
-        private Round round;
-
         public override void Init(StateMachine parent)
         {
             base.Init(parent);
-            round = new Round();
-            memoryDataClient.Put(round);
             countdownChecker.SetOnComplete(OnComplete);
             scoreChecker.SetOnComplete(OnComplete);
         }
 
         public override void Enter()
         {
-            round.Reset();
-            Play play = memoryDataClient.Get<Play>();
-            GameLevelData levelData = levelSelector.GetCurrent(play.RoundCount());
+            memoryDataClient.Put(new Round());
+            GameLevelData levelData = levelSelector.GetCurrent();
             BaseRoundChecker checker = levelData.IsWarmUp ? scoreChecker : countdownChecker;
             checker.DoStart();
         }

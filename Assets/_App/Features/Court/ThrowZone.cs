@@ -1,3 +1,4 @@
+using DigitalLove.FX;
 using DigitalLove.XR;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
@@ -8,20 +9,27 @@ namespace DigitalLove.Game.Court
     {
         private const int MaxIterations = 666;
 
+        [Header("Spawning")]
         [SerializeField] private float radius;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private MRUKUtil mrukUtil;
         [SerializeField] private MRUK.SurfaceType surfaceTypes;
         [SerializeField] private MRUKAnchor.SceneLabels sceneLabels;
 
+        [Header("Components")]
+        [SerializeField] private AudioSource onSpawnSource;
+        [SerializeField] private AudioSource onUnspawnSource;
+        [SerializeField] private ScalePunch scalePunch;
+
         private int iterations;
 
         public void Spawn()
         {
             iterations = MaxIterations;
-            gameObject.SetActive(true);
             Vector3 spawnPosition = GetPosition();
             transform.position = spawnPosition;
+            onSpawnSource.Play();
+            scalePunch.Animate();
         }
 
         private Vector3 GetPosition()
@@ -68,7 +76,8 @@ namespace DigitalLove.Game.Court
 
         public void Unspawn()
         {
-            gameObject.SetActive(false);
+            scalePunch.Animate();
+            onUnspawnSource.Play();
         }
 
         private void OnDrawGizmos()

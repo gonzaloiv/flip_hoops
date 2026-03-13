@@ -1,5 +1,8 @@
 using System.Linq;
+using DigitalLove.Casual.Flow;
+using DigitalLove.DataAccess;
 using DigitalLove.Game.Levels;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace DigitalLove.Game
@@ -8,8 +11,11 @@ namespace DigitalLove.Game
     {
         [SerializeField] private GameLevelData[] data;
 
-        public GameLevelData GetCurrent(int roundIndex)
+        [Inject] private MemoryDataClient memoryDataClient;
+
+        public GameLevelData GetCurrent()
         {
+            int roundIndex = memoryDataClient.Get<Play>().Tries;
             if (data.Length <= roundIndex)
             {
                 return data.Last();

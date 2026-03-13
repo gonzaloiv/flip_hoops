@@ -5,62 +5,24 @@ namespace DigitalLove.Game.UI
 {
     public class ScoreboardSpawner : MonoBehaviour
     {
-        private const int MaxIterations = 666;
-
         [SerializeField] private ScoreboardPanel panel;
         [SerializeField] private MRUK.SurfaceType surfaceTypes;
         [SerializeField] private MRUKAnchor.SceneLabels sceneLabels;
+        [SerializeField] private float minY = 1.25f;
 
-        private int iterations;
         private bool hasBeenSpawned;
-        private Vector3 candidate;
-        private Vector3 rotation;
-        private Transform reference;
 
         public bool HasBeenSpawned => hasBeenSpawned;
         public ScoreboardPanel Panel => panel;
 
-        public void Spawn(Transform reference)
+        public void Spawn()
         {
-            this.reference = reference;
-            iterations = MaxIterations;
-            if (GetValidPosition())
-            {
-                hasBeenSpawned = true;
-                panel.transform.position = new Vector3(candidate.x, panel.transform.position.y, candidate.z);
-                panel.transform.rotation = Quaternion.Euler(rotation);
-            }
+            hasBeenSpawned = true;
+            MRUK.Instance.GetCurrentRoom().GenerateRandomPositionOnSurface(surfaceTypes, 0.66f, new LabelFilter(sceneLabels), out Vector3 position, out Vector3 normal);
+            panel.transform.position = position;
+            if (panel.transform.position.y < minY)
+                panel.transform.position = new Vector3(panel.transform.position.x, minY, panel.transform.position.z);
+            panel.transform.forward = normal;
         }
-
-        private bool GetValidPosition()
-        {
-            GetPositionOnSurface();
-            if (candidate == Vector3.zero)
-            {
-                iterations--;
-                if (iterations > 0)
-                {
-                    return GetValidPosition();
-                }
-                else
-                {
-                    Debug.LogWarning("Not possible to spawn scoreboard");
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public void GetPositionOnSurface()
-        {
-            Ray ray = new Ray(new Vector3(reference.position.x, panel.transform.position.y, reference.position.y), reference.forward);
-            Pose pose = MRUK.Instance.GetCurrentRoom().GetBestPoseFromRaycast(ray, 10, new LabelFilter(sceneLabels), out MRUKAnchor sceneAnchor, out Vector3 normal, MRUK.PositioningMethod.DEFAULT);
-            candidate = pose.position;
-            rotation = pose.rotation.eulerAngles;
-        }
-
     }
 }

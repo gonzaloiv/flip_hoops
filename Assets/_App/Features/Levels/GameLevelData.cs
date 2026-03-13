@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using DigitalLove.Casual.Levels;
 using DigitalLove.Game.Court;
+using DigitalLove.Game.Balls;
 using UnityEngine;
 
 namespace DigitalLove.Game.Levels
@@ -10,9 +12,10 @@ namespace DigitalLove.Game.Levels
         private const string LevelInfoKey = "info";
 
         public GravityFilter gravityFilter;
-        public int ballsToScore;
+        public int basketsToScore;
+        public List<BallData> balls;
 
-        public bool IsWarmUp => ballsToScore > 0;
+        public bool IsWarmUp => basketsToScore > 0;
         public string InfoKey => $"level_{id}_{LevelInfoKey}";
     }
 }

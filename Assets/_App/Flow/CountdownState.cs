@@ -2,7 +2,7 @@ using System.Collections;
 using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
-using DigitalLove.Game.Ball;
+using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
@@ -19,8 +19,8 @@ namespace DigitalLove.Game
 
         [SerializeField] private string tableName = "Levels";
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private GravityBehaviour gravitiesBehaviour;
-        [SerializeField] private BallSpawner ballSpawner;
+        [SerializeField] private GravitySpawner gravitiesBehaviour;
+        [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private GameObject grabBallPanel;
@@ -43,7 +43,7 @@ namespace DigitalLove.Game
             ballSpawner.ballGrabbed += OnBallGrabbed;
 
             play = memoryDataClient.Get<Play>();
-            levelData = levelSelector.GetCurrent(play.Tries);
+            levelData = levelSelector.GetCurrent();
 
             Spawn();
             ShowUI();
@@ -53,23 +53,23 @@ namespace DigitalLove.Game
         {
             grabBallPanel.SetActive(true);
             if (!scoreboardSpawner.HasBeenSpawned)
-                scoreboardSpawner.Spawn(throwZone.transform);
+                scoreboardSpawner.Spawn();
             scoreboardSpawner.Panel.Show();
-            scoreboardSpawner.Panel.SetRound(play.RoundCount());
+            scoreboardSpawner.Panel.SetRound(play.RoundLabelValue());
         }
 
         private void Spawn()
         {
-            GameLevelData levelData = levelSelector.GetCurrent(play.Tries);
-            GravityData gravity = gravitiesBehaviour.GetGravity(levelData.gravityFilter);
+            GravityData gravity = gravitiesBehaviour.Spawn(levelData.gravityFilter);
             throwZone.Spawn();
             basketSpawner.Spawn(gravity, throwZone.transform);
             throwZone.SetReference(basketSpawner.Basket.transform);
-            ballSpawner.Spawn(gravity);
+            ballSpawner.Spawn(levelData.balls, gravity);
         }
 
         private void OnBallGrabbed()
         {
+            ballSpawner.ballGrabbed -= OnBallGrabbed;
             ShowBasketPanel();
             grabBallPanel.SetActive(false);
             IEnumerator CountdownRoutine()
@@ -91,19 +91,22 @@ namespace DigitalLove.Game
         {
             string initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
             if (string.IsNullOrEmpty(initText))
-                initText = LocalizationUtil.GetValue(tableName: tableName, "default_round_init", play.RoundCount());
-            string infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey);
+                initText = LocalizationUtil.GetValue(tableName: tableName, "default_round_init", play.RoundLabelValue());
+            string infoText;
+            if (levelData.IsWarmUp)
+            {
+                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey, levelData.basketsToScore);
+            }
+            else
+            {
+                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey);
+            }
             basketSpawner.Panel.Show(initText, infoText);
-        }
-
-        public override void Exit()
-        {
-            ballSpawner.ballGrabbed -= OnBallGrabbed;
         }
     }
 
     public static class Extensions
     {
-        public static int RoundCount(this Play play) => play.Tries + 1;
+        public static int RoundLabelValue(this Play play) => play.Tries + 1;
     }
 }

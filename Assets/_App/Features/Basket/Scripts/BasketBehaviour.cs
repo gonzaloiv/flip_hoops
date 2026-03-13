@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DigitalLove.Game.Balls;
 using DigitalLove.Global;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,34 +11,45 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private int maxBallsInside = 3;
         [SerializeField] private LayerMask ballLayerMask;
         [SerializeField] private float radius;
+        [SerializeField] private ParticleSystem ps;
 
-        private List<GameObject> ballsInside = new();
+        private List<BallBehaviour> ballsInside = new();
 
         public float Radius => radius;
 
-        public UnityEvent scored;
+        public UnityEvent<int> scored;
 
         private void OnTriggerEnter(Collider other)
         {
             if (ballLayerMask.Contains(other.gameObject.layer))
             {
-                GameObject ball = other.attachedRigidbody.gameObject;
+                BallBehaviour ball = other.attachedRigidbody.GetComponent<BallBehaviour>();
                 if (!ballsInside.Contains(ball))
                 {
-                    scored.Invoke();
+                    OnScored(ball.Score);
                     ballsInside.Add(ball);
-                    if (ballsInside.Count > maxBallsInside)
-                    {
-                        GameObject ballToDisable = ballsInside[0];
-                        ballsInside.Remove(ballToDisable);
-                        ballToDisable.SetActive(false);
-                    }
+                    RemoveBallIfNeeded();
                 }
             }
         }
 
+        private void RemoveBallIfNeeded()
+        {
+            if (ballsInside.Count > maxBallsInside)
+            {
+                BallBehaviour ballToDisable = ballsInside[0];
+                ballsInside.Remove(ballToDisable);
+                ballToDisable.SetActive(false);
+            }
+        }
+        private void OnScored(int score)
+        {
+            // ps.Play();
+            scored.Invoke(score);
+        }
+
         [Button]
-        public void InvokeScored() => scored.Invoke();
+        public void InvokeScored() => OnScored(2);
 
         private void OnDrawGizmos()
         {

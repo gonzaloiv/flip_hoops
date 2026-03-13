@@ -1,7 +1,7 @@
 using DigitalLove.Global;
 using UnityEngine;
 
-namespace DigitalLove.Game.Ball
+namespace DigitalLove.Game.Balls
 {
     public class DisableIfOutOfZone : MonoBehaviour
     {

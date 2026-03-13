@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DigitalLove.DataAccess;
 using DigitalLove.Game;
@@ -12,19 +11,21 @@ namespace DigitalLove
 {
     public class RoundCountdownChecker : BaseRoundChecker
     {
-        private const int RoundSecs = 44;
+        private const int RoundSecs = 33;
 
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
+        private Round round;
         private int countdown;
 
         public override void DoStart()
         {
-            basketSpawner.scored -= OnScored;
+            basketSpawner.scored += OnScored;
 
+            round = memoryDataClient.Get<Round>();
             StartCountdown();
         }
 
@@ -45,10 +46,9 @@ namespace DigitalLove
             StartCoroutine(CoundownRoutine());
         }
 
-        private void OnScored()
+        private void OnScored(int score)
         {
-            Round round = memoryDataClient.Get<Round>();
-            round.score++;
+            round.score += score;
             scoreboardSpawner.Panel.SetScore(round.score);
         }
 

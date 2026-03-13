@@ -21,9 +21,9 @@ namespace DigitalLove.Game.Basket
         public BasketBehaviour Basket => basket;
 
         private BasketPanel panel;
-        public BasketPanel Panel => panel ??= Basket.GetComponent<BasketPanel>();
+        public BasketPanel Panel => panel;
 
-        public Action scored = () => { };
+        public Action<int> scored = (score) => { };
 
         public void Spawn(GravityData gravity, Transform reference)
         {
@@ -31,6 +31,8 @@ namespace DigitalLove.Game.Basket
             basket = Instantiate(gravity.basket, transform).GetComponent<BasketBehaviour>();
             basket.transform.position = GetPosition(gravity, reference);
             basket.scored.AddListener(OnBasketScored);
+            panel = basket.GetComponentInChildren<BasketPanel>();
+            panel.HideAll();
         }
 
         private Vector3 GetPosition(GravityData gravity, Transform reference)
@@ -69,9 +71,10 @@ namespace DigitalLove.Game.Basket
             return candidate;
         }
 
-        private void OnBasketScored()
+        private void OnBasketScored(int score)
         {
-            scored.Invoke();
+            scored.Invoke(score);
+            Panel.ShowScore(score);
         }
 
         public void Unspawn()

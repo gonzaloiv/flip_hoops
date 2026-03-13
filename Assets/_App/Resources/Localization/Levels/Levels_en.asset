@@ -23,15 +23,23 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 236612931585
-    m_Localized: Warm Up
+    m_Localized: 'Warm Up '
     m_Metadata:
       m_Items: []
   - m_Id: 236612931586
-    m_Localized: Sink 5 Baskets
+    m_Localized: Sink {0} Baskets
     m_Metadata:
       m_Items: []
   - m_Id: 320478040064
-    m_Localized: Get the best score
+    m_Localized: 'Reach Your Highest Score '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27025301229568
+    m_Localized: Round {0} Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27025301229569
+    m_Localized: Cool it Down
     m_Metadata:
       m_Items: []
   references:

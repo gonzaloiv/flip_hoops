@@ -6,10 +6,11 @@ using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace DigitalLove.Game.Ball
+namespace DigitalLove.Game.Balls
 {
     public class BallBehaviour : MonoBehaviour
     {
+        [SerializeField] private BallData data;
         [SerializeField] private Grabbable grabbable;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private int maxQueueValues = 10;
@@ -28,9 +29,11 @@ namespace DigitalLove.Game.Ball
         private bool hasBeenUnselected;
         private Vector3 previousPosition;
 
+        public BallData Data => data;
         public GravityData Gravity { set { gravity = value; } }
         public bool HasBeenUnselected => hasBeenUnselected;
         public bool IsActive => gameObject.activeInHierarchy;
+        public int Score => data.score;
 
         private void OnEnable()
         {
@@ -82,9 +85,12 @@ namespace DigitalLove.Game.Ball
             {
                 total += value;
             }
-            Vector3 median = total / queue.Count();
             rb.isKinematic = false;
-            rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
+            if (queue.Count > 0)
+            {
+                Vector3 median = total / queue.Count();
+                rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
+            }
             unselect.Invoke();
         }
 

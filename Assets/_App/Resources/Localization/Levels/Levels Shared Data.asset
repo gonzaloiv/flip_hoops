@@ -19,8 +19,12 @@ MonoBehaviour:
     m_Key: default_round_init
     m_Metadata:
       m_Items: []
-  - m_Id: 236612931584
-    m_Key: default_level_complete
+  - m_Id: 27025301229568
+    m_Key: default_round_complete_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27025301229569
+    m_Key: default_round_complete_info
     m_Metadata:
       m_Items: []
   - m_Id: 236612931585

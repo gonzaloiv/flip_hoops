@@ -1,4 +1,3 @@
-using System.Collections;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
