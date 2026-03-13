@@ -2,7 +2,8 @@
     "name": "DigitalLove.Game.Levels",
     "rootNamespace": "",
     "references": [
-        "GUID:acb6b1ebdd4e55347b7c3d5e5127d357"
+        "GUID:acb6b1ebdd4e55347b7c3d5e5127d357",
+        "GUID:85ce956ae0925e443918fea86f1e0898"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,6 +1,6 @@
+using System.Collections;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
-using static Meta.XR.MRUtilityKit.FindSpawnPositions;
 
 namespace DigitalLove.Game.Court
 {
@@ -13,5 +13,11 @@ namespace DigitalLove.Game.Court
         public MRUKAnchor.SceneLabels sceneLabels;
         public MRUK.SurfaceType surfaceTypes;
         public GameObject basket;
+    }
+
+    public enum GravityFilter
+    {
+        OnTheFloor,
+        Any
     }
 }

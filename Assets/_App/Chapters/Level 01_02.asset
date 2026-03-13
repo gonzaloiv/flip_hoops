@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 01_02
   prefab: {fileID: 258401745657639714, guid: 9f592e0141aef5a4c9db32de95f71588, type: 3}
   gravityType: 1
+  ballsToScore: 0

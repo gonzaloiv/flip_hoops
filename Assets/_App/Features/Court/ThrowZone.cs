@@ -16,20 +16,12 @@ namespace DigitalLove.Game.Court
 
         private int iterations;
 
-        public bool Spawn()
+        public void Spawn()
         {
             iterations = MaxIterations;
+            gameObject.SetActive(true);
             Vector3 spawnPosition = GetPosition();
-            if (spawnPosition == Vector3.zero)
-            {
-                return false;
-            }
-            else
-            {
-                transform.position = spawnPosition;
-                gameObject.SetActive(true);
-                return true;
-            }
+            transform.position = spawnPosition;
         }
 
         private Vector3 GetPosition()
@@ -44,7 +36,7 @@ namespace DigitalLove.Game.Court
                 }
                 else
                 {
-                    Debug.LogWarning("Not possible to spawn Throw Zone");
+                    Debug.LogWarning("Not possible to spawn throw zone");
                     return Vector3.zero;
                 }
             }

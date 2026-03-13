@@ -15,10 +15,13 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private MRUKUtil mrukUtil;
 
-        private BasketBehaviour basket;
         private int iterations;
 
+        private BasketBehaviour basket;
         public BasketBehaviour Basket => basket;
+
+        private BasketPanel panel;
+        public BasketPanel Panel => panel ??= Basket.GetComponent<BasketPanel>();
 
         public Action scored = () => { };
 
@@ -42,7 +45,7 @@ namespace DigitalLove.Game.Basket
                 }
                 else
                 {
-                    Debug.LogWarning("Not possible to spawn Basket");
+                    Debug.LogWarning("Not possible to spawn basket");
                     return Vector3.zero;
                 }
             }
@@ -60,7 +63,6 @@ namespace DigitalLove.Game.Basket
             if (!isInSpawnZone)
                 return Vector3.zero;
             Vector3 checkSpherePosition = candidate - gravity.direction * basket.Radius;
-            Debug.LogWarning(checkSpherePosition);
             bool isColliding = Physics.CheckSphere(checkSpherePosition, basket.Radius, layerMask);
             if (isColliding)
                 return Vector3.zero;

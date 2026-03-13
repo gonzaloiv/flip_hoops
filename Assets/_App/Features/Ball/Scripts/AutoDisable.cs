@@ -10,7 +10,7 @@ namespace DigitalLove.Game.Ball
 
         private Coroutine coroutine;
 
-        private void OnEnable()
+        public void OnUnselect()
         {
             IEnumerator AutoDisableRoutine()
             {

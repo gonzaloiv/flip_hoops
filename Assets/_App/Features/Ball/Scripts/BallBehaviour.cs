@@ -32,9 +32,18 @@ namespace DigitalLove.Game.Ball
         public bool HasBeenUnselected => hasBeenUnselected;
         public bool IsActive => gameObject.activeInHierarchy;
 
-        private void Awake()
+        private void OnEnable()
         {
+            isSelected = false;
+            hasBeenUnselected = false;
+            rb.isKinematic = true;
             grabbable.WhenPointerEventRaised += ListenPointer;
+        }
+
+        private void OnDisable()
+        {
+            gravity = null;
+            grabbable.WhenPointerEventRaised -= ListenPointer;
         }
 
         private void ListenPointer(PointerEvent pointer)
@@ -89,7 +98,7 @@ namespace DigitalLove.Game.Ball
                 queue.Enqueue(delta);
                 previousPosition = transform.position;
             }
-            else if (queue.Count > 0 && gravity != null)
+            else if (hasBeenUnselected && gravity != null)
             {
                 rb.AddForce(gravity.direction * gravity.force, ForceMode.Force);
             }

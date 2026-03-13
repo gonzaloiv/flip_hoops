@@ -16,7 +16,12 @@ MonoBehaviour:
   m_GUID: 99537bccba23f4dd9a2a1bb1adbc2817
   m_SerializeEntries:
   - m_GUID: 5f3366d8a8f04457dbe70990b72f11fd
-    m_Address: Assets/_App/Resources/Localization/Tables/Global Shared Data.asset
+    m_Address: Assets/_App/Resources/Localization/Global/Global Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a02e01ee9c8597e479b3ddb25f58e717
+    m_Address: Assets/_App/Resources/Localization/Levels/Levels Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

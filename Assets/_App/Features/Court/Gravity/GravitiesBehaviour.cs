@@ -13,24 +13,40 @@ namespace DigitalLove.Game.Court
         [Header("Debug")]
         [SerializeField] private GravityData current;
 
-        public GravityData SpawnRandomGravity()
+        public GravityData GetGravity(GravityFilter filter)
         {
-            if (current == null || gravities.Length == 1)
+            if (filter == GravityFilter.OnTheFloor)
             {
-                current = gravities[Random.Range(0, gravities.Length)];
+                return gravities.First(g => g.surfaceTypes == MRUK.SurfaceType.FACING_UP);
             }
             else
             {
-                List<GravityData> selection = gravities.Where(g => g != current).ToList();
-                current = selection[Random.Range(0, selection.Count)];
+                if (current == null || gravities.Length == 1)
+                {
+                    current = gravities[Random.Range(0, gravities.Length)];
+                }
+                else
+                {
+                    List<GravityData> selection = gravities.Where(g => g != current).ToList();
+                    current = selection[Random.Range(0, selection.Count)];
+                }
             }
+            CreateMesh();
+            return current;
+        }
+
+        private void CreateMesh()
+        {
+            if (wallsMesh == null)
+                return;
             wallsMesh.MeshMaterial = current.material;
             wallsMesh.CreateMesh();
-            return current;
         }
 
         public void Unspawn()
         {
+            if (wallsMesh == null)
+                return;
             wallsMesh.DestroyMesh();
         }
     }

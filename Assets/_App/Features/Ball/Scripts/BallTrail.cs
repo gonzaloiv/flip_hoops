@@ -4,20 +4,17 @@ namespace DigitalLove.Game.Ball
 {
     public class BallTrail : MonoBehaviour
     {
-        [SerializeField] private GameObject trailPrefab;
-        [SerializeField] private Transform body;
+        [SerializeField] private TrailRenderer trail;
 
-        private GameObject trail;
-
-        public void SpawnTrail()
+        public void ShowTrail()
         {
-            trail = Instantiate(trailPrefab, body);
+            trail.Clear();
+            trail.enabled = true;
         }
 
         private void OnDisable()
         {
-            if (trail != null)
-                Destroy(trail);
+            trail.enabled = false;
         }
     }
 }

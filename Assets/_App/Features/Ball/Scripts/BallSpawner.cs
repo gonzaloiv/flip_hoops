@@ -18,7 +18,7 @@ namespace DigitalLove.Game.Ball
         private List<BallBehaviour> balls = new();
         private GravityData gravity;
 
-        private bool IsSpawning => gravity != null;
+        public Action ballGrabbed = () => { };
 
         private void Awake()
         {
@@ -27,6 +27,18 @@ namespace DigitalLove.Game.Ball
                 BallBehaviour ball = Instantiate(prefab, transform);
                 ball.SetActive(false);
                 balls.Add(ball);
+                ball.select.AddListener(OnBallSelected);
+                ball.unselect.AddListener(OnBallUnselected);
+            }
+            void OnBallSelected() { ballGrabbed.Invoke(); }
+        }
+
+        private void OnBallUnselected()
+        {
+            foreach (BallSpawnPoint point in points)
+            {
+                if (point.ball.HasBeenUnselected)
+                    SetupBallForPoint(point, SecsBeforeSpawn);
             }
         }
 
@@ -36,28 +48,6 @@ namespace DigitalLove.Game.Ball
             foreach (BallSpawnPoint point in points)
             {
                 SetupBallForPoint(point);
-            }
-        }
-
-        public void Unspawn()
-        {
-            gravity = null;
-            foreach (BallBehaviour ball in balls)
-            {
-                if (ball != null)
-                    Destroy(ball.gameObject);
-            }
-            balls.Clear();
-        }
-
-        private void Update()
-        {
-            if (!IsSpawning)
-                return;
-            foreach (BallSpawnPoint point in points)
-            {
-                if (!point.HasGrabbableBall)
-                    SetupBallForPoint(point, SecsBeforeSpawn);
             }
         }
 
@@ -76,6 +66,19 @@ namespace DigitalLove.Game.Ball
                 ball.SetActive(true);
             }
         }
+
+        public void Unspawn()
+        {
+            gravity = null;
+            foreach (BallBehaviour ball in balls)
+            {
+                ball.SetActive(false);
+            }
+            foreach (BallSpawnPoint point in points)
+            {
+                point.ball = null;
+            }
+        }
     }
 
     [Serializable]
@@ -83,7 +86,5 @@ namespace DigitalLove.Game.Ball
     {
         public Transform reference;
         public BallBehaviour ball;
-
-        public bool HasGrabbableBall => ball != null && !ball.HasBeenUnselected;
     }
 }
