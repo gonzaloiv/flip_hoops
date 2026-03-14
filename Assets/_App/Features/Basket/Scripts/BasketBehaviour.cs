@@ -44,7 +44,7 @@ namespace DigitalLove.Game.Basket
         }
         private void OnScored(int score)
         {
-            // ps.Play();
+            ps.Play();
             scored.Invoke(score);
         }
 

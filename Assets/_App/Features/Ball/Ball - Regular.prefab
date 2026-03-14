@@ -449,7 +449,7 @@ MonoBehaviour:
   _pointableElement: {fileID: 4111780593419608101}
   _boundsCollider: {fileID: 282519995922253175}
   _colliders:
-  - {fileID: 5676778479004509180}
+  - {fileID: 1555078625215799095}
 --- !u!54 &9163818528921441707
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -825,8 +825,8 @@ GameObject:
   - component: {fileID: 3809598318649538530}
   - component: {fileID: 8677366228562185283}
   - component: {fileID: 8122688724143621961}
-  - component: {fileID: 5676778479004509180}
   - component: {fileID: 7915303416555896921}
+  - component: {fileID: 1555078625215799095}
   m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
@@ -906,28 +906,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5676778479004509180
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6207866444043366843}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 973877516759717424, guid: 6b849be5837e4924d97b870d0f10e57c, type: 3}
 --- !u!114 &7915303416555896921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8012,6 +7990,27 @@ MonoBehaviour:
     - {x: 0.1294103, y: 0.19215469, z: -0.9727947}
     - {x: 0.003921524, y: 0.22352688, z: -0.9746899}
     - {x: 0.003921524, y: 0.19999774, z: -0.97978854}
+--- !u!135 &1555078625215799095
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207866444043366843}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.49703917
+  m_Center: {x: 0.000000014901161, y: 0.000000044703484, z: 0}
 --- !u!1 &8112972606079028821
 GameObject:
   m_ObjectHideFlags: 0
@@ -8091,7 +8090,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 25a5b30879a763b49a35d9eb93b35991, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
