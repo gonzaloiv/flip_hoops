@@ -15,8 +15,12 @@ MonoBehaviour:
   m_TableCollectionName: Levels
   m_TableCollectionNameGuidString: a02e01ee9c8597e479b3ddb25f58e717
   m_Entries:
-  - m_Id: 236579377152
-    m_Key: default_round_init
+  - m_Id: 1092983096791040
+    m_Key: high_score_level_init
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1092983109373952
+    m_Key: high_score_level_info
     m_Metadata:
       m_Items: []
   - m_Id: 27025301229568
@@ -37,10 +41,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 236612931586
     m_Key: level_01_01_info
-    m_Metadata:
-      m_Items: []
-  - m_Id: 320478040064
-    m_Key: level_01_02_info
     m_Metadata:
       m_Items: []
   m_Metadata:

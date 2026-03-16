@@ -68,6 +68,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basket Ceiling
       objectReference: {fileID: 0}
+    - target: {fileID: 4059567541525995820, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059567541525995820, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059567541525995820, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4070549399333370967, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.00015
@@ -83,6 +95,18 @@ PrefabInstance:
     - target: {fileID: 4070549399333370967, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321911973028748801, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: m_Name
+      value: ScoreLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976793789758010226, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5674611575690026424, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: m_Center.y
+      value: -2500
       objectReference: {fileID: 0}
     - target: {fileID: 8046225095207986448, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_text
@@ -102,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8899734637890797383, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 1250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -18,20 +18,12 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 236579377152
-    m_Localized: Ronda {0}
-    m_Metadata:
-      m_Items: []
   - m_Id: 236612931585
     m_Localized: 'Calentamiento '
     m_Metadata:
       m_Items: []
   - m_Id: 236612931586
     m_Localized: Anota {0} canastas
-    m_Metadata:
-      m_Items: []
-  - m_Id: 320478040064
-    m_Localized: "Alcanza tu puntuaci\xF3n m\xE1s alta"
     m_Metadata:
       m_Items: []
   - m_Id: 27025301229568
@@ -44,6 +36,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 495486414540800
     m_Localized: Mejor marca personal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1092983096791040
+    m_Localized: Ronda {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1092983109373952
+    m_Localized: "Alcanza tu puntuaci\xF3n m\xE1s alta"
     m_Metadata:
       m_Items: []
   references:

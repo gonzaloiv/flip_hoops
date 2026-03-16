@@ -49,6 +49,7 @@ namespace DigitalLove.Game.Balls
 
         public void Spawn(List<BallData> balls, GravityData gravity)
         {
+            Unspawn();
             validIds = balls.Select(b => b.id).ToList();
             this.gravity = gravity;
             foreach (BallSpawnPoint point in points)
@@ -76,8 +77,7 @@ namespace DigitalLove.Game.Balls
         private BallBehaviour GetInactiveValidBall()
         {
             BallBehaviour[] selection = balls.Where(b => !b.IsActive && validIds.Contains(b.Data.id)).ToArray();
-            BallBehaviour ball = selection[UnityEngine.Random.Range(0, selection.Length)];
-            return ball;
+            return selection[UnityEngine.Random.Range(0, selection.Length)];
         }
 
         public void Unspawn()
@@ -85,11 +85,13 @@ namespace DigitalLove.Game.Balls
             gravity = null;
             foreach (BallBehaviour ball in balls)
             {
+                ball.transform.position = new Vector3(100, 100, 100);
                 ball.SetActive(false);
             }
             foreach (BallSpawnPoint point in points)
             {
-                point.ball = null;
+                if (point.ball != null)
+                    point.ball = null;
             }
         }
     }
@@ -107,4 +109,4 @@ namespace DigitalLove.Game.Balls
         public BallBehaviour prefab;
         public int amount;
     }
-}   
+}

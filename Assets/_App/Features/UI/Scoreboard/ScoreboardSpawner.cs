@@ -12,7 +12,7 @@ namespace DigitalLove.Game.UI
 
         public void ShowRound(int value)
         {
-            if (!onTheWallSpawner.HasBeenSpawned)
+            if (!onTheWallSpawner.HasBeenSpawned) 
                 onTheWallSpawner.Spawn();
             Panel.Show();
             Panel.SetRound(value);

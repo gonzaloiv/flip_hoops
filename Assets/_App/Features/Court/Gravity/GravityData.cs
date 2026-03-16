@@ -13,10 +13,4 @@ namespace DigitalLove.Game.Court
         public MRUK.SurfaceType surfaceTypes;
         public GameObject basket;
     }
-
-    public enum GravityFilter
-    {
-        OnTheFloor,
-        Any
-    }
 }

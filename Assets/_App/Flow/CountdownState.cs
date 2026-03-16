@@ -38,7 +38,6 @@ namespace DigitalLove.Game
         {
             base.Init(parent);
             grabBallPanel.SetActive(false);
-            scoreboardSpawner.Panel.Hide();
         }
 
         public override void Enter()
@@ -51,22 +50,6 @@ namespace DigitalLove.Game
             progressionEventsHelper.SendLevelStartedEvent(levelId: GetLevelIdWithRound(levelData, play));
             Spawn();
             ShowUI();
-        }
-
-        private void ShowUI()
-        {
-            grabBallPanel.SetActive(true);
-            scoreboardSpawner.ShowRound(play.RoundLabelValue());
-            highestScorePosterBehaviour.Show();
-        }
-
-        private void Spawn()
-        {
-            GravityData gravity = gravitiesBehaviour.Spawn(levelData.gravityFilter);
-            throwZone.Spawn();
-            basketSpawner.Spawn(gravity, throwZone.transform);
-            throwZone.SetReference(basketSpawner.Basket.transform);
-            ballSpawner.Spawn(levelData.balls, gravity);
         }
 
         private void OnBallGrabbed()
@@ -91,19 +74,35 @@ namespace DigitalLove.Game
 
         private void ShowBasketPanel()
         {
-            string initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
-            if (string.IsNullOrEmpty(initText))
-                initText = LocalizationUtil.GetValue(tableName: tableName, "default_round_init", play.RoundLabelValue());
+            string initText;
             string infoText;
             if (levelData.IsWarmUp)
             {
+                initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
                 infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey, levelData.basketsToScore);
             }
             else
             {
-                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey);
+                initText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_init", play.RoundLabelValue());
+                infoText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_info");
             }
             basketSpawner.Panel.Show(initText, infoText);
+        }
+
+        private void ShowUI()
+        {
+            grabBallPanel.SetActive(true);
+            scoreboardSpawner.ShowRound(play.RoundLabelValue());
+            highestScorePosterBehaviour.Show();
+        }
+
+        private void Spawn()
+        {
+            GravityData gravity = gravitiesBehaviour.Spawn(levelData.gravities);
+            throwZone.Spawn();
+            basketSpawner.Spawn(gravity, throwZone.transform);
+            throwZone.SetReference(basketSpawner.Basket.transform);
+            ballSpawner.Spawn(levelData.balls, gravity);
         }
     }
 

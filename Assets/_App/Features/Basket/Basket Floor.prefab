@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 2669285522409114545}
   - component: {fileID: 3808919174730099462}
   - component: {fileID: 8046225095207986448}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InfoLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 918204822413375455}
   - component: {fileID: 5674611575690026424}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 970859613672104294}
   - component: {fileID: 5010984180076289338}
   - component: {fileID: 2237207630822516749}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ RectTransform:
   m_GameObject: {fileID: 3163782959570676571}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.00015, y: 0.00015, z: 0.6}
+  m_LocalScale: {x: 0.00015, y: 0.00015, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1381247891203112064}
@@ -591,7 +591,6 @@ MonoBehaviour:
   secsActive: 5
   content: {fileID: 6067216017550496630}
   scalePunch: {fileID: 2237207630822516749}
-  lookAtPanel: {fileID: 0}
   scoreLabel: {fileID: 9085749278839675414}
   scoreSecsActive: 1.33
 --- !u!114 &2237207630822516749
@@ -731,7 +730,7 @@ GameObject:
   - component: {fileID: 1318558868143469216}
   - component: {fileID: 1771289708558431583}
   - component: {fileID: 99583942686776687}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InitLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +869,7 @@ GameObject:
   - component: {fileID: 9021028307413891704}
   - component: {fileID: 6185035727209400367}
   - component: {fileID: 1228445600987513879}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,8 +945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfefa2e0409a4b489f06122e544475c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.FX::DigitalLove.Global.GraphicOpacityPingPong
-  max: 0.9
-  min: 0.3
+  max: 1
+  min: 0
   speed: 0.5
   graphic: {fileID: 9021028307413891704}
 --- !u!114 &1228445600987513879
@@ -1135,7 +1134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381247891203112064}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1177,7 +1176,7 @@ GameObject:
   - component: {fileID: 6686663066034905656}
   - component: {fileID: 1392932138480714493}
   - component: {fileID: 5319918787936718192}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LookHerePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1294,7 +1293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Basket::DigitalLove.Game.Basket.HideWhenObserved
   col: {fileID: 5674611575690026424}
-  observedSecsToHide: 2
+  observedSecsToHide: 0.33
+  secsToHide: 0.33
 --- !u!1 &6530965346737291976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,7 +1503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6467232097304590740}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1541,7 +1541,7 @@ GameObject:
   - component: {fileID: 8899734637890797383}
   - component: {fileID: 5189682026467498491}
   - component: {fileID: 9085749278839675414}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1564,7 +1564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1000}
+  m_AnchoredPosition: {x: 0, y: -1250}
   m_SizeDelta: {x: 0, y: 235}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5189682026467498491
@@ -1824,7 +1824,7 @@ GameObject:
   - component: {fileID: 8092819045538995893}
   - component: {fileID: 1917605246615812360}
   - component: {fileID: 6661189837891226192}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InfoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

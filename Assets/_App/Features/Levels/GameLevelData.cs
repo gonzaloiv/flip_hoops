@@ -11,7 +11,7 @@ namespace DigitalLove.Game.Levels
     {
         private const string LevelInfoKey = "info";
 
-        public GravityFilter gravityFilter;
+        public List<GravityData> gravities;
         public int basketsToScore;
         public List<BallData> balls;
 

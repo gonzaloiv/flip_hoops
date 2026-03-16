@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.Levels.GameLevelData
   id: Testing
   prefab: {fileID: 258401745657639714, guid: 9f592e0141aef5a4c9db32de95f71588, type: 3}
-  gravityFilter: 1
+  gravities:
+  - {fileID: 11400000, guid: 90ad00e3fa9b4fa4cabf8c556a37132f, type: 2}
   basketsToScore: 0
   balls:
   - {fileID: 11400000, guid: 10a2f600d6bb42e4e9382ea8477626fb, type: 2}

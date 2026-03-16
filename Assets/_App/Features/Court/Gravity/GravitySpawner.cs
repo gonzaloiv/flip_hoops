@@ -1,37 +1,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using DigitalLove.Game.UI;
-using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 namespace DigitalLove.Game.Court
 {
     public class GravitySpawner : MonoBehaviour
     {
-        [SerializeField] private GravityData[] gravities;
         [SerializeField] private PosterBehaviour[] posters;
 
         private GravityData current;
 
-        public GravityData Spawn(GravityFilter filter)
+        public GravityData Spawn(List<GravityData> gravities)
         {
-            if (filter == GravityFilter.OnTheFloor)
-            {
-                current = gravities.First(g => g.surfaceTypes == MRUK.SurfaceType.FACING_UP);
-            }
-            else
-            {
-                current = GetRandom();
-            }
+            current = GetRandom(gravities);
             SpawnPosters();
             return current;
         }
 
-        private GravityData GetRandom()
+        private GravityData GetRandom(List<GravityData> gravities)
         {
-            if (current == null)
+            if (current == null || gravities.Count == 1)
             {
-                return current = gravities[Random.Range(0, gravities.Length)];
+                return current = gravities[Random.Range(0, gravities.Count)];
             }
             else
             {

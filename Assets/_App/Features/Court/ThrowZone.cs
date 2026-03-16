@@ -7,7 +7,8 @@ namespace DigitalLove.Game.Court
 {
     public class ThrowZone : MonoBehaviour
     {
-        private const int MaxIterations = 666;
+        private const int MaxIterationsCheckingCollisions = 450;
+        private const int MaxIterationsNotCheckingCollisions = 50;
 
         [Header("Spawning")]
         [SerializeField] private float radius;
@@ -15,6 +16,7 @@ namespace DigitalLove.Game.Court
         [SerializeField] private MRUKUtil mrukUtil;
         [SerializeField] private MRUK.SurfaceType surfaceTypes;
         [SerializeField] private MRUKAnchor.SceneLabels sceneLabels;
+        [SerializeField] private GameObject floor;
 
         [Header("Components")]
         [SerializeField] private AudioSource onSpawnSource;
@@ -22,13 +24,16 @@ namespace DigitalLove.Game.Court
         [SerializeField] private ScalePunch scalePunch;
 
         private int iterations;
+        private bool checkCollisions;
 
         public void Spawn()
         {
-            iterations = MaxIterations;
+            iterations = MaxIterationsCheckingCollisions;
+            checkCollisions = true;
             Vector3 spawnPosition = GetPosition();
             transform.position = spawnPosition;
             onSpawnSource.Play();
+            floor.SetActive(true);
             scalePunch.Animate();
         }
 
@@ -44,7 +49,9 @@ namespace DigitalLove.Game.Court
                 }
                 else
                 {
-                    Debug.LogWarning("Not possible to spawn throw zone");
+
+                    checkCollisions = false;
+                    iterations = MaxIterationsNotCheckingCollisions;
                     return Vector3.zero;
                 }
             }
@@ -57,15 +64,22 @@ namespace DigitalLove.Game.Court
         public Vector3 GetPositionOnSurface()
         {
             MRUK.Instance.GetCurrentRoom().GenerateRandomPositionOnSurface(surfaceTypes, radius, new LabelFilter(sceneLabels), out Vector3 candidate, out Vector3 normal);
-            Vector3 checkSpherePosition = new(candidate.x, radius * 1.05f, candidate.z);
-            bool isColliding = Physics.CheckSphere(checkSpherePosition, radius, layerMask);
-            if (!isColliding)
+            if (checkCollisions)
             {
-                return candidate;
+                Vector3 checkSpherePosition = new(candidate.x, radius * 2, candidate.z);
+                bool isColliding = Physics.CheckSphere(checkSpherePosition, radius, layerMask);
+                if (!isColliding)
+                {
+                    return candidate;
+                }
+                else
+                {
+                    return Vector3.zero;
+                }
             }
             else
             {
-                return Vector3.zero;
+                return candidate;
             }
         }
 
