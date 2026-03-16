@@ -1,4 +1,5 @@
 using System.Collections;
+using DigitalLove.Casual.Analytics;
 using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
@@ -25,6 +26,8 @@ namespace DigitalLove.Game
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private GameObject grabBallPanel;
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
+        [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
+        [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
@@ -45,6 +48,7 @@ namespace DigitalLove.Game
             play = memoryDataClient.Get<Play>();
             levelData = levelSelector.GetCurrent();
 
+            progressionEventsHelper.SendLevelStartedEvent(levelId: GetLevelIdWithRound(levelData, play));
             Spawn();
             ShowUI();
         }
@@ -52,10 +56,8 @@ namespace DigitalLove.Game
         private void ShowUI()
         {
             grabBallPanel.SetActive(true);
-            if (!scoreboardSpawner.HasBeenSpawned)
-                scoreboardSpawner.Spawn();
-            scoreboardSpawner.Panel.Show();
-            scoreboardSpawner.Panel.SetRound(play.RoundLabelValue());
+            scoreboardSpawner.ShowRound(play.RoundLabelValue());
+            highestScorePosterBehaviour.Show();
         }
 
         private void Spawn()

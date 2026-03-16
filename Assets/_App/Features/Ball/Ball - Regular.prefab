@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6975196285266109119}
   - component: {fileID: 7464518578101486220}
+  - component: {fileID: 6055259049959753354}
   m_Layer: 11
   m_Name: Feedback
   m_TagString: Untagged
@@ -50,6 +51,21 @@ MonoBehaviour:
   content: {fileID: 3809598318649538530}
   animationSecs: 0.1
   multiplier: 0.1
+--- !u!114 &6055259049959753354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216989673712134257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6f1418dde197248aebaa904ac57ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.FX::DigitalLove.FX.ColorFade
+  rend: {fileID: 8122688724143621961}
+  secs: 0.2
+  color: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 1}
 --- !u!1 &2192478010076562818
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +614,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6055259049959753354}
+        m_TargetAssemblyTypeName: DigitalLove.FX.ColorFade, DigitalLove.FX
+        m_MethodName: FadeTo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   unselect:
     m_PersistentCalls:
       m_Calls:
@@ -652,6 +680,18 @@ MonoBehaviour:
       - m_Target: {fileID: 3208119151612854899}
         m_TargetAssemblyTypeName: DigitalLove.Game.Ball.BallTrail, DigitalLove.Game.Ball
         m_MethodName: ShowTrail
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6055259049959753354}
+        m_TargetAssemblyTypeName: DigitalLove.FX.ColorFade, DigitalLove.FX
+        m_MethodName: FadeBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

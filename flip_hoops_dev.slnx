@@ -33,10 +33,11 @@
   <Project Path="DigitalLove.TTS.Samples.csproj" />
   <Project Path="DigitalLove.Timeline.csproj" />
   <Project Path="ExternalAttributes.Core.csproj" />
+  <Project Path="DigitalLove.XR.MRUK.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="DigitalLove.FX.csproj" />
+  <Project Path="DigitalLove.Game.UI.csproj" />
   <Project Path="Unity.XR.Hands.Samples.Gestures.csproj" />
-  <Project Path="DigitalLove.XR.MRUK.csproj" />
   <Project Path="DigitalLove.DataAccess.Local.csproj" />
   <Project Path="DigitalLove.Timeline.Integrations.csproj" />
   <Project Path="DigitalLove.Game.Levels.csproj" />
@@ -44,7 +45,6 @@
   <Project Path="DigitalLove.FX.ShadowLike.csproj" />
   <Project Path="DigitalLove.Audio.Runtime.csproj" />
   <Project Path="DigitalLove.XR.ARFoundation.csproj" />
-  <Project Path="DigitalLove.Game.UI.csproj" />
   <Project Path="Unity.XR.Hands.Samples.VisualizerSample.csproj" />
   <Project Path="DigitalLove.FX.Visuals.csproj" />
   <Project Path="DigitalLove.Casual.Flow.csproj" />

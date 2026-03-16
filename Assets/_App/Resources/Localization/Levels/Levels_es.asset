@@ -39,7 +39,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 27025301229569
-    m_Localized: "Enfr\xEDalo"
+    m_Localized: Recupera el aliento
+    m_Metadata:
+      m_Items: []
+  - m_Id: 495486414540800
+    m_Localized: Mejor marca personal
     m_Metadata:
       m_Items: []
   references:

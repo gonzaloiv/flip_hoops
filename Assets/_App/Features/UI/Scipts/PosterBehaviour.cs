@@ -3,19 +3,16 @@ using UnityEngine;
 
 namespace DigitalLove.Game.UI
 {
-    public class ScoreboardSpawner : MonoBehaviour
+    public class PosterBehaviour : MonoBehaviour
     {
         [SerializeField] private OnTheWallSpawner onTheWallSpawner;
-        [SerializeField] private ScoreboardPanel panel;
+        [SerializeField] private GameObject content;
 
-        public ScoreboardPanel Panel => panel;
-
-        public void ShowRound(int value)
+        public void Show(Vector3 gravityDirection)
         {
             if (!onTheWallSpawner.HasBeenSpawned)
                 onTheWallSpawner.Spawn();
-            Panel.Show();
-            Panel.SetRound(value);
+            content.transform.localRotation = Quaternion.Euler(0, 0, gravityDirection.y == -1 ? 0 : 180);
         }
     }
 }

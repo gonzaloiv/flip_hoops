@@ -8,6 +8,9 @@ using DigitalLove.Global;
 using DigitalLove.Localization;
 using Reflex.Attributes;
 using UnityEngine;
+using DigitalLove.Audio;
+using DigitalLove.Casual.Analytics;
+using DigitalLove.Casual.Levels;
 
 namespace DigitalLove.Game
 {
@@ -21,60 +24,62 @@ namespace DigitalLove.Game
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private StringValue highestScoreKey;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
+        [SerializeField] private LevelSelector levelSelector;
 
         [Inject] private MemoryDataClient memoryDataClient;
         [Inject] private UnityPlayerDataClient unityPlayerDataClient;
 
+        private LevelData levelData;
         private Play play;
         private bool isHighestScore;
 
         public override void Enter()
         {
+            levelData = levelSelector.GetCurrent();
             play = memoryDataClient.Get<Play>();
-            ShowUI();
             ballSpawner.Unspawn();
             SaveData();
+            ShowUI();
             CountDown();
-            play.IncreaseTries();
+        }
+
+        private async void SaveData()
+        {
+            progressionEventsHelper.SendLevelCompleteEvent(levelId: GetLevelIdWithRound(levelData, play));
+            isHighestScore = false;
+            Round round = memoryDataClient.Get<Round>();
+            if (round.score <= 0) // ! Current round is not a high score one
+                return;
+            PlayerData playerData = memoryDataClient.Get<PlayerData>();
+            Cookie previousCookie = playerData.GetCookieById(highestScoreKey.value);
+            if (previousCookie == null)
+            {
+                isHighestScore = true;
+                previousCookie = new(highestScoreKey.value) { metadata = round.score.ToString() };
+                playerData.AddCookie(previousCookie);
+                await unityPlayerDataClient.Put(playerData);
+            }
+            else if (int.Parse(previousCookie.metadata) <= round.score)
+            {
+                isHighestScore = true;
+                previousCookie.metadata = round.score.ToString();
+                await unityPlayerDataClient.Put(playerData);
+            }
         }
 
         private void ShowUI()
         {
             string initText = LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_title", play.RoundLabelValue());
-            string infoText = LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_info");
+            string infoText = !isHighestScore ? LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_info") :
+                LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_highest_score");
             basketSpawner.Panel.Show(initText, infoText);
-        }
-
-        private async void SaveData()
-        {
-            isHighestScore = false;
-            Round round = memoryDataClient.Get<Round>();
-            PlayerData playerData = memoryDataClient.Get<PlayerData>();
-            Cookie current = playerData.GetCookieById(highestScoreKey.value);
-            if (current == null)
-            {
-                current = new Cookie(highestScoreKey.value)
-                {
-                    metadata = round.score.ToString()
-                };
-                playerData.AddCookie(current);
-                isHighestScore = true;
-                await unityPlayerDataClient.Put(playerData);
-            }
-            else
-            {
-                int highestScore = int.Parse(current.metadata);
-                if (highestScore < round.score)
-                {
-                    isHighestScore = true;
-                    current.metadata = round.score.ToString();
-                    await unityPlayerDataClient.Put(playerData);
-                }
-            }
         }
 
         private void CountDown()
         {
+            this.PlayWithFadeOut(audioSource, RoundCompleteSecs, audioSource.volume);
             int countdown = RoundCompleteSecs;
             IEnumerator CoundownRoutine()
             {
@@ -90,6 +95,7 @@ namespace DigitalLove.Game
 
         protected override void ToNextState()
         {
+            play.IncreaseTries();
             throwZone.Unspawn();
             basketSpawner.Unspawn();
             base.ToNextState();

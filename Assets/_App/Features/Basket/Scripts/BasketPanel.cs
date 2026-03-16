@@ -14,6 +14,8 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private GameObject content;
         [SerializeField] private ScalePunch scalePunch;
 
+        [SerializeField] private GameObject lookAtPanel;
+
         [Header("Score")]
         [SerializeField] private TextMeshProUGUI scoreLabel;
         [SerializeField] private float scoreSecsActive = 2;
@@ -41,6 +43,7 @@ namespace DigitalLove.Game.Basket
         {
             content.SetActive(false);
             scoreLabel.enabled = false;
+            lookAtPanel.SetActive(false);
         }
     }
 }

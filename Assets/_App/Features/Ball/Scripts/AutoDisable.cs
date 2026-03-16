@@ -1,29 +1,33 @@
-using System.Collections;
-using DigitalLove.Global;
 using UnityEngine;
 
 namespace DigitalLove.Game.Balls
 {
     public class AutoDisable : MonoBehaviour
     {
-        [SerializeField] private float secsBeforeDisable = 5;
+        [SerializeField] private float secsBeforeDisable = 9;
 
-        private Coroutine coroutine;
+        private float countdown;
+        private bool hasBeenUnselected;
+
+        private void OnEnable()
+        {
+            hasBeenUnselected = false;
+        }
 
         public void OnUnselect()
         {
-            IEnumerator AutoDisableRoutine()
-            {
-                yield return new WaitForSecondsRealtime(secsBeforeDisable);
-                this.SetActive(false);
-            }
-            coroutine = StartCoroutine(AutoDisableRoutine());
+            hasBeenUnselected = true;
+            countdown = secsBeforeDisable;
         }
 
-        private void OnDisable()
+        private void Update()
         {
-            if (coroutine != null)
-                StopCoroutine(coroutine);
+            if (hasBeenUnselected)
+            {
+                countdown -= Time.deltaTime;
+                if (countdown <= 0)
+                    gameObject.SetActive(false);
+            }
         }
     }
 }

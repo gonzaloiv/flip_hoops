@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: default_round_complete_info
     m_Metadata:
       m_Items: []
+  - m_Id: 495486414540800
+    m_Key: default_round_complete_highest_score
+    m_Metadata:
+      m_Items: []
   - m_Id: 236612931585
     m_Key: level_01_01_init
     m_Metadata:

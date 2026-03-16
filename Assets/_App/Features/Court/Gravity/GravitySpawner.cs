@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DigitalLove.Game.UI;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ namespace DigitalLove.Game.Court
         {
             foreach (PosterBehaviour poster in posters)
             {
-                poster.Spawn(current.direction);
+                poster.Show(current.direction);
             }
         }
     }

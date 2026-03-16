@@ -1,3 +1,5 @@
+using DigitalLove.Casual.Flow;
+using DigitalLove.Casual.Levels;
 using DigitalLove.FlowControl;
 using UnityEngine;
 
@@ -18,5 +20,7 @@ namespace DigitalLove.Game
         }
 
         protected virtual void ToNextState() => parent.SetCurrentState(nextState.RouteId);
+
+        protected string GetLevelIdWithRound(LevelData levelData, Play play) => $"{levelData.id}_{play.Tries}";
     }
 }
