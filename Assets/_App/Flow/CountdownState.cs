@@ -19,15 +19,21 @@ namespace DigitalLove.Game
     {
         private const int CountdownSecs = 3;
 
-        [SerializeField] private string tableName = "Levels";
+        [Header("Scene")]
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private GravitySpawner gravitiesBehaviour;
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ThrowZone throwZone;
-        [SerializeField] private GameObject grabBallPanel;
+
+        [Header("UI")]
+        [SerializeField] private string tableName = "Levels";
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
+        [SerializeField] private GameObject grabBallPanel;
         [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
+        [SerializeField] private FindTheHoopPanel findTheHoopPanel;
+
+        [Header("Analytics")]
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
         [SerializeField] private RoundEventsHelper roundEventsHelper;
 
@@ -100,6 +106,7 @@ namespace DigitalLove.Game
             grabBallPanel.SetActive(true);
             scoreboardSpawner.ShowRound(play.RoundLabelValue());
             highestScorePosterBehaviour.Show();
+            findTheHoopPanel.Show();
         }
 
         private void Spawn()
