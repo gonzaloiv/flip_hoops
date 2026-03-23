@@ -4387,6 +4387,7 @@ GameObject:
   - component: {fileID: 1730347949}
   - component: {fileID: 1730347950}
   - component: {fileID: 1730347951}
+  - component: {fileID: 1730347952}
   m_Layer: 0
   m_Name: Setup
   m_TagString: Untagged
@@ -4424,14 +4425,12 @@ MonoBehaviour:
   nextState: {fileID: 1515094634}
   setupFunnelHelper: {fileID: 1210227667}
   sessionEventsHelper: {fileID: 1210227668}
-  originSetup: {fileID: 1730347951}
-  internetRequiredPanel: {fileID: 3258995010952126742}
-  forceInternetRequiredPanel:
-    value: 0
+  internetChecker: {fileID: 1730347952}
   deviceNotSupportedPanel: {fileID: 3258995010952126743}
   forceDeviceNotSupportedPanel:
     value: 0
-  resetDataPanel: {fileID: 0}
+  playerDataChecker: {fileID: 0}
+  spaceSetup: {fileID: 1730347951}
   splashScreenDirector: {fileID: 1363334525}
 --- !u!114 &1730347951
 MonoBehaviour:
@@ -4445,11 +4444,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275115dd9a4883f43ba08258e02fb300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.App.Setup::DigitalLove.App.ScenefulOriginSetup
-  sceneSetupRequiredPanel: {fileID: 3258995010952126741}
+  spaceSetupRequiredPanel: {fileID: 3258995010952126741}
   forceSceneSetupPanel:
     value: 0
-  setupFunnelHelper: {fileID: 1210227667}
+  launchFunnelHelper: {fileID: 1210227667}
   mrukUtil: {fileID: 1569995676}
+--- !u!114 &1730347952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730347948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddf9c0f2465cbd41bea8ea596829f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.App.States.Setup::DigitalLove.Casual.Flow.Setup.InternetChecker
+  setupFunnelHelper: {fileID: 1210227667}
+  internetRequiredPanel: {fileID: 3258995010952126742}
+  forceInternetRequiredPanel:
+    value: 0
 --- !u!1 &1799498462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}

@@ -1,5 +1,4 @@
 ﻿<Solution>
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="DigitalLove.TTS.csproj" />
   <Project Path="BuildReportTool.csproj" />
   <Project Path="DigitalLove.UI.DesignSystem.Localization.csproj" />
@@ -8,10 +7,10 @@
   <Project Path="DigitalLove.Global.csproj" />
   <Project Path="DigitalLove.DataAccess.Remote.csproj" />
   <Project Path="ChrisNolet.QuickOutline.csproj" />
+  <Project Path="DigitalLove.App.States.Setup.csproj" />
   <Project Path="DigitalLove.Interactables.csproj" />
   <Project Path="Vendor.GameAnalytics.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.csproj" />
-  <Project Path="DigitalLove.App.States.Setup.csproj" />
   <Project Path="DigitalLove.UI.Behaviours.csproj" />
   <Project Path="DigitalLove.UI.DesignSystem.csproj" />
   <Project Path="DigitalLove.Game.Basket.csproj" />
@@ -22,7 +21,6 @@
   <Project Path="DigitalLove.Game.Balls.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj" />
   <Project Path="DigitalLove.FX.Fader.csproj" />
-  <Project Path="ExternalAttributes.Editor.csproj" />
   <Project Path="DigitalLove.Analytics.csproj" />
   <Project Path="DigitalLove.Game.Flow.csproj" />
   <Project Path="DigitalLove.XR.OVR.csproj" />
@@ -31,8 +29,8 @@
   <Project Path="DigitalLove.Player.csproj" />
   <Project Path="DigitalLove.Localization.csproj" />
   <Project Path="DigitalLove.TTS.Samples.csproj" />
+  <Project Path="DigitalLove.Casual.Analytics.csproj" />
   <Project Path="DigitalLove.Timeline.csproj" />
-  <Project Path="ExternalAttributes.Core.csproj" />
   <Project Path="DigitalLove.XR.MRUK.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="DigitalLove.FX.csproj" />
@@ -44,15 +42,16 @@
   <Project Path="DigitalLove.Analytics.GameAnalytics.csproj" />
   <Project Path="DigitalLove.FX.ShadowLike.csproj" />
   <Project Path="DigitalLove.Audio.Runtime.csproj" />
+  <Project Path="DigitalLove.XR.Platform.csproj" />
   <Project Path="DigitalLove.XR.ARFoundation.csproj" />
   <Project Path="Unity.XR.Hands.Samples.VisualizerSample.csproj" />
   <Project Path="DigitalLove.FX.Visuals.csproj" />
+  <Project Path="DigitalLove.Interactables.MRUK.csproj" />
   <Project Path="DigitalLove.Casual.Flow.csproj" />
   <Project Path="Simple360Render.Runtime.csproj" />
   <Project Path="DigitalLove.Global.Editor.csproj" />
-  <Project Path="DigitalLove.Casual.Analytics.csproj" />
-  <Project Path="DigitalLove.Reflex.csproj" />
   <Project Path="DigitalLove.Casual.Flow.Setup.MRUK.csproj" />
+  <Project Path="DigitalLove.Reflex.csproj" />
   <Project Path="DigitalLove.FlowControl.Routes.Editor.csproj" />
   <Project Path="TrinarySoftware.MEC.Runtime.csproj" />
   <Project Path="DigitalLove.Analytics.Unity.csproj" />
