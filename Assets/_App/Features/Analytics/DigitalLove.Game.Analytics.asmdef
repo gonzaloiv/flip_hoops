@@ -1,0 +1,19 @@
+{
+    "name": "DigitalLove.Game.Analytics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0d0af40eeac5c5141b19cea96ce01f15",
+        "GUID:1530a967b84cfb44dbdd5e8a1989764f",
+        "GUID:ddca81f93c9e44d2fbf5efa600ddbada",
+        "GUID:41741fc70e2562e498cc7127cf8aa8b3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

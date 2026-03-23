@@ -47,10 +47,10 @@ namespace DigitalLove.Game
 
         private async void SaveData()
         {
-            progressionEventsHelper.SendLevelCompleteEvent(levelId: GetLevelIdWithRound(levelData, play));
+            progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play));
             isHighestScore = false;
             Round round = memoryDataClient.Get<Round>();
-            if (round.score <= 0) // ! Current round is not a high score one
+            if (round.score <= 0) // ! Current round goal is not reaching high score 
                 return;
             PlayerData playerData = memoryDataClient.Get<PlayerData>();
             Cookie previousCookie = playerData.GetCookieById(highestScoreKey.value);

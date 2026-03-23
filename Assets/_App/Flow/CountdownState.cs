@@ -3,6 +3,7 @@ using DigitalLove.Casual.Analytics;
 using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
+using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
@@ -28,6 +29,7 @@ namespace DigitalLove.Game
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
         [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
+        [SerializeField] private RoundEventsHelper roundEventsHelper;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
@@ -46,8 +48,9 @@ namespace DigitalLove.Game
 
             play = memoryDataClient.Get<Play>();
             levelData = levelSelector.GetCurrent();
+            memoryDataClient.Put(new Round());
 
-            progressionEventsHelper.SendLevelStartedEvent(levelId: GetLevelIdWithRound(levelData, play));
+            progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             Spawn();
             ShowUI();
         }
@@ -57,6 +60,7 @@ namespace DigitalLove.Game
             ballSpawner.ballGrabbed -= OnBallGrabbed;
             ShowBasketPanel();
             grabBallPanel.SetActive(false);
+            roundEventsHelper.SendHasGrabbedBallEvent(levelData.GetIdWithRound(play));
             IEnumerator CountdownRoutine()
             {
                 int countdown = CountdownSecs;
@@ -103,11 +107,7 @@ namespace DigitalLove.Game
             basketSpawner.Spawn(gravity, throwZone.transform);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravity);
+            roundEventsHelper.SendBasketBeenSpawnedEvent(levelData.GetIdWithRound(play));
         }
-    }
-
-    public static class Extensions
-    {
-        public static int RoundLabelValue(this Play play) => play.Tries + 1;
     }
 }

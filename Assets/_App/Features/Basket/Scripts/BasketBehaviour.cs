@@ -12,6 +12,7 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private LayerMask ballLayerMask;
         [SerializeField] private float radius;
         [SerializeField] private ParticleSystem ps;
+        [SerializeField] private Collider trigger;
 
         private List<BallBehaviour> ballsInside = new();
 
@@ -55,6 +56,11 @@ namespace DigitalLove.Game.Basket
         {
             Gizmos.color = Color.orange;
             Gizmos.DrawWireSphere(transform.position, radius);
+        }
+
+        public void SetTriggerActive(bool isActive)
+        {
+            trigger.enabled = isActive;
         }
     }
 }

@@ -665,6 +665,7 @@ MonoBehaviour:
     m_Bits: 2048
   radius: 0.26
   ps: {fileID: 8884771058257145685}
+  trigger: {fileID: 8850761356981703373}
   scored:
     m_PersistentCalls:
       m_Calls:
@@ -1175,7 +1176,7 @@ GameObject:
   - component: {fileID: 7804183307297326918}
   - component: {fileID: 6686663066034905656}
   - component: {fileID: 1392932138480714493}
-  - component: {fileID: 5319918787936718192}
+  - component: {fileID: 906312833793422008}
   m_Layer: 5
   m_Name: LookHerePanel
   m_TagString: Untagged
@@ -1280,7 +1281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.UI.Behaviours::DigitalLove.UI.Behaviours.LookAtCameraOnY
   offset: 180
---- !u!114 &5319918787936718192
+--- !u!114 &906312833793422008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1289,12 +1290,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6198183463859414879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79e77757b86753d45938d85db838bf85, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c054bc3073d4246aa6ac302e9467bc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DigitalLove.Game.Basket::DigitalLove.Game.Basket.HideWhenObserved
+  m_EditorClassIdentifier: DigitalLove.UI.Behaviours::DigitalLove.UI.HideWhenObserved
   col: {fileID: 5674611575690026424}
-  observedSecsToHide: 0.33
-  secsToHide: 0.33
+  observedSecsToHide: 0.66
+  secsToHide: 0.66
 --- !u!1 &6530965346737291976
 GameObject:
   m_ObjectHideFlags: 0

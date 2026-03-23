@@ -29,6 +29,7 @@ namespace DigitalLove.Game.Basket
         {
             iterations = MaxIterations;
             basket = Instantiate(gravity.basket, transform).GetComponent<BasketBehaviour>();
+            basket.SetTriggerActive(false);
             basket.transform.position = GetPosition(gravity, reference);
             basket.scored.AddListener(OnBasketScored);
             panel = basket.GetComponentInChildren<BasketPanel>();

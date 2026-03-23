@@ -1,6 +1,7 @@
 using System.Collections;
 using DigitalLove.DataAccess;
 using DigitalLove.Game;
+using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;

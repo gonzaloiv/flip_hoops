@@ -2621,6 +2621,7 @@ GameObject:
   - component: {fileID: 1210227669}
   - component: {fileID: 1210227670}
   - component: {fileID: 1210227671}
+  - component: {fileID: 1210227672}
   m_Layer: 0
   m_Name: Analytics
   m_TagString: Untagged
@@ -2707,6 +2708,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Analytics.GameAnalytics::DigitalLove.Analytics.GameAnalyticsInstaller
   useEditorAnalyticsProvider:
     value: 1
+--- !u!114 &1210227672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210227665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6146d39554ad05f429b4674387c231f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Analytics::DigitalLove.Game.Analytics.RoundEventsHelper
 --- !u!1 &1230944915
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3782,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.App.Play::DigitalLove.App.PlayState
   nextState: {fileID: 1699423994}
   levelSelector: {fileID: 1235757813}
+  basketSpawner: {fileID: 550383219}
+  roundEventsHelper: {fileID: 1210227672}
   countdownChecker: {fileID: 1514311248}
   scoreChecker: {fileID: 1514311247}
 --- !u!114 &1514311247
@@ -3855,6 +3870,7 @@ MonoBehaviour:
   scoreboardSpawner: {fileID: 186588927}
   highestScorePosterBehaviour: {fileID: 1700795652}
   progressionEventsHelper: {fileID: 1210227670}
+  roundEventsHelper: {fileID: 1210227672}
 --- !u!1 &1568662587
 GameObject:
   m_ObjectHideFlags: 0
