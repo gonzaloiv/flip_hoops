@@ -29,7 +29,7 @@ namespace DigitalLove.Game
         [Header("UI")]
         [SerializeField] private string tableName = "Levels";
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
-        [SerializeField] private GameObject grabBallPanel;
+        [SerializeField] private GrabBallPanel grabBallPanel;
         [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
         [SerializeField] private FindTheHoopPanel findTheHoopPanel;
 
@@ -45,7 +45,7 @@ namespace DigitalLove.Game
         public override void Init(StateMachine parent)
         {
             base.Init(parent);
-            grabBallPanel.SetActive(false);
+            grabBallPanel.Hide();
         }
 
         public override void Enter()
@@ -65,7 +65,7 @@ namespace DigitalLove.Game
         {
             ballSpawner.ballGrabbed -= OnBallGrabbed;
             ShowBasketPanel();
-            grabBallPanel.SetActive(false);
+            grabBallPanel.Hide();
             roundEventsHelper.SendHasGrabbedBallEvent(levelData.GetIdWithRound(play));
             IEnumerator CountdownRoutine()
             {
@@ -103,7 +103,7 @@ namespace DigitalLove.Game
 
         private void ShowUI()
         {
-            grabBallPanel.SetActive(true);
+            grabBallPanel.Show();
             scoreboardSpawner.ShowRound(play.RoundLabelValue());
             highestScorePosterBehaviour.Show();
             findTheHoopPanel.Show();
