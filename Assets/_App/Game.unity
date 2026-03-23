@@ -386,7 +386,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107066992}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2134,7 +2134,7 @@ Transform:
   m_GameObject: {fileID: 539779522}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2154,7 +2154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToCamera: 0.5
-  yDistanceFromCenter: 0
+  yDistanceFromCenter: 0.15
   content: {fileID: 1777523997}
   tween:
     secs: 0
@@ -2162,7 +2162,7 @@ MonoBehaviour:
   showHide: {fileID: 0}
   cols:
   - {fileID: 188065371}
-  isFollowing: 1
+  isFollowing: 0
   secsToMove: 1
 --- !u!114 &539779528
 MonoBehaviour:
@@ -2176,7 +2176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637c405f45dd62944a8a850b5cbd4583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.UI::DigitalLove.Game.UI.FindTheHoopPanel
-  secsBeforeHiding: 4
+  secsBeforeHiding: 3
   label: {fileID: 1783257048}
   subtitlesLikeFollow: {fileID: 539779527}
 --- !u!1 &550383216
@@ -2730,7 +2730,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967146463}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4457,18 +4457,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Play::DigitalLove.Game.CountdownState
   nextState: {fileID: 1514311246}
-  tableName: Levels
   levelSelector: {fileID: 1235757813}
   gravitiesBehaviour: {fileID: 1310485750}
   ballSpawner: {fileID: 1097701444}
   basketSpawner: {fileID: 550383219}
   throwZone: {fileID: 1869005711}
-  grabBallPanel: {fileID: 1264046366}
+  tableName: Levels
   scoreboardSpawner: {fileID: 186588927}
+  grabBallPanel: {fileID: 1264046366}
   highestScorePosterBehaviour: {fileID: 1700795652}
+  findTheHoopPanel: {fileID: 539779528}
   progressionEventsHelper: {fileID: 1210227670}
   roundEventsHelper: {fileID: 1210227672}
-  findTheHoopPanel: {fileID: 539779528}
 --- !u!1 &1568662587
 GameObject:
   m_ObjectHideFlags: 0
@@ -5081,7 +5081,7 @@ MonoBehaviour:
   setupFunnelHelper: {fileID: 1210227667}
   internetRequiredPanel: {fileID: 3258995010952126742}
   forceInternetRequiredPanel:
-    value: 1
+    value: 0
 --- !u!1 &1777523996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5119,7 +5119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1080, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1777523998
@@ -5188,6 +5188,7 @@ GameObject:
   - component: {fileID: 1783257046}
   - component: {fileID: 1783257049}
   - component: {fileID: 1783257048}
+  - component: {fileID: 1783257050}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -5261,8 +5262,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42
-  m_fontSizeBase: 42
+  m_fontSize: 56
+  m_fontSizeBase: 56
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 54.8
@@ -5314,6 +5315,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783257045}
   m_CullTransparentMesh: 1
+--- !u!114 &1783257050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783257045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfefa2e0409a4b489f06122e544475c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.FX::DigitalLove.Global.GraphicOpacityPingPong
+  max: 1
+  min: 0.2
+  speed: 1
+  graphic: {fileID: 1783257048}
 --- !u!1 &1799498462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -7096,6 +7113,7 @@ MonoBehaviour:
   cardPanel: {fileID: 8206733354682096856}
   btnGroupPanel: {fileID: 1847699214}
   titleKey: scene_setup_required_title
+  canvas: {fileID: 7834780671779256475}
 --- !u!114 &3258995010952126742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7111,6 +7129,7 @@ MonoBehaviour:
   cardPanel: {fileID: 8206733354682096856}
   btnGroupPanel: {fileID: 1847699214}
   titleKey: no_internet_title
+  canvas: {fileID: 7834780671779256475}
 --- !u!114 &3258995010952126743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7126,6 +7145,7 @@ MonoBehaviour:
   cardPanel: {fileID: 8206733354682096856}
   btnGroupPanel: {fileID: 1847699214}
   titleKey: device_not_supported_title
+  canvas: {fileID: 7834780671779256475}
 --- !u!114 &3581489856762341871
 MonoBehaviour:
   m_ObjectHideFlags: 0
