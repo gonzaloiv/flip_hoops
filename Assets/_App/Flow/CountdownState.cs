@@ -67,10 +67,12 @@ namespace DigitalLove.Game
                 while (countdown > 0)
                 {
                     scoreboardSpawner.Panel.SetTime(countdown);
+                    basketSpawner.Panel.ShowCountdown(countdown);
                     yield return new WaitForSecondsRealtime(1);
                     countdown--;
                 }
                 scoreboardSpawner.Panel.SetTime(countdown);
+                basketSpawner.Panel.ShowCountdown(countdown);
                 ToNextState();
             }
             StartCoroutine(CountdownRoutine());
@@ -104,7 +106,7 @@ namespace DigitalLove.Game
         {
             GravityData gravity = gravitiesBehaviour.Spawn(levelData.gravities);
             throwZone.Spawn();
-            basketSpawner.Spawn(gravity, throwZone.transform);
+            basketSpawner.Spawn(gravity, throwZone.transform, levelData.distance);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravity);
             roundEventsHelper.SendBasketBeenSpawnedEvent(levelData.GetIdWithRound(play));

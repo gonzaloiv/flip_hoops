@@ -11,9 +11,11 @@ namespace DigitalLove.Game.Levels
     {
         private const string LevelInfoKey = "info";
 
+        [Header("GameLevelData")]
         public List<GravityData> gravities;
         public int basketsToScore;
         public List<BallData> balls;
+        [Range(0.5f, 2f)] public float[] distance = new[] { 1.25f, 1.75f };
 
         public bool IsWarmUp => basketsToScore > 0;
         public string InfoKey => $"level_{id}_{LevelInfoKey}";

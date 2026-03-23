@@ -469,7 +469,6 @@ GameObject:
   - component: {fileID: 7972766836008447742}
   - component: {fileID: 970859613672104294}
   - component: {fileID: 5010984180076289338}
-  - component: {fileID: 2237207630822516749}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -590,24 +589,9 @@ MonoBehaviour:
   infoLabel: {fileID: 8046225095207986448}
   secsActive: 5
   content: {fileID: 6067216017550496630}
-  scalePunch: {fileID: 2237207630822516749}
+  scalePunch: {fileID: 7872391000464077846}
   scoreLabel: {fileID: 9085749278839675414}
   scoreSecsActive: 1.33
---- !u!114 &2237207630822516749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163782959570676571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ab5b04e989e448497c2c13773dc7c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DigitalLove.FX::DigitalLove.FX.ScalePunch
-  content: {fileID: 4070549399333370967}
-  animationSecs: 0.1
-  multiplier: 0.1
 --- !u!1 &4010251320025188349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,6 +1526,7 @@ GameObject:
   - component: {fileID: 8899734637890797383}
   - component: {fileID: 5189682026467498491}
   - component: {fileID: 9085749278839675414}
+  - component: {fileID: 7872391000464077846}
   m_Layer: 5
   m_Name: ScoreLabel
   m_TagString: Untagged
@@ -1668,6 +1653,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7872391000464077846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7509412305708820043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ab5b04e989e448497c2c13773dc7c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.FX::DigitalLove.FX.ScalePunch
+  content: {fileID: 8899734637890797383}
+  animationSecs: 0.1
+  multiplier: 0.1
 --- !u!1 &8558285795776350309
 GameObject:
   m_ObjectHideFlags: 0

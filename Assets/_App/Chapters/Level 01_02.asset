@@ -20,3 +20,6 @@ MonoBehaviour:
   balls:
   - {fileID: 11400000, guid: 10a2f600d6bb42e4e9382ea8477626fb, type: 2}
   - {fileID: 11400000, guid: ad138f1cc4357084c9b49bfdba37bfc0, type: 2}
+  distance:
+  - 1
+  - 1.25

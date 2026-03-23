@@ -1,5 +1,6 @@
 using DigitalLove.FX;
 using DigitalLove.Global;
+using DigitalLove.Localization;
 using TMPro;
 using UnityEngine;
 
@@ -35,6 +36,14 @@ namespace DigitalLove.Game.Basket
             scoreLabel.text = $"+{score}";
             scoreLabel.enabled = true;
             this.InvokeAfterSecs(scoreSecsActive, () => scoreLabel.enabled = false);
+        }
+
+        public void ShowCountdown(int value, float secsActive = 0.5f)
+        {
+            scalePunch.Animate();
+            scoreLabel.text = value > 0 ? value.ToString() : LocalizationUtil.GetValue("go");
+            scoreLabel.enabled = true;
+            this.InvokeAfterSecs(secsActive, () => scoreLabel.enabled = false);
         }
 
         public void HideAll()

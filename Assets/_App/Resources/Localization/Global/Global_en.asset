@@ -38,6 +38,14 @@ MonoBehaviour:
     m_Localized: Grab any ball to start
     m_Metadata:
       m_Items: []
+  - m_Id: 118177417473478656
+    m_Localized: Go!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 118187790192791552
+    m_Localized: Find the hoop
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -10,8 +10,6 @@ namespace DigitalLove.Game.Basket
     {
         private const int MaxIterations = 666;
 
-        [SerializeField] private float minDistanceToReference = 1.25f;
-        [SerializeField] private float maxDistanceToReference = 1.75f;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private MRUKUtil mrukUtil;
 
@@ -25,26 +23,26 @@ namespace DigitalLove.Game.Basket
 
         public Action<int> scored = (score) => { };
 
-        public void Spawn(GravityData gravity, Transform reference)
+        public void Spawn(GravityData gravity, Transform reference, float[] distancesToReference)
         {
             iterations = MaxIterations;
             basket = Instantiate(gravity.basket, transform).GetComponent<BasketBehaviour>();
             basket.SetTriggerActive(false);
-            basket.transform.position = GetPosition(gravity, reference);
+            basket.transform.position = GetPosition(gravity, reference, distancesToReference);
             basket.scored.AddListener(OnBasketScored);
             panel = basket.GetComponentInChildren<BasketPanel>();
             panel.HideAll();
         }
 
-        private Vector3 GetPosition(GravityData gravity, Transform reference)
+        private Vector3 GetPosition(GravityData gravity, Transform reference, float[] distancesToReference)
         {
-            Vector3 candidate = GetPositionOnSurface(gravity, reference);
+            Vector3 candidate = GetPositionOnSurface(gravity, reference, distancesToReference);
             if (candidate == Vector3.zero)
             {
                 iterations--;
                 if (iterations > 0)
                 {
-                    return GetPosition(gravity, reference);
+                    return GetPosition(gravity, reference, distancesToReference);
                 }
                 else
                 {
@@ -58,11 +56,11 @@ namespace DigitalLove.Game.Basket
             }
         }
 
-        public Vector3 GetPositionOnSurface(GravityData gravity, Transform reference)
+        public Vector3 GetPositionOnSurface(GravityData gravity, Transform reference, float[] distancesToReference)
         {
             MRUK.Instance.GetCurrentRoom().GenerateRandomPositionOnSurface(gravity.surfaceTypes, basket.Radius, new LabelFilter(gravity.sceneLabels), out Vector3 candidate, out Vector3 normal);
-            float distanceToReference = Vector3.Distance(candidate, new Vector3(reference.position.x, candidate.y, reference.position.z));
-            bool isInSpawnZone = distanceToReference > minDistanceToReference && distanceToReference < maxDistanceToReference;
+            float distance = Vector3.Distance(candidate, new Vector3(reference.position.x, candidate.y, reference.position.z));
+            bool isInSpawnZone = distance > distancesToReference[0] && distance < distancesToReference[1];
             if (!isInSpawnZone)
                 return Vector3.zero;
             Vector3 checkSpherePosition = candidate - gravity.direction * basket.Radius * 2;

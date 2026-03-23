@@ -37,7 +37,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 114711600341635072
-    m_Localized: Coge cualquier pelota para empezar
+    m_Localized: Coge cualquier pelota para empezar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 118177417473478656
+    m_Localized: "\xA1Ir!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 118187790192791552
+    m_Localized: Encuentra el aro
     m_Metadata:
       m_Items: []
   references:

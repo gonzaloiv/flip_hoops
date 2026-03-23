@@ -35,6 +35,14 @@ MonoBehaviour:
     m_Key: grab_any_ball_to_start
     m_Metadata:
       m_Items: []
+  - m_Id: 118177417473478656
+    m_Key: go
+    m_Metadata:
+      m_Items: []
+  - m_Id: 118187790192791552
+    m_Key: find_the_hoop
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1877,8 +1877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fb70c3d24dc0e4b95a78c99c665317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Basket::DigitalLove.Game.Basket.BasketSpawner
-  minDistanceToReference: 1.25
-  maxDistanceToReference: 1.75
   layerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -2879,7 +2877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.LevelSelector
   data:
-  - {fileID: 11400000, guid: f2ef402efc13609409775b7e934177fe, type: 2}
+  - {fileID: 11400000, guid: 505b37fafe503604b9665e492081e2df, type: 2}
   - {fileID: 11400000, guid: 0c2931950baa8054db2ded6460d95f73, type: 2}
   - {fileID: 11400000, guid: c4c061636d7e2b8428be7782b0b281af, type: 2}
 --- !u!1 &1260132454
@@ -3309,7 +3307,7 @@ MonoBehaviour:
   splash: {fileID: 1363334524}
   animator: {fileID: 670354240}
   skip:
-    value: 0
+    value: 1
 --- !u!114 &1369311740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4402,8 +4400,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1730347949}
   - component: {fileID: 1730347950}
-  - component: {fileID: 1730347951}
   - component: {fileID: 1730347952}
+  - component: {fileID: 1730347951}
   m_Layer: 0
   m_Name: Setup
   m_TagString: Untagged
@@ -4480,7 +4478,7 @@ MonoBehaviour:
   setupFunnelHelper: {fileID: 1210227667}
   internetRequiredPanel: {fileID: 3258995010952126742}
   forceInternetRequiredPanel:
-    value: 0
+    value: 1
 --- !u!1 &1799498462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -4839,7 +4837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1847699213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4978,7 +4976,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.000030517578, y: -31.809998}
+  m_SizeDelta: {x: 0.000030517578, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891980504
 MonoBehaviour:
@@ -5732,7 +5730,7 @@ Transform:
   m_GameObject: {fileID: 1100241226147189586}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5905,7 +5903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &2067310519291122545
 GameObject:
   m_ObjectHideFlags: 0
