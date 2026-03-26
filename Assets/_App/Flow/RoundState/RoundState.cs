@@ -1,11 +1,7 @@
-using DigitalLove.Casual.Flow;
-using DigitalLove.Casual.Levels;
-using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
-using Reflex.Attributes;
 using UnityEngine;
 
 namespace DigitalLove.Game
@@ -19,8 +15,6 @@ namespace DigitalLove.Game
         [Header("Checkers")]
         [SerializeField] private RoundCountdownChecker countdownChecker;
         [SerializeField] private RoundScoreChecker scoreChecker;
-
-        [Inject] private MemoryDataClient memoryDataClient;
 
         public override void Init(StateMachine parent)
         {
@@ -41,9 +35,7 @@ namespace DigitalLove.Game
 
         private void OnScored(int score)
         {
-            Play play = memoryDataClient.Get<Play>();
-            LevelData levelData = levelSelector.GetCurrent();
-            roundEventsHelper.SendHasScoredEvent(levelData.GetIdWithRound(play));
+            roundEventsHelper.SendHasScoredEvent();
         }
 
         private void OnComplete()

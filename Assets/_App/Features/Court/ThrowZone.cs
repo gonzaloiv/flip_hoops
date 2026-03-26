@@ -26,6 +26,8 @@ namespace DigitalLove.Game.Court
         private int iterations;
         private bool checkCollisions;
 
+        public Vector3 WorldPosition => transform.position;
+
         public void Spawn()
         {
             iterations = MaxIterationsCheckingCollisions;

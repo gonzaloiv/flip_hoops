@@ -3163,6 +3163,91 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
   m_PrefabInstance: {fileID: 1806820786}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1044390671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044390672}
+  - component: {fileID: 1044390674}
+  - component: {fileID: 1044390673}
+  m_Layer: 0
+  m_Name: InvokeWhenSeen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1044390672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044390671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1869005710}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1044390673
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044390671}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1044390674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044390671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af194c55acb9724c84c97f390a99fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Global::DigitalLove.Global.InvokeWhenSeen
+  col: {fileID: 1044390673}
+  secsToInvoke: 0.5
+  seen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1210227672}
+        m_TargetAssemblyTypeName: DigitalLove.Game.Analytics.RoundEventsHelper, DigitalLove.Game.Analytics
+        m_MethodName: SendHasSeenThrowZoneEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1097701442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,12 +3706,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1210227666}
+  - component: {fileID: 1210227671}
   - component: {fileID: 1210227667}
   - component: {fileID: 1210227668}
-  - component: {fileID: 1210227669}
   - component: {fileID: 1210227670}
-  - component: {fileID: 1210227671}
   - component: {fileID: 1210227672}
+  - component: {fileID: 1210227673}
   m_Layer: 0
   m_Name: Analytics
   m_TagString: Untagged
@@ -3674,19 +3759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31c5e704a474534098dd829614a224c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Casual.Analytics::DigitalLove.Casual.Analytics.SessionEventsHelper
-  ovrSessionHelper: {fileID: 1210227669}
---- !u!114 &1210227669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1210227665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e004017c6aba943a542cde540e8df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DigitalLove.XR.OVR::DigitalLove.XR.OVRSessionHelper
+  ovrSessionHelper: {fileID: 1351310012}
 --- !u!114 &1210227670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3725,6 +3798,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6146d39554ad05f429b4674387c231f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Analytics::DigitalLove.Game.Analytics.RoundEventsHelper
+  levelSelector: {fileID: 1235757813}
+--- !u!114 &1210227673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210227665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12a52d659961524cb64d23dd624ef7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Casual.Analytics::DigitalLove.Casual.Analytics.UserAgeCategoryEventHelper
+  metaPlatformHelper: {fileID: 1299450679}
+  sendOnStart: 1
 --- !u!1 &1231620512
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,6 +4220,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.UI.Behaviours::DigitalLove.UI.Behaviours.LookAtCameraOnY
   offset: 180
+--- !u!1 &1299450677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299450678}
+  - component: {fileID: 1299450679}
+  m_Layer: 0
+  m_Name: Platform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1299450678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299450677}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1972154422}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1299450679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299450677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6809dac8d11073d4abcc0c87830cd3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.XR.Platform::DigitalLove.XR.MetaPlatformHelper
 --- !u!1 &1310485748
 GameObject:
   m_ObjectHideFlags: 0
@@ -4181,6 +4313,50 @@ MonoBehaviour:
   posters:
   - {fileID: 5497837668605531769}
   - {fileID: 5497837668732915453}
+--- !u!1 &1351310010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351310011}
+  - component: {fileID: 1351310012}
+  m_Layer: 0
+  m_Name: OVRSessionHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351310011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351310010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1972154422}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351310012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351310010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e004017c6aba943a542cde540e8df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.XR.OVR::DigitalLove.XR.OVRSessionHelper
 --- !u!1 &1360751397
 GameObject:
   m_ObjectHideFlags: 0
@@ -5549,7 +5725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddf9c0f2465cbd41bea8ea596829f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.App.States.Setup::DigitalLove.Casual.Flow.Setup.InternetChecker
-  setupFunnelHelper: {fileID: 1210227667}
   internetRequiredPanel: {fileID: 3258995010952126742}
   forceInternetRequiredPanel:
     value: 0
@@ -6238,6 +6413,7 @@ Transform:
   - {fileID: 1097701443}
   - {fileID: 1243884016}
   - {fileID: 1162268083}
+  - {fileID: 1044390672}
   m_Father: {fileID: 1235757812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1869005711
@@ -6728,6 +6904,8 @@ Transform:
   - {fileID: 8047981335211663218}
   - {fileID: 5456522118234410087}
   - {fileID: 1263726604}
+  - {fileID: 1299450678}
+  - {fileID: 1351310011}
   m_Father: {fileID: 1568662588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1991196138

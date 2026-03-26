@@ -17,6 +17,7 @@ namespace DigitalLove.Game.Basket
         private List<BallBehaviour> ballsInside = new();
 
         public float Radius => radius;
+        public Vector3 WorldPosition => transform.position;
 
         public UnityEvent<int> scored;
 

@@ -1,5 +1,6 @@
 using System.Linq;
 using DigitalLove.Analytics;
+using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using Reflex.Attributes;
 using UnityEngine;
@@ -8,30 +9,47 @@ namespace DigitalLove.Game.Analytics
 {
     public class RoundEventsHelper : MonoBehaviour
     {
+        [SerializeField] private LevelSelector levelSelector;
+
         [Inject] private IAnalyticsProvider analyticsProvider;
         [Inject] private MemoryDataClient memoryDataClient;
 
-        public void SendBasketBeenSpawnedEvent(string levelId)
+        public void SendBasketHasBeenSpawnedEvent(float distanceToBasket)
         {
-            SendEvent("basket_has_been_spawned", levelId);
+            AnalyticsEvent analyticsEvent = GetAnalyticsEvent("basket_has_been_spawned");
+            analyticsEvent.AddLabel("distance_to_basket", distanceToBasket);
+            SendEvent(analyticsEvent);
         }
 
-        public void SendHasGrabbedBallEvent(string levelId)
+        public void SendHasSeenThrowZoneEvent()
         {
-            SendEvent("has_grabbed_ball", levelId);
+            SendEvent(GetAnalyticsEvent("has_seen_throw_zone"));
         }
 
-        public void SendHasScoredEvent(string levelId)
+        public void SendHasGrabbedBallEvent()
         {
-            SendEvent("has_scored", levelId);
+            SendEvent(GetAnalyticsEvent("has_grabbed_ball"));
         }
 
-        private void SendEvent(string key, string levelId)
+        public void SendHasScoredEvent()
         {
-            if (HasToSend(key))
+            SendEvent(GetAnalyticsEvent("has_scored"));
+        }
+
+        private AnalyticsEvent GetAnalyticsEvent(string key)
+        {
+            AnalyticsEvent analyticsEvent = new AnalyticsEvent(key);
+            Play play = memoryDataClient.Get<Play>();
+            analyticsEvent.AddLabel("level_id", levelSelector.GetCurrent().GetIdWithRound(play));
+            return analyticsEvent;
+        }
+
+        private void SendEvent(AnalyticsEvent analyticsEvent)
+        {
+            if (HasToSend(analyticsEvent.key))
             {
-                memoryDataClient.Get<Round>().events.Add(key);
-                analyticsProvider.Send(new AnalyticsEvent(key).AddLabel("level_id", levelId));
+                memoryDataClient.Get<Round>().events.Add(analyticsEvent.key);
+                analyticsProvider.Send(analyticsEvent);
             }
         }
 

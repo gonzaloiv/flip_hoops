@@ -58,6 +58,7 @@ namespace DigitalLove.Game
 
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             Spawn();
+            SendBasketHasSpawnEvent();
             ShowUI();
         }
 
@@ -66,7 +67,7 @@ namespace DigitalLove.Game
             ballSpawner.ballGrabbed -= OnBallGrabbed;
             ShowBasketPanel();
             grabBallPanel.Hide();
-            roundEventsHelper.SendHasGrabbedBallEvent(levelData.GetIdWithRound(play));
+            roundEventsHelper.SendHasGrabbedBallEvent();
             IEnumerator CountdownRoutine()
             {
                 int countdown = CountdownSecs;
@@ -116,7 +117,12 @@ namespace DigitalLove.Game
             basketSpawner.Spawn(gravity, throwZone.transform, levelData.distance);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravity);
-            roundEventsHelper.SendBasketBeenSpawnedEvent(levelData.GetIdWithRound(play));
+        }
+
+        private void SendBasketHasSpawnEvent()
+        {
+            float distanceToCamera = Vector3.Distance(basketSpawner.Basket.WorldPosition, Camera.main.transform.position);
+            roundEventsHelper.SendBasketHasBeenSpawnedEvent(distanceToCamera);
         }
     }
 }
