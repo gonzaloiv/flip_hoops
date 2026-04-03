@@ -15,19 +15,18 @@ namespace DigitalLove.Game.UI
             Debug.LogWarning($"gravityDirection {gravityDirection}");
             if (!onTheWallSpawner.HasBeenSpawned)
                 onTheWallSpawner.Spawn();
-            content.transform.localRotation = Quaternion.identity;
-            bool isInvertedGravity = gravityDirection.y < 0f;
-            Debug.LogWarning($"gravityDirection.y {gravityDirection.y}");
-            if (isInvertedGravity)
+            if (gravityDirection.y < 0f)
+            {
+                content.transform.localRotation = Quaternion.identity;
+            }
+            else if (gravityDirection.y > 0f)
             {
                 content.transform.localRotation = Quaternion.Euler(0, 0, 180);
             }
             else
             {
-                float magnitude = gravityDirection.sqrMagnitude;
-                Debug.LogWarning($"magnitude{magnitude}");
-                if (magnitude > 0)
-                    content.transform.localRotation = Quaternion.Euler(0, 0, magnitude * -90);
+                Debug.LogWarning($"magnitude{gravityDirection.sqrMagnitude}");
+                content.transform.localRotation = Quaternion.Euler(0, 0, gravityDirection.sqrMagnitude * -90);
             }
         }
     }

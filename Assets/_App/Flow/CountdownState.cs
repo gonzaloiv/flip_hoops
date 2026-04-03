@@ -20,6 +20,7 @@ namespace DigitalLove.Game
     public class CountdownState : BaseState
     {
         private const int CountdownSecs = 3;
+        private int MaxIterations = 5;
 
         [Header("Scene")]
         [SerializeField] private LevelSelector levelSelector;
@@ -44,6 +45,7 @@ namespace DigitalLove.Game
 
         private Play play;
         private GameLevelData levelData;
+        private int iterations;
 
         public override void Init(StateMachine parent)
         {
@@ -129,12 +131,31 @@ namespace DigitalLove.Game
 
         private void Spawn()
         {
+            iterations = MaxIterations;
             GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
-            throwZone.Spawn(); // ? Basket spawning gets position based on distance to throw zone
-            Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(gravity, throwZone.transform, levelData.distance);
+            Vector3 gravityDirection = GetGravityDirection(gravity);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravityDirection);
+        }
+
+
+
+        private Vector3 GetGravityDirection(GravityData gravity)
+        {
+            iterations--;
+            throwZone.Spawn(); // ? Basket spawning gets position based on distance to throw zone
+            Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(gravity, throwZone.transform, levelData.distance);
+            if (gravityDirection == Vector3.zero && iterations > 0)
+            {
+                throwZone.Unspawn();
+                basketSpawner.Hide();
+                return GetGravityDirection(gravity);
+            }
+            else
+            {
+                return gravityDirection;
+            }
         }
 
         private void SendBasketHasSpawnEvent()

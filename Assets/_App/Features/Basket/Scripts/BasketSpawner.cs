@@ -1,5 +1,4 @@
 using System;
-using DG.Tweening;
 using DigitalLove.Game.Court;
 using DigitalLove.XR;
 using Meta.XR.MRUtilityKit;
@@ -77,8 +76,13 @@ namespace DigitalLove.Game.Basket
             bool isInSpawnZone = distance > distancesToReference[0] && distance < distancesToReference[1];
             if (!isInSpawnZone)
                 return Vector3.zero;
-            Vector3 checkSpherePosition = candidate - basket.Radius * 1.1f * normal;
-            bool isColliding = Physics.CheckSphere(checkSpherePosition, basket.Radius, layerMask);
+            Debug.LogWarning($"gravity.surfaceTypes {gravity.surfaceTypes}");
+            float radiusOffset = basket.Radius;
+            Vector3 startPosition = candidate + normal.normalized * basket.Radius;
+            Debug.LogWarning($"startPosition {startPosition}");
+            Vector3 endPosition = candidate + normal.normalized * (basket.Height + basket.Radius);
+            Debug.LogWarning($"endPosition {endPosition}");
+            bool isColliding = Physics.CheckCapsule(startPosition, endPosition, basket.Radius, layerMask);
             if (isColliding)
                 return Vector3.zero;
             return candidate;

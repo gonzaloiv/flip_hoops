@@ -10,13 +10,19 @@ namespace DigitalLove.Game.Basket
     {
         [SerializeField] private int maxBallsInside = 3;
         [SerializeField] private LayerMask ballLayerMask;
-        [SerializeField] private float radius;
         [SerializeField] private ParticleSystem ps;
         [SerializeField] private Collider trigger;
+        [SerializeField] private GameObject lookHerePanel;
 
         private List<BallBehaviour> ballsInside = new();
 
+        [Header("Physics")]
+        [SerializeField] private float radius;
         public float Radius => radius;
+
+        [SerializeField] private float height = 1f;
+        public float Height => height;
+
         public Vector3 WorldPosition => transform.position;
 
         public UnityEvent<int> scored;
@@ -70,7 +76,7 @@ namespace DigitalLove.Game.Basket
             transform.up = upDirection;
             SetTriggerActive(false);
             gameObject.SetActive(true);
-
+            lookHerePanel.SetActive(true);
         }
 
         public void Hide()

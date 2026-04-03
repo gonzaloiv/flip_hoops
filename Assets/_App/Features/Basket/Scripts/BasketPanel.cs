@@ -8,14 +8,14 @@ namespace DigitalLove.Game.Basket
 {
     public class BasketPanel : MonoBehaviour
     {
-        [Header("Main")]
+        [Header("Level Info")]
         [SerializeField] private TextMeshProUGUI initLabel;
         [SerializeField] private TextMeshProUGUI infoLabel;
+        [SerializeField] private GameObject levelPanel;
         [SerializeField] private float secsActive = 5;
-        [SerializeField] private GameObject content;
-        [SerializeField] private ScalePunch scalePunch;
 
         [Header("Score")]
+        [SerializeField] private ScalePunch scalePunch;
         [SerializeField] private TextMeshProUGUI scoreLabel;
         [SerializeField] private float scoreSecsActive = 2;
 
@@ -24,14 +24,14 @@ namespace DigitalLove.Game.Basket
             gameObject.SetActive(true);
             initLabel.text = initText;
             infoLabel.text = infoText;
-            this.InvokeAfterSecs(secsActive, () => content.SetActive(false));
-            content.SetActive(true);
+            this.InvokeAfterSecs(secsActive, () => levelPanel.SetActive(false));
+            levelPanel.SetActive(true);
             scoreLabel.enabled = false;
         }
 
         public void ShowScore(int score)
         {
-            content.SetActive(false);
+            levelPanel.SetActive(false);
             scalePunch.Animate();
             scoreLabel.text = $"+{score}";
             scoreLabel.enabled = true;
@@ -48,7 +48,7 @@ namespace DigitalLove.Game.Basket
 
         public void HideAll()
         {
-            content.SetActive(false);
+            levelPanel.SetActive(false);
             scoreLabel.enabled = false;
         }
     }
