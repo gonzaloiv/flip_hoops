@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DigitalLove.Game.Court;
 using DigitalLove.Global;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace DigitalLove.Game.Balls
 
         private List<BallBehaviour> balls = new();
         private List<string> validIds;
-        private GravityData gravity;
+        private Vector3 gravityDirection;
 
         public Action ballGrabbed = () => { };
 
@@ -38,7 +37,7 @@ namespace DigitalLove.Game.Balls
 
         private void OnBallUnselected()
         {
-            if (gravity == null)
+            if (gravityDirection == Vector3.zero)
                 return;
             foreach (BallSpawnPoint point in points)
             {
@@ -47,11 +46,11 @@ namespace DigitalLove.Game.Balls
             }
         }
 
-        public void Spawn(List<BallData> balls, GravityData gravity)
+        public void Spawn(List<BallData> balls, Vector3 gravityDirection)
         {
             Unspawn();
             validIds = balls.Select(b => b.id).ToList();
-            this.gravity = gravity;
+            this.gravityDirection = gravityDirection;
             foreach (BallSpawnPoint point in points)
             {
                 SetupBallForPoint(point);
@@ -62,7 +61,7 @@ namespace DigitalLove.Game.Balls
         {
             BallBehaviour ball = GetInactiveValidBall();
             ball.transform.position = point.reference.position;
-            ball.Gravity = gravity;
+            ball.GravityDirection = gravityDirection;
             point.ball = ball;
             if (secsBeforeSpawn != 0)
             {
@@ -82,7 +81,7 @@ namespace DigitalLove.Game.Balls
 
         public void Unspawn()
         {
-            gravity = null;
+            gravityDirection = Vector3.zero;
             foreach (BallBehaviour ball in balls)
             {
                 ball.transform.position = new Vector3(100, 100, 100);

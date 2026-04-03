@@ -23,14 +23,14 @@ namespace DigitalLove.Game.Balls
 
         public UnityEvent collisionEnter;
 
-        private GravityData gravity;
+        private Vector3 gravityDirection;
         private Queue<Vector3> queue = new();
         private bool isSelected;
         private bool hasBeenUnselected;
         private Vector3 previousPosition;
 
         public BallData Data => data;
-        public GravityData Gravity { set { gravity = value; } }
+        public Vector3 GravityDirection { set { gravityDirection = value; } }
         public bool HasBeenUnselected => hasBeenUnselected;
         public bool IsActive => gameObject.activeInHierarchy;
         public int Score => data.score;
@@ -45,7 +45,7 @@ namespace DigitalLove.Game.Balls
 
         private void OnDisable()
         {
-            gravity = null;
+            gravityDirection = Vector3.zero;
             grabbable.WhenPointerEventRaised -= ListenPointer;
         }
 
@@ -104,9 +104,9 @@ namespace DigitalLove.Game.Balls
                 queue.Enqueue(delta);
                 previousPosition = transform.position;
             }
-            else if (hasBeenUnselected && gravity != null)
+            else if (hasBeenUnselected && gravityDirection != Vector3.zero)
             {
-                rb.AddForce(gravity.direction * gravity.force, ForceMode.Force);
+                rb.AddForce(gravityDirection * GravityData.Force, ForceMode.Force);
             }
         }
 

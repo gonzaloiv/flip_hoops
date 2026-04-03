@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6d2cff0de2a1574689473d64549f90d, type: 3}
-  m_Name: GravityData.Down
+  m_Name: GravityData.Walls
   m_EditorClassIdentifier: DigitalLove.Game.Gravities::DigitalLove.Game.Gravities.GravityData
-  direction: {x: 0, y: -1, z: 0}
+  direction: {x: 0, y: 1, z: 0}
   force: 6
-  sceneLabels: 1
-  surfaceTypes: 1
+  sceneLabels: 8196
+  surfaceTypes: 2
   basket: {fileID: 4010251320025188349, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}

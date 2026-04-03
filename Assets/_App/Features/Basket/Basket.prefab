@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 8289941976766518051}
   - component: {fileID: 8957825591210914220}
   m_Layer: 12
-  m_Name: Basket Floor
+  m_Name: Basket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

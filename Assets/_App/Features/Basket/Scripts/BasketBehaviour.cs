@@ -63,5 +63,19 @@ namespace DigitalLove.Game.Basket
         {
             trigger.enabled = isActive;
         }
+
+        public void Show(Vector3 position, Vector3 upDirection)
+        {
+            transform.position = position;
+            transform.up = upDirection;
+            SetTriggerActive(false);
+            gameObject.SetActive(true);
+
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

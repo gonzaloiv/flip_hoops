@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Gravities::DigitalLove.Game.Gravities.GravityData
   direction: {x: 0, y: 1, z: 0}
   force: 6
-  material: {fileID: 2100000, guid: 0ebaf9cd8d3660f438b18a70e34926c7, type: 2}
   sceneLabels: 2
   surfaceTypes: 2
-  basket: {fileID: 5778879436721609575, guid: ec71e3825670abc468b06251317316d5, type: 3}
+  basket: {fileID: 4010251320025188349, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}

@@ -21,7 +21,7 @@ namespace DigitalLove.Game
 
         [Header("Scene")]
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private GravitySpawner gravitiesBehaviour;
+        [SerializeField] private GravitySelector gravitySelector;
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ThrowZone throwZone;
@@ -32,6 +32,7 @@ namespace DigitalLove.Game
         [SerializeField] private GrabBallPanel grabBallPanel;
         [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
         [SerializeField] private FindTheHoopPanel findTheHoopPanel;
+        [SerializeField] private PosterBehaviour[] posters;
 
         [Header("Analytics")]
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
@@ -46,6 +47,7 @@ namespace DigitalLove.Game
         {
             base.Init(parent);
             grabBallPanel.Hide();
+            basketSpawner.Hide();
         }
 
         public override void Enter()
@@ -112,11 +114,12 @@ namespace DigitalLove.Game
 
         private void Spawn()
         {
-            GravityData gravity = gravitiesBehaviour.Spawn(levelData.gravities);
-            throwZone.Spawn();
-            basketSpawner.Spawn(gravity, throwZone.transform, levelData.distance);
+            GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
+            throwZone.Spawn(); // ? Basket spawning gets position based on distance to throw zone
+            Vector3 gravityDirection = basketSpawner.Spawn(gravity, throwZone.transform, levelData.distance);
+            posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
-            ballSpawner.Spawn(levelData.balls, gravity);
+            ballSpawner.Spawn(levelData.balls, gravityDirection);
         }
 
         private void SendBasketHasSpawnEvent()

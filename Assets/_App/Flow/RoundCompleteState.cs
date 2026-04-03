@@ -19,7 +19,7 @@ namespace DigitalLove.Game
         private int RoundCompleteSecs = 5;
 
         [SerializeField] private string tableName = "Levels";
-        [SerializeField] private GravitySpawner gravitiesBehaviour;
+        [SerializeField] private GravitySelector gravitiesBehaviour;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
@@ -97,7 +97,7 @@ namespace DigitalLove.Game
         {
             play.IncreaseTries();
             throwZone.Unspawn();
-            basketSpawner.Unspawn();
+            basketSpawner.Hide();
             base.ToNextState();
         }
 

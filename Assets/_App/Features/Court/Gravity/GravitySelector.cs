@@ -1,21 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
-using DigitalLove.Game.UI;
 using UnityEngine;
 
 namespace DigitalLove.Game.Court
 {
-    public class GravitySpawner : MonoBehaviour
+    public class GravitySelector : MonoBehaviour
     {
-        [SerializeField] private PosterBehaviour[] posters;
+        [Header("Debug")]
+        [SerializeField] private GravityData current;
 
-        private GravityData current;
-
-        public GravityData Spawn(List<GravityData> gravities)
+        public GravityData SelectRandom(List<GravityData> gravities)
         {
-            current = GetRandom(gravities);
-            SpawnPosters();
-            return current;
+            return GetRandom(gravities);
         }
 
         private GravityData GetRandom(List<GravityData> gravities)
@@ -28,14 +24,6 @@ namespace DigitalLove.Game.Court
             {
                 List<GravityData> selection = gravities.Where(g => g != current).ToList();
                 return current = selection[Random.Range(0, selection.Count)];
-            }
-        }
-
-        private void SpawnPosters()
-        {
-            foreach (PosterBehaviour poster in posters)
-            {
-                poster.Show(current.direction);
             }
         }
     }

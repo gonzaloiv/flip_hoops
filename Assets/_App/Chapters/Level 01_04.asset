@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31386a98f32a54045a89220fd388a0e3, type: 3}
-  m_Name: _Level for Testing
+  m_Name: Level 01_04
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.Levels.GameLevelData
-  id: Testing
+  id: 01_04
   prefab: {fileID: 258401745657639714, guid: 9f592e0141aef5a4c9db32de95f71588, type: 3}
   gravities:
   - {fileID: 11400000, guid: 90ad00e3fa9b4fa4cabf8c556a37132f, type: 2}
@@ -20,3 +20,6 @@ MonoBehaviour:
   balls:
   - {fileID: 11400000, guid: 10a2f600d6bb42e4e9382ea8477626fb, type: 2}
   - {fileID: 11400000, guid: ad138f1cc4357084c9b49bfdba37bfc0, type: 2}
+  distance:
+  - 1.25
+  - 1.75

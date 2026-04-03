@@ -6,11 +6,9 @@ namespace DigitalLove.Game.Court
     [CreateAssetMenu(fileName = "GravityData", menuName = "DigitalLove/Game/GravityData")]
     public class GravityData : ScriptableObject
     {
-        public Vector3 direction;
-        public float force;
-        public Material material;
+        public const float Force = 6;
+
         public MRUKAnchor.SceneLabels sceneLabels;
         public MRUK.SurfaceType surfaceTypes;
-        public GameObject basket;
     }
 }

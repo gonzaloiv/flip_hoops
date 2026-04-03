@@ -12,26 +12,30 @@ namespace DigitalLove.Game.Basket
 
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private MRUKUtil mrukUtil;
+        [SerializeField] private BasketBehaviour basket;
+        [SerializeField] private BasketPanel panel;
+
+        [Header("Debug")]
+        [SerializeField] private Vector3 normal;
 
         private int iterations;
 
-        private BasketBehaviour basket;
         public BasketBehaviour Basket => basket;
-
-        private BasketPanel panel;
         public BasketPanel Panel => panel;
 
         public Action<int> scored = (score) => { };
 
-        public void Spawn(GravityData gravity, Transform reference, float[] distancesToReference)
+        private void Start()
+        {
+            basket.scored.AddListener(OnBasketScored);
+        }
+
+        public Vector3 Spawn(GravityData gravity, Transform reference, float[] distancesToReference)
         {
             iterations = MaxIterations;
-            basket = Instantiate(gravity.basket, transform).GetComponent<BasketBehaviour>();
-            basket.SetTriggerActive(false);
-            basket.transform.position = GetPosition(gravity, reference, distancesToReference);
-            basket.scored.AddListener(OnBasketScored);
-            panel = basket.GetComponentInChildren<BasketPanel>();
+            basket.Show(GetPosition(gravity, reference, distancesToReference), normal);
             panel.HideAll();
+            return -normal;
         }
 
         private Vector3 GetPosition(GravityData gravity, Transform reference, float[] distancesToReference)
@@ -58,12 +62,12 @@ namespace DigitalLove.Game.Basket
 
         public Vector3 GetPositionOnSurface(GravityData gravity, Transform reference, float[] distancesToReference)
         {
-            MRUK.Instance.GetCurrentRoom().GenerateRandomPositionOnSurface(gravity.surfaceTypes, basket.Radius, new LabelFilter(gravity.sceneLabels), out Vector3 candidate, out Vector3 normal);
+            MRUK.Instance.GetCurrentRoom().GenerateRandomPositionOnSurface(gravity.surfaceTypes, basket.Radius, new LabelFilter(gravity.sceneLabels), out Vector3 candidate, out normal);
             float distance = Vector3.Distance(candidate, new Vector3(reference.position.x, candidate.y, reference.position.z));
             bool isInSpawnZone = distance > distancesToReference[0] && distance < distancesToReference[1];
             if (!isInSpawnZone)
                 return Vector3.zero;
-            Vector3 checkSpherePosition = candidate - gravity.direction * basket.Radius * 2;
+            Vector3 checkSpherePosition = candidate - normal * basket.Radius * 2;
             bool isColliding = Physics.CheckSphere(checkSpherePosition, basket.Radius, layerMask);
             if (isColliding)
                 return Vector3.zero;
@@ -76,10 +80,14 @@ namespace DigitalLove.Game.Basket
             Panel.ShowScore(score);
         }
 
-        public void Unspawn()
+        public void Hide()
+        {
+            basket.Hide();
+        }
+
+        private void OnDestroy()
         {
             basket.scored.RemoveListener(OnBasketScored);
-            Destroy(basket.gameObject);
         }
     }
 }
