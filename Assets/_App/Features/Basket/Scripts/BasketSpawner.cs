@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using DigitalLove.Game.Court;
 using DigitalLove.XR;
 using Meta.XR.MRUtilityKit;
@@ -30,12 +31,21 @@ namespace DigitalLove.Game.Basket
             basket.scored.AddListener(OnBasketScored);
         }
 
-        public Vector3 Spawn(GravityData gravity, Transform reference, float[] distancesToReference)
+        public Vector3 SpawnAndGetGravityDirection(GravityData gravity, Transform reference, float[] distancesToReference)
         {
             iterations = MaxIterations;
-            basket.Show(GetPosition(gravity, reference, distancesToReference), normal);
+            Vector3 candidate = GetPosition(gravity, reference, distancesToReference);
             panel.HideAll();
-            return -normal;
+            if (candidate == Vector3.zero)
+            {
+                return Vector3.zero;
+            }
+            else
+            {
+                basket.Show(candidate, normal);
+                // panel.transform.up = normal;
+                return -normal;
+            }
         }
 
         private Vector3 GetPosition(GravityData gravity, Transform reference, float[] distancesToReference)
@@ -67,7 +77,7 @@ namespace DigitalLove.Game.Basket
             bool isInSpawnZone = distance > distancesToReference[0] && distance < distancesToReference[1];
             if (!isInSpawnZone)
                 return Vector3.zero;
-            Vector3 checkSpherePosition = candidate - normal * basket.Radius * 2;
+            Vector3 checkSpherePosition = candidate - basket.Radius * 1.1f * normal;
             bool isColliding = Physics.CheckSphere(checkSpherePosition, basket.Radius, layerMask);
             if (isColliding)
                 return Vector3.zero;

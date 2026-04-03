@@ -9,9 +9,11 @@ using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.UI;
+using DigitalLove.Global;
 using DigitalLove.Localization;
 using Reflex.Attributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DigitalLove.Game
 {
@@ -64,6 +66,10 @@ namespace DigitalLove.Game
             ShowUI();
         }
 
+        [Button]
+        private void InvokeOnBallGrabbed() => OnBallGrabbed();
+
+
         private void OnBallGrabbed()
         {
             ballSpawner.ballGrabbed -= OnBallGrabbed;
@@ -112,11 +118,20 @@ namespace DigitalLove.Game
             findTheHoopPanel.Show();
         }
 
+        [Button]
+        private void Respawn()
+        {
+            ballSpawner.Unspawn();
+            throwZone.Unspawn();
+            basketSpawner.Hide();
+            Spawn();
+        }
+
         private void Spawn()
         {
             GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
             throwZone.Spawn(); // ? Basket spawning gets position based on distance to throw zone
-            Vector3 gravityDirection = basketSpawner.Spawn(gravity, throwZone.transform, levelData.distance);
+            Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(gravity, throwZone.transform, levelData.distance);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravityDirection);

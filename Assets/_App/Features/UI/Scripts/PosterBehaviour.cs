@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using DigitalLove.XR;
 using UnityEngine;
@@ -12,9 +12,23 @@ namespace DigitalLove.Game.UI
 
         public void Show(Vector3 gravityDirection)
         {
+            Debug.LogWarning($"gravityDirection {gravityDirection}");
             if (!onTheWallSpawner.HasBeenSpawned)
                 onTheWallSpawner.Spawn();
-            content.transform.localRotation = Quaternion.Euler(0, 0, gravityDirection.y == -1 ? 0 : 180);
+            content.transform.localRotation = Quaternion.identity;
+            bool isInvertedGravity = gravityDirection.y < 0f;
+            Debug.LogWarning($"gravityDirection.y {gravityDirection.y}");
+            if (isInvertedGravity)
+            {
+                content.transform.localRotation = Quaternion.Euler(0, 0, 180);
+            }
+            else
+            {
+                float magnitude = gravityDirection.sqrMagnitude;
+                Debug.LogWarning($"magnitude{magnitude}");
+                if (magnitude > 0)
+                    content.transform.localRotation = Quaternion.Euler(0, 0, magnitude * -90);
+            }
         }
     }
 
