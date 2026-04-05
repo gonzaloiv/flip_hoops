@@ -139,8 +139,6 @@ namespace DigitalLove.Game
             ballSpawner.Spawn(levelData.balls, gravityDirection);
         }
 
-
-
         private Vector3 GetGravityDirection(GravityData gravity)
         {
             iterations--;

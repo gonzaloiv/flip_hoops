@@ -1,4 +1,4 @@
-using DigitalLove.FX;
+using DigitalLove.VFX;
 using DigitalLove.XR;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;

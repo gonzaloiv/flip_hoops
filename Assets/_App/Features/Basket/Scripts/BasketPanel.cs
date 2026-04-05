@@ -1,4 +1,4 @@
-using DigitalLove.FX;
+using DigitalLove.VFX;
 using DigitalLove.Global;
 using DigitalLove.Localization;
 using TMPro;
