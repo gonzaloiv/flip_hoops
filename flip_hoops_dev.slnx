@@ -1,6 +1,5 @@
 ﻿<Solution>
   <Project Path="DigitalLove.TTS.csproj" />
-  <Project Path="BuildReportTool.csproj" />
   <Project Path="DigitalLove.UI.DesignSystem.Localization.csproj" />
   <Project Path="DigitalLove.XR.Core.csproj" />
   <Project Path="Vendor.GameAnalytics.Editor.csproj" />
