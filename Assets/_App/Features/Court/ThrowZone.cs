@@ -1,5 +1,5 @@
 using DigitalLove.VFX;
-using DigitalLove.XR;
+using DigitalLove.XR.MRUtilityKit;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
 

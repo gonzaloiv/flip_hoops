@@ -1,8 +1,7 @@
 using System;
 using DigitalLove.Game.Court;
-using DigitalLove.XR;
+using DigitalLove.XR.MRUtilityKit;
 using Meta.XR.MRUtilityKit;
-using Meta.XR.MRUtilityKit.SceneDecorator;
 using UnityEngine;
 
 namespace DigitalLove.Game.Basket

@@ -1,6 +1,6 @@
 using DigitalLove.DataAccess;
 using DigitalLove.Global;
-using DigitalLove.XR;
+using DigitalLove.XR.MRUtilityKit;
 using Reflex.Attributes;
 using TMPro;
 using UnityEngine;
