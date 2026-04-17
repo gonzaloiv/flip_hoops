@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
@@ -12,6 +13,9 @@ namespace DigitalLove.Game
         [SerializeField] private GameLevelData[] firstSessionLevels;
         [SerializeField] private GameLevelData[] levels;
 
+        [Header("Debug")]
+        [SerializeField] private GameLevelData current;
+
         [Inject] private MemoryDataClient memoryDataClient;
 
         public GameLevelData GetCurrent()
@@ -20,12 +24,14 @@ namespace DigitalLove.Game
             int roundIndex = memoryDataClient.Get<Play>().Tries;
             if (data.Length <= roundIndex)
             {
-                return data.Last();
+                current = data.Last();
+
             }
             else
             {
-                return data[roundIndex];
+                current = data[roundIndex];
             }
+            return current;
         }
     }
 }

@@ -1,0 +1,17 @@
+{
+    "name": "DigitalLove.Game.Modifiers",
+    "rootNamespace": "",
+    "references": [
+        "GUID:447181e61705f4d6f954add1124817a5",
+        "GUID:fe5d69302f4d8a940849caf8ffb59889"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

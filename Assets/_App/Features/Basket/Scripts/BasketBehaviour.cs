@@ -29,7 +29,7 @@ namespace DigitalLove.Game.Basket
 
         public Vector3 WorldPosition => transform.position;
 
-        public UnityEvent<int> scored;
+        public UnityEvent<ScoredEventArgs> scored;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -58,7 +58,7 @@ namespace DigitalLove.Game.Basket
         private void OnScored(int score)
         {
             ps.Play();
-            scored.Invoke(score);
+            scored.Invoke(new(score, panelRef));
         }
 
         [Button]
@@ -81,7 +81,7 @@ namespace DigitalLove.Game.Basket
             transform.up = upDirection;
             SetTriggerActive(false);
             gameObject.SetActive(true);
-            lookHerePanel.SetActive(true);
+            lookHerePanel?.SetActive(true);
         }
 
         public void Hide()

@@ -1,4 +1,5 @@
 using System;
+using DigitalLove.Game.Levels;
 using UnityEngine;
 
 namespace DigitalLove.Game
@@ -7,7 +8,7 @@ namespace DigitalLove.Game
     {
         protected Action onComplete;
 
-        public abstract void DoStart();
+        public abstract void DoStart(GameLevelData levelData);
 
         public void SetOnComplete(Action onComplete)
         {

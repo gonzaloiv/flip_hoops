@@ -2,6 +2,7 @@ using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Modifiers;
 using UnityEngine;
 
 namespace DigitalLove.Game
@@ -30,7 +31,7 @@ namespace DigitalLove.Game
             basketSpawner.Basket.SetTriggerActive(true);
             GameLevelData levelData = levelSelector.GetCurrent();
             BaseRoundChecker checker = levelData.IsWarmUp ? scoreChecker : countdownChecker;
-            checker.DoStart();
+            checker.DoStart(levelData);
         }
 
         private void OnScored(int score)

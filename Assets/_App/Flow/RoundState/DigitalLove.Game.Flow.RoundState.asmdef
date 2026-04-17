@@ -1,0 +1,25 @@
+{
+    "name": "DigitalLove.Game.Flow.RoundState",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ddca81f93c9e44d2fbf5efa600ddbada",
+        "GUID:fe5d69302f4d8a940849caf8ffb59889",
+        "GUID:447181e61705f4d6f954add1124817a5",
+        "GUID:1530a967b84cfb44dbdd5e8a1989764f",
+        "GUID:1fad3ef53db4844a79bb95d8f18d033d",
+        "GUID:65917f6bc12bb4a4cad49ea83a119a2b",
+        "GUID:84bf6b279981c1b4d9e12424b2714e57",
+        "GUID:41741fc70e2562e498cc7127cf8aa8b3",
+        "GUID:5d89ae3de2e84af44a0aa195a84f5c21",
+        "GUID:260aed395b0c10249b0ff06e8b99c976"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

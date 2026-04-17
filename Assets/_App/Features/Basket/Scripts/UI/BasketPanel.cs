@@ -1,6 +1,4 @@
-using DigitalLove.VFX;
 using DigitalLove.Global;
-using DigitalLove.Localization;
 using TMPro;
 using UnityEngine;
 
@@ -13,11 +11,7 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private TextMeshProUGUI infoLabel;
         [SerializeField] private GameObject levelPanel;
         [SerializeField] private float secsActive = 5;
-
-        [Header("Score")]
-        [SerializeField] private ScalePunch scalePunch;
-        [SerializeField] private TextMeshProUGUI scoreLabel;
-        [SerializeField] private float scoreSecsActive = 2;
+        [SerializeField] private ScorePanel scorePanel;
 
         public void Show(string initText, string infoText)
         {
@@ -26,30 +20,30 @@ namespace DigitalLove.Game.Basket
             infoLabel.text = infoText;
             this.InvokeAfterSecs(secsActive, () => levelPanel.SetActive(false));
             levelPanel.SetActive(true);
-            scoreLabel.enabled = false;
+            scorePanel.Hide();
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+            scorePanel.Hide();
         }
 
         public void ShowScore(int score)
         {
             levelPanel.SetActive(false);
-            scalePunch.Animate();
-            scoreLabel.text = $"+{score}";
-            scoreLabel.enabled = true;
-            this.InvokeAfterSecs(scoreSecsActive, () => scoreLabel.enabled = false);
+            scorePanel.Show(score);
         }
 
         public void ShowCountdown(int value, float secsActive = 0.5f)
         {
-            scalePunch.Animate();
-            scoreLabel.text = value > 0 ? value.ToString() : LocalizationUtil.GetValue("go");
-            scoreLabel.enabled = true;
-            this.InvokeAfterSecs(secsActive, () => scoreLabel.enabled = false);
+            scorePanel.ShowCountdown(value, secsActive);
         }
 
         public void HideAll()
         {
             levelPanel.SetActive(false);
-            scoreLabel.enabled = false;
+            scorePanel.Hide();
         }
     }
 }

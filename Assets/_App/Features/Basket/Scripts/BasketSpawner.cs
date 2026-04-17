@@ -83,10 +83,10 @@ namespace DigitalLove.Game.Basket
                 position = Vector3.zero;
         }
 
-        private void OnBasketScored(int score)
+        private void OnBasketScored(ScoredEventArgs args)
         {
-            scored.Invoke(score);
-            Panel.ShowScore(score);
+            scored.Invoke(args.score);
+            Panel.ShowScore(args.score);
         }
 
         public void Hide()

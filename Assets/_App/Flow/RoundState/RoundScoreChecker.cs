@@ -1,12 +1,13 @@
 using DigitalLove.DataAccess;
 using DigitalLove.Game;
 using DigitalLove.Game.Basket;
+using DigitalLove.Game.Levels;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace DigitalLove
+namespace DigitalLove.Game
 {
     public class RoundScoreChecker : BaseRoundChecker
     {
@@ -18,7 +19,7 @@ namespace DigitalLove
 
         private Round round;
 
-        public override void DoStart()
+        public override void DoStart(GameLevelData levelData)
         {
             round = memoryDataClient.Get<Round>();
             basketSpawner.scored += OnScored;

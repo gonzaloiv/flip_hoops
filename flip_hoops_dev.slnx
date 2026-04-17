@@ -37,14 +37,16 @@
   <Project Path="DigitalLove.Game.UI.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="DigitalLove.Theming.csproj" />
+  <Project Path="DigitalLove.Game.Modifiers.csproj" />
   <Project Path="DigitalLove.DataAccess.Local.csproj" />
   <Project Path="DigitalLove.Timeline.Integrations.csproj" />
   <Project Path="DigitalLove.Game.Levels.csproj" />
   <Project Path="DigitalLove.Analytics.GameAnalytics.csproj" />
   <Project Path="DigitalLove.Audio.Runtime.csproj" />
-  <Project Path="DigitalLove.Game.Flow.csproj" />
+  <Project Path="DigitalLove.Game.Flow.RoundState.csproj" />
   <Project Path="DigitalLove.XR.Platform.csproj" />
   <Project Path="DigitalLove.XR.ARFoundation.csproj" />
+  <Project Path="DigitalLove.Game.Flow.csproj" />
   <Project Path="Unity.XR.Hands.Samples.VisualizerSample.csproj" />
   <Project Path="DigitalLove.VFX.ShadowLike.csproj" />
   <Project Path="Simple360Render.Runtime.csproj" />
