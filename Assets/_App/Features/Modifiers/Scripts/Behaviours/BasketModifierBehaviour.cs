@@ -17,6 +17,7 @@ namespace DigitalLove.Game.Modifiers
             base.Init(throwZoneTransform, basketTransform, scored);
             SetOriginRelatedPosition(throwZoneTransform, basketTransform);
             scorePanel.transform.position = basket.PanelRef.position;
+            scorePanel.Hide();
         }
 
         private void SetOriginRelatedPosition(Transform throwZoneTransform, Transform basketTransform)
@@ -24,7 +25,7 @@ namespace DigitalLove.Game.Modifiers
             basket.transform.SetParent(basketTransform);
             basket.transform.localPosition = Vector3.zero;
             basket.transform.localRotation = Quaternion.identity;
-            basket.transform.localPosition += basketTransform.right * xOffset;
+            basket.transform.localPosition += throwZoneTransform.right * xOffset;
             basket.transform.localPosition += -throwZoneTransform.forward * yOffset;
             basket.transform.parent = transform;
         }

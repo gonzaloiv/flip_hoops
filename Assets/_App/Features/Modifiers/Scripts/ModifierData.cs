@@ -7,7 +7,7 @@ namespace DigitalLove.Game.Modifiers
     public class ModifierData : ScriptableObject
     {
         public string id;
-        public ModifierBehaviour prefab;
+        public GameObject prefab;
     }
 
     [Serializable]

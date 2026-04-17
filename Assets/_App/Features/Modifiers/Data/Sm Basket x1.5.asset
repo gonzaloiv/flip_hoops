@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sm Basket x1.5
   m_EditorClassIdentifier: DigitalLove.Game.Modifiers::DigitalLove.Game.Modifiers.ModifierData
   id: Sm Basket x1.5
-  prefab: {fileID: 6170647908980781648, guid: d8fac74c1d0fc2e40881e5ad2f700f03, type: 3}
+  prefab: {fileID: 7586016386418684626, guid: d8fac74c1d0fc2e40881e5ad2f700f03, type: 3}

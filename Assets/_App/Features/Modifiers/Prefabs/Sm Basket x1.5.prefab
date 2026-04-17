@@ -48,9 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Modifiers::DigitalLove.Game.Modifiers.BasketModifierBehaviour
   basket: {fileID: 6520394880022365736}
   scorePanel: {fileID: 7723031366264742907}
-  multiplier: 1.5
+  multiplier: 2
   xOffset: 0.25
-  yOffset: -0.125
+  yOffset: 0.125
 --- !u!1001 &2987807221632914699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,9 +131,25 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.09375
       objectReference: {fileID: 0}
+    - target: {fileID: 6625971126988031057, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625971126988031057, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625971126988031057, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8289941976766518051, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: lookHerePanel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289941976766518051, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
+      propertyPath: maxBallsInside
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8376391166800945351, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_LocalScale.x

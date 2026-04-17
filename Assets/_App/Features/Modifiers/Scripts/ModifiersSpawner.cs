@@ -22,8 +22,9 @@ namespace DigitalLove.Game.Modifiers
         public void DoStart(List<ModifierDataPercentagePair> pairs)
         {
             this.pairs = pairs;
-            this.InvokeAfterSecs(forceSpawn.Value ? 0 : startSecsDelay, Spawn);
-            this.InvokeAfterSecs(stopSecsDelay, Unspawn);
+            Spawn();
+            // this.InvokeAfterSecs(forceSpawn.Value ? 0 : startSecsDelay, Spawn);
+            // this.InvokeAfterSecs(stopSecsDelay, Unspawn);
         }
 
         private void Spawn()
@@ -32,7 +33,7 @@ namespace DigitalLove.Game.Modifiers
             {
                 if (pair.HasToSpawn)
                 {
-                    ModifierBehaviour modifier = Instantiate(pair.modifier.prefab, transform);
+                    ModifierBehaviour modifier = Instantiate(pair.modifier.prefab, transform).GetComponent<ModifierBehaviour>();
                     spawned.Add(modifier);
                     modifier.Init(throwZoneTransform, basketTransform, scored);
                 }
@@ -41,9 +42,9 @@ namespace DigitalLove.Game.Modifiers
 
         private void Unspawn()
         {
-            foreach (ModifierBehaviour modifier in spawned)
+            foreach (ModifierBehaviour m in spawned)
             {
-                Destroy(modifier.gameObject);
+                Destroy(m.gameObject);
             }
             spawned.Clear();
         }
@@ -51,6 +52,7 @@ namespace DigitalLove.Game.Modifiers
         public void DoStop()
         {
             Unspawn();
+            StopAllCoroutines();
         }
     }
 }

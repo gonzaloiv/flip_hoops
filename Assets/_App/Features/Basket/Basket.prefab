@@ -852,8 +852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.UI.Behaviours::DigitalLove.UI.HideWhenObserved
   col: {fileID: 5674611575690026424}
-  observedSecsToHide: 0.66
-  secsToHide: 0.66
+  observedSecsToHide: 0.25
+  secsToHide: 0.75
 --- !u!114 &5395156847996443315
 MonoBehaviour:
   m_ObjectHideFlags: 0
