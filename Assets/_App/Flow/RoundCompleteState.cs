@@ -11,6 +11,8 @@ using UnityEngine;
 using DigitalLove.Audio;
 using DigitalLove.Casual.Analytics;
 using DigitalLove.Casual.Levels;
+using DigitalLove.Game.Levels;
+using System.Threading.Tasks;
 
 namespace DigitalLove.Game
 {
@@ -31,45 +33,44 @@ namespace DigitalLove.Game
         [Inject] private MemoryDataClient memoryDataClient;
         [Inject] private UnityPlayerDataClient unityPlayerDataClient;
 
-        private LevelData levelData;
+        private GameLevelData levelData;
         private Play play;
-        private bool isHighestScore;
 
-        public override void Enter()
+        public override async void Enter()
         {
             levelData = levelSelector.GetCurrent();
             play = memoryDataClient.Get<Play>();
             ballSpawner.Unspawn();
-            SaveData();
-            ShowUI();
+            bool isHighestScore = await CheckScore();
+            ShowUI(isHighestScore);
             CountDown();
         }
 
-        private async void SaveData()
+        private async Task<bool> CheckScore()
         {
-            progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play));
-            isHighestScore = false;
             Round round = memoryDataClient.Get<Round>();
-            if (round.score <= 0) // ! Current round goal is not reaching high score 
-                return;
+            progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play), score: round.score);
+            if (levelData.IsWarmUp)
+                return false;
             PlayerData playerData = memoryDataClient.Get<PlayerData>();
             Cookie previousCookie = playerData.GetCookieById(highestScoreKey.value);
             if (previousCookie == null)
             {
-                isHighestScore = true;
                 previousCookie = new(highestScoreKey.value) { metadata = round.score.ToString() };
                 playerData.AddCookie(previousCookie);
                 await unityPlayerDataClient.Put(playerData);
+                return true;
             }
             else if (int.Parse(previousCookie.metadata) <= round.score)
             {
-                isHighestScore = true;
                 previousCookie.metadata = round.score.ToString();
                 await unityPlayerDataClient.Put(playerData);
+                return true;
             }
+            return false;
         }
 
-        private void ShowUI()
+        private void ShowUI(bool isHighestScore)
         {
             string initText = LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_title", play.RoundLabelValue());
             string infoText = !isHighestScore ? LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_info") :
