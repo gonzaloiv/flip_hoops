@@ -27,4 +27,4 @@ MonoBehaviour:
   - 1.75
   modifiers:
   - modifier: {fileID: 11400000, guid: 505d4ed1c01e25943ba8d07bfac2025f, type: 2}
-    percentage: 100
+    percentage: 35
