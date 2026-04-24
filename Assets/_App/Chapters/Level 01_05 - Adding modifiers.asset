@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31386a98f32a54045a89220fd388a0e3, type: 3}
-  m_Name: Level 01_04
+  m_Name: Level 01_05 - Adding modifiers
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.Levels.GameLevelData
-  id: 01_04
+  id: 01_05
   prefab: {fileID: 0}
   gravities:
   - {fileID: 11400000, guid: ea664f69d54babf408b1d0481f2fe040, type: 2}
@@ -25,4 +25,6 @@ MonoBehaviour:
   distance:
   - 1.25
   - 1.75
-  modifiers: []
+  modifiers:
+  - modifier: {fileID: 11400000, guid: 505d4ed1c01e25943ba8d07bfac2025f, type: 2}
+    percentage: 100

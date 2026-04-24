@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DigitalLove.Game
 {
-    public class RoundScoreChecker : BaseRoundChecker
+    public class RoundWarmUpChecker : BaseRoundChecker
     {
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private LevelSelector levelSelector;

@@ -16,6 +16,18 @@ PrefabInstance:
       propertyPath: score
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 853233370564235272, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.7725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 853233370564235272, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.6627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 853233370564235272, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.25490198
+      objectReference: {fileID: 0}
     - target: {fileID: 2590799862095003302, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.95725
@@ -56,6 +68,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3208119151612854899, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: defaultColor
+      value: 
+      objectReference: {fileID: 11400000, guid: 77d5df3d8a9e43b4ea7f36fa11dd90e6, type: 2}
+    - target: {fileID: 3208119151612854899, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: inStreakColor
+      value: 
+      objectReference: {fileID: 11400000, guid: d5d60ae84f0741a46970f0c55694c754, type: 2}
     - target: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: m_Name
       value: Ball - Blue

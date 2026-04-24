@@ -1,6 +1,5 @@
 using System.Collections;
 using DigitalLove.DataAccess;
-using DigitalLove.Game;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.Modifiers;
@@ -18,6 +17,7 @@ namespace DigitalLove.Game
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
         [SerializeField] private ModifiersSpawner modifiersSpawner;
+        [SerializeField] private StreakCounter streakCounter;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
@@ -26,14 +26,39 @@ namespace DigitalLove.Game
 
         public override void DoStart(GameLevelData levelData)
         {
-            basketSpawner.scored += OnScored;
-            modifiersSpawner.scored += OnScored;
+            basketSpawner.scored += OnBasketScored;
+            modifiersSpawner.scored += OnMultiplierScored;
 
             round = memoryDataClient.Get<Round>();
+            streakCounter.Reset();
             if (levelData.HasModifiers)
                 modifiersSpawner.DoStart(levelData.modifiers);
             StartCountdown();
         }
+
+        private void OnBasketScored(int score)
+        {
+            int realScore = DoScore(score);
+            basketSpawner.ShowScore(realScore, streakCounter.IsInStreak);
+        }
+
+        private void OnMultiplierScored(int score)
+        {
+            int realScore = DoScore(score);
+            modifiersSpawner.ShowScore(realScore, streakCounter.IsInStreak);
+        }
+
+        private int DoScore(int score)
+        {
+            streakCounter.IncrementStreak();
+            int realScore = (int)(score * streakCounter.CurrentStreakMultiplier);
+            round.score += realScore;
+            scoreboardSpawner.Panel.SetScore(realScore);
+            return realScore;
+        }
+
+        [Button]
+        public void CompleteRound() => countdown = 0;
 
         private void StartCountdown()
         {
@@ -52,19 +77,10 @@ namespace DigitalLove.Game
             StartCoroutine(CoundownRoutine());
         }
 
-        private void OnScored(int score)
-        {
-            round.score += score;
-            scoreboardSpawner.Panel.SetScore(round.score);
-        }
-
-        [Button]
-        public void CompleteRound() => countdown = 0;
-
         private void OnComplete()
         {
-            basketSpawner.scored -= OnScored;
-            modifiersSpawner.scored -= OnScored;
+            basketSpawner.scored -= OnBasketScored;
+            modifiersSpawner.scored -= OnMultiplierScored;
 
             modifiersSpawner.DoStop();
 

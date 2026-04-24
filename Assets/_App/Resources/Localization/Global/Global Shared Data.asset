@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: find_the_hoop
     m_Metadata:
       m_Items: []
+  - m_Id: 129840829513256960
+    m_Key: on_fire
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

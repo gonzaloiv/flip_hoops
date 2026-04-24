@@ -83,10 +83,9 @@ namespace DigitalLove.Game.Basket
                 position = Vector3.zero;
         }
 
-        private void OnBasketScored(ScoredEventArgs args)
+        private void OnBasketScored(int score)
         {
-            scored.Invoke(args.score);
-            Panel.ShowScore(args.score);
+            scored.Invoke(score);
         }
 
         public void Hide()
@@ -97,6 +96,11 @@ namespace DigitalLove.Game.Basket
         private void OnDestroy()
         {
             basket.scored.RemoveListener(OnBasketScored);
+        }
+
+        public void ShowScore(int score, bool hasMultiplier)
+        {
+            Panel.ShowScore(score, hasMultiplier);
         }
     }
 }

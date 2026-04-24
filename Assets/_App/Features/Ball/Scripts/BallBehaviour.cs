@@ -15,6 +15,7 @@ namespace DigitalLove.Game.Balls
         [SerializeField] private Rigidbody rb;
         [SerializeField] private int maxQueueValues = 10;
         [SerializeField] private float forceMultiplier = 10;
+        [SerializeField] private BallTrail trail;
 
         public UnityEvent hover;
         public UnityEvent unhover;
@@ -28,25 +29,31 @@ namespace DigitalLove.Game.Balls
         private bool isSelected;
         private bool hasBeenUnselected;
         private Vector3 previousPosition;
+        private bool hasScored;
+        private bool isInStreak;
 
         public BallData Data => data;
         public Vector3 GravityDirection { set { gravityDirection = value; } }
         public bool HasBeenUnselected => hasBeenUnselected;
         public bool IsActive => gameObject.activeInHierarchy;
         public int Score => data.score;
+        public bool HasScored { get { return hasScored; } set { hasScored = value; } }
 
         private void OnEnable()
         {
+            grabbable.WhenPointerEventRaised += ListenPointer;
+
             isSelected = false;
             hasBeenUnselected = false;
             rb.isKinematic = true;
-            grabbable.WhenPointerEventRaised += ListenPointer;
+            trail.Reset();
         }
 
         private void OnDisable()
         {
-            gravityDirection = Vector3.zero;
             grabbable.WhenPointerEventRaised -= ListenPointer;
+
+            gravityDirection = Vector3.zero;
         }
 
         private void ListenPointer(PointerEvent pointer)
@@ -67,6 +74,8 @@ namespace DigitalLove.Game.Balls
         [Button]
         private void OnUnhover() => unhover.Invoke();
 
+        public void Invoke_OnSelect() => OnSelect();
+
         [Button]
         private void OnSelect()
         {
@@ -74,6 +83,8 @@ namespace DigitalLove.Game.Balls
             queue.Clear();
             select.Invoke();
         }
+
+        public void Invoke_OnUnselect() => OnUnselect();
 
         [Button]
         private void OnUnselect()
@@ -92,6 +103,7 @@ namespace DigitalLove.Game.Balls
                 rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
             }
             unselect.Invoke();
+            trail.ShowStreak(isInStreak);
         }
 
         private void FixedUpdate()
@@ -106,6 +118,7 @@ namespace DigitalLove.Game.Balls
             }
             else if (hasBeenUnselected && gravityDirection != Vector3.zero)
             {
+                // ? This is the gravity force
                 rb.AddForce(gravityDirection * GravityData.Force, ForceMode.Force);
             }
         }
@@ -113,6 +126,12 @@ namespace DigitalLove.Game.Balls
         private void OnCollisionEnter(Collision other)
         {
             collisionEnter.Invoke();
+            trail.ShowStreak(false);
+        }
+
+        public void SetIsInStreak(bool isInStreak)
+        {
+            this.isInStreak = isInStreak;
         }
     }
 }

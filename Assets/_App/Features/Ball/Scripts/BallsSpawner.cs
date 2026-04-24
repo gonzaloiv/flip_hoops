@@ -17,6 +17,8 @@ namespace DigitalLove.Game.Balls
         private List<string> validIds;
         private Vector3 gravityDirection;
 
+        public BallBehaviour ValidBall => balls.FirstOrDefault(b => b.IsActive && !b.HasBeenUnselected);
+
         public Action ballGrabbed = () => { };
 
         private void Awake()
@@ -35,10 +37,10 @@ namespace DigitalLove.Game.Balls
             void OnBallSelected() { ballGrabbed.Invoke(); }
         }
 
+        public void Invoke_BallGrabbed() => ballGrabbed.Invoke();
+
         private void OnBallUnselected()
         {
-            if (gravityDirection == Vector3.zero)
-                return;
             foreach (BallSpawnPoint point in points)
             {
                 if (point.ball.HasBeenUnselected)
@@ -91,6 +93,14 @@ namespace DigitalLove.Game.Balls
             {
                 if (point.ball != null)
                     point.ball = null;
+            }
+        }
+
+        public void SetIsInStreak(bool isInStreak)
+        {
+            foreach (BallBehaviour ball in balls)
+            {
+                ball.SetIsInStreak(isInStreak);
             }
         }
     }

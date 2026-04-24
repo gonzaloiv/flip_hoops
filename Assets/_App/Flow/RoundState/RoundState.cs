@@ -15,7 +15,7 @@ namespace DigitalLove.Game
 
         [Header("Checkers")]
         [SerializeField] private RoundCountdownChecker countdownChecker;
-        [SerializeField] private RoundScoreChecker scoreChecker;
+        [SerializeField] private RoundWarmUpChecker scoreChecker;
 
         public override void Init(StateMachine parent)
         {

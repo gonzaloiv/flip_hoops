@@ -1,0 +1,19 @@
+{
+    "name": "DigitalLove.Game.Debug",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e92401e0d4937944f9a0beae62ddf4b5",
+        "GUID:fe5d69302f4d8a940849caf8ffb59889",
+        "GUID:447181e61705f4d6f954add1124817a5",
+        "GUID:260aed395b0c10249b0ff06e8b99c976"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

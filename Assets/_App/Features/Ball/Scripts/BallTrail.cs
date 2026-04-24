@@ -1,3 +1,4 @@
+using DigitalLove.Global;
 using UnityEngine;
 
 namespace DigitalLove.Game.Balls
@@ -5,16 +6,23 @@ namespace DigitalLove.Game.Balls
     public class BallTrail : MonoBehaviour
     {
         [SerializeField] private TrailRenderer trail;
+        [SerializeField] private ParticleSystem ps;
+        [SerializeField] private ColorValue defaultColor;
+        [SerializeField] private ColorValue inStreakColor;
 
-        public void ShowTrail()
+        public void Reset()
         {
             trail.Clear();
-            trail.enabled = true;
+            ShowStreak(false);
         }
 
-        private void OnDisable()
+        public void ShowStreak(bool isInStreak)
         {
-            trail.enabled = false;
+            if (isInStreak)
+                ps.Play();
+            Color color = isInStreak ? inStreakColor.value : defaultColor.value;
+            color.a = trail.startColor.a;
+            trail.startColor = color;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace DigitalLove.Game.Basket
 
         public Vector3 WorldPosition => transform.position;
 
-        public UnityEvent<ScoredEventArgs> scored;
+        public UnityEvent<int> scored;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -39,6 +39,7 @@ namespace DigitalLove.Game.Basket
                 if (!ballsInside.Contains(ball))
                 {
                     OnScored(ball.Score);
+                    ball.HasScored = true;
                     ballsInside.Add(ball);
                     RemoveBallIfNeeded();
                 }
@@ -58,7 +59,7 @@ namespace DigitalLove.Game.Basket
         private void OnScored(int score)
         {
             ps.Play();
-            scored.Invoke(new(score, panelRef));
+            scored.Invoke(score);
         }
 
         [Button]

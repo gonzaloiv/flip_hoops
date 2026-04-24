@@ -71,7 +71,6 @@ namespace DigitalLove.Game
         [Button]
         private void InvokeOnBallGrabbed() => OnBallGrabbed();
 
-
         private void OnBallGrabbed()
         {
             ballSpawner.ballGrabbed -= OnBallGrabbed;

@@ -18,21 +18,23 @@ namespace DigitalLove.Game.Basket
             gameObject.SetActive(true);
             initLabel.text = initText;
             infoLabel.text = infoText;
+            infoLabel.transform.parent.gameObject.SetActive(!string.IsNullOrEmpty(infoText));
             this.InvokeAfterSecs(secsActive, () => levelPanel.SetActive(false));
             levelPanel.SetActive(true);
-            scorePanel.Hide();
         }
 
-        public void Hide()
+        public void ShowShort(string initText)
         {
-            gameObject.SetActive(false);
-            scorePanel.Hide();
+            gameObject.SetActive(true);
+            initLabel.text = initText;
+            infoLabel.transform.parent.gameObject.SetActive(false);
+            this.InvokeAfterSecs(secsActive / 2, () => levelPanel.SetActive(false));
+            levelPanel.SetActive(true);
         }
 
-        public void ShowScore(int score)
+        public void ShowScore(int score, bool hasMultiplier)
         {
-            levelPanel.SetActive(false);
-            scorePanel.Show(score);
+            scorePanel.Show(score, hasMultiplier);
         }
 
         public void ShowCountdown(int value, float secsActive = 0.5f)

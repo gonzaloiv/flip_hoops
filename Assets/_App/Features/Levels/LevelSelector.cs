@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Linq;
 using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
@@ -25,7 +24,6 @@ namespace DigitalLove.Game
             if (data.Length <= roundIndex)
             {
                 current = data.Last();
-
             }
             else
             {

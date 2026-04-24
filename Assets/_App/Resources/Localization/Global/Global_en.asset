@@ -46,6 +46,10 @@ MonoBehaviour:
     m_Localized: Find the hoop
     m_Metadata:
       m_Items: []
+  - m_Id: 129840829513256960
+    m_Localized: On fire!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

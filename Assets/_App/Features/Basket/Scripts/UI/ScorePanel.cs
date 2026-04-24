@@ -1,3 +1,4 @@
+using System;
 using DigitalLove.Global;
 using DigitalLove.Localization;
 using DigitalLove.VFX;
@@ -12,14 +13,17 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private ScalePunch scalePunch;
         [SerializeField] private TextMeshProUGUI scoreLabel;
         [SerializeField] private float scoreSecsActive = 1.33f;
+        [SerializeField] private ColorValue regularTextColor;
+        [SerializeField] private ColorValue multiplierTextColor;
 
         public void Hide() => gameObject.SetActive(false);
 
-        public void Show(int score)
+        public void Show(int score, bool hasMultiplier)
         {
             gameObject.SetActive(true);
             scoreLabel.text = $"+{score}";
             scalePunch.Animate();
+            scoreLabel.color = hasMultiplier ? multiplierTextColor.value : regularTextColor.value;
             this.InvokeAfterSecs(scoreSecsActive, () => gameObject.SetActive(false));
         }
 
@@ -29,6 +33,7 @@ namespace DigitalLove.Game.Basket
             scalePunch.Animate();
             scoreLabel.text = value > 0 ? value.ToString() : LocalizationUtil.GetValue("go");
             scoreLabel.enabled = true;
+            scoreLabel.color = regularTextColor.value;
             this.InvokeAfterSecs(secsActive, () => gameObject.SetActive(false));
         }
     }

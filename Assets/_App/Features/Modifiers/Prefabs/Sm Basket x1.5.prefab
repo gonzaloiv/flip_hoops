@@ -378,3 +378,5 @@ MonoBehaviour:
   scalePunch: {fileID: 1018866442103847674}
   scoreLabel: {fileID: 4820570215498060879}
   scoreSecsActive: 1.33
+  regularTextColor: {fileID: 11400000, guid: b20817b10b1434e4ab98fa360fa826dd, type: 2}
+  multiplierTextColor: {fileID: 11400000, guid: d5d60ae84f0741a46970f0c55694c754, type: 2}

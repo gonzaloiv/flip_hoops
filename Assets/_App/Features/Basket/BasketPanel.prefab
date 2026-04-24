@@ -505,6 +505,8 @@ MonoBehaviour:
   scalePunch: {fileID: 9165158017957405378}
   scoreLabel: {fileID: 3743766839999712375}
   scoreSecsActive: 1.33
+  regularTextColor: {fileID: 11400000, guid: 77d5df3d8a9e43b4ea7f36fa11dd90e6, type: 2}
+  multiplierTextColor: {fileID: 11400000, guid: d5d60ae84f0741a46970f0c55694c754, type: 2}
 --- !u!1 &6681502133984555655
 GameObject:
   m_ObjectHideFlags: 0

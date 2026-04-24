@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DigitalLove.Global;
 using UnityEngine;
 
 namespace DigitalLove.Game.Modifiers
@@ -11,8 +10,7 @@ namespace DigitalLove.Game.Modifiers
         private const float stopSecsDelay = 28;
 
         [SerializeField] Transform basketTransform; // ? This is the main basket transform
-        [SerializeField] Transform throwZoneTransform; // ? This is the main basket transform
-        [SerializeField] private DebugBool forceSpawn;
+        [SerializeField] Transform throwZoneTransform;
 
         private List<ModifierDataPercentagePair> pairs;
         private List<ModifierBehaviour> spawned = new();
@@ -23,6 +21,7 @@ namespace DigitalLove.Game.Modifiers
         {
             this.pairs = pairs;
             Spawn();
+            // ? TODO: Improving three part round feel
             // this.InvokeAfterSecs(forceSpawn.Value ? 0 : startSecsDelay, Spawn);
             // this.InvokeAfterSecs(stopSecsDelay, Unspawn);
         }
@@ -53,6 +52,14 @@ namespace DigitalLove.Game.Modifiers
         {
             Unspawn();
             StopAllCoroutines();
+        }
+
+        public void ShowScore(int score, bool hasMultiplier)
+        {
+            foreach (ModifierBehaviour modifier in spawned)
+            {
+                modifier.ShowScore(score, hasMultiplier);
+            }
         }
     }
 }

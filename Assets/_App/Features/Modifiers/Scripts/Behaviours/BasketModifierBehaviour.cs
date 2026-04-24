@@ -12,6 +12,8 @@ namespace DigitalLove.Game.Modifiers
         [SerializeField] private float xOffset;
         [SerializeField] private float yOffset;
 
+        public BasketBehaviour Basket => basket;
+
         public override void Init(Transform throwZoneTransform, Transform basketTransform, Action<int> scored)
         {
             base.Init(throwZoneTransform, basketTransform, scored);
@@ -35,16 +37,20 @@ namespace DigitalLove.Game.Modifiers
             basket.scored.AddListener(OnScored);
         }
 
-        private void OnScored(ScoredEventArgs args)
+        private void OnScored(int score)
         {
-            int score = (int)(multiplier * args.score);
-            scorePanel.Show(score);
+            score = (int)(multiplier * score);
             scored.Invoke(score);
         }
 
         private void OnDisable()
         {
             basket.scored.RemoveListener(OnScored);
+        }
+
+        public override void ShowScore(int score, bool hasMultiplier)
+        {
+            scorePanel.Show(score, hasMultiplier);
         }
     }
 }

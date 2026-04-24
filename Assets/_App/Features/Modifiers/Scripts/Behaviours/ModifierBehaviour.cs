@@ -11,5 +11,10 @@ namespace DigitalLove.Game.Modifiers
         {
             this.scored = scored;
         }
+
+        public virtual void ShowScore(int score, bool hasMultiplier)
+        {
+            // ? Optional to override
+        }
     }
 }
