@@ -47,6 +47,18 @@ MonoBehaviour:
     m_Key: on_fire
     m_Metadata:
       m_Items: []
+  - m_Id: 131720822753251328
+    m_Key: review_panel_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131720822782611456
+    m_Key: review_panel_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131720822782611457
+    m_Key: review_panel_button
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

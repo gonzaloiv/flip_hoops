@@ -14,6 +14,7 @@ using DigitalLove.Localization;
 using Reflex.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
+using DigitalLove.Casual.UI;
 
 namespace DigitalLove.Game
 {
@@ -36,6 +37,7 @@ namespace DigitalLove.Game
         [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
         [SerializeField] private FindTheHoopPanel findTheHoopPanel;
         [SerializeField] private PosterBehaviour[] posters;
+        [SerializeField] private ReviewPanel reviewPanel;
 
         [Header("Analytics")]
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
@@ -52,6 +54,7 @@ namespace DigitalLove.Game
             base.Init(parent);
             grabBallPanel.Hide();
             basketSpawner.Hide();
+            reviewPanel.Hide();
         }
 
         public override void Enter()
@@ -66,6 +69,8 @@ namespace DigitalLove.Game
             Spawn();
             SendBasketHasSpawnEvent();
             ShowUI();
+            if (play.Tries >= 1) // ? Show review panel after warm up
+                reviewPanel.Show();
         }
 
         [Button]

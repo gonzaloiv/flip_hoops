@@ -50,6 +50,20 @@ MonoBehaviour:
     m_Localized: On fire!
     m_Metadata:
       m_Items: []
+  - m_Id: 131720822753251328
+    m_Localized: Can you lend a hand?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131720822782611456
+    m_Localized: "I\u2019m Gonzalo, the solo dev behind Flip Hoops. Your reviews
+      keep this project alive! Got 30 seconds to leave a rating and help me beat
+      the algorithm?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131720822782611457
+    m_Localized: Review Flip Hoops
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

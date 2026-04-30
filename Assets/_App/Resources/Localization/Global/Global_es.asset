@@ -52,6 +52,20 @@ MonoBehaviour:
     m_Localized: A fuego!
     m_Metadata:
       m_Items: []
+  - m_Id: 131720822753251328
+    m_Localized: "\xBFPuedes echar una mano?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131720822782611456
+    m_Localized: "Soy Gonzalo, el desarrollador independiente de Flip Hoops. \xA1Tus
+      rese\xF1as mantienen vivo este proyecto! \xBFTienes 30 segundos para dejar
+      una valoraci\xF3n y ayudarme a vencer al algoritmo?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131720822782611457
+    m_Localized: "Rese\xF1a de Flip Hoops"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
