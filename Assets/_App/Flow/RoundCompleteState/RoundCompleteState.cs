@@ -4,15 +4,16 @@ using DigitalLove.DataAccess;
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
-using DigitalLove.Global;
 using DigitalLove.Localization;
 using Reflex.Attributes;
 using UnityEngine;
 using DigitalLove.Audio;
 using DigitalLove.Casual.Analytics;
-using DigitalLove.Casual.Levels;
 using DigitalLove.Game.Levels;
 using System.Threading.Tasks;
+using DigitalLove.DataAccess.Leaderboards;
+using DigitalLove.Global;
+using DigitalLove.XR;
 
 namespace DigitalLove.Game
 {
@@ -29,12 +30,15 @@ namespace DigitalLove.Game
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
         [SerializeField] private LevelSelector levelSelector;
+        [SerializeField] private LeaderboardPanel leaderboardPanel;
+        [SerializeField] private MetaPlatformClient metaPlatformClient;
 
         [Inject] private MemoryDataClient memoryDataClient;
         [Inject] private UnityPlayerDataClient unityPlayerDataClient;
 
         private GameLevelData levelData;
         private Play play;
+        private LeaderboardsClient leaderboardsClient = new();
 
         public override async void Enter()
         {
@@ -42,6 +46,7 @@ namespace DigitalLove.Game
             play = memoryDataClient.Get<Play>();
             ballSpawner.Unspawn();
             bool isHighestScore = await CheckScore();
+            UpdateLeaderboard(isHighestScore);
             ShowUI(isHighestScore);
             CountDown();
         }
@@ -68,6 +73,35 @@ namespace DigitalLove.Game
                 return true;
             }
             return false;
+        }
+
+        private void UpdateLeaderboard(bool isHighestScore)
+        {
+            if (!isHighestScore)
+                return;
+            metaPlatformClient.FetchUserDisplayName(OnUserDisplayNameFetched);
+            void OnUserDisplayNameFetched(string displayName)
+            {
+                if (string.IsNullOrEmpty(displayName))
+                    return;
+                LeaderboardEntry entry = new() { score = memoryDataClient.Get<Round>().score, playerName = displayName };
+                StartCoroutine(AddScoreAndShowLeaderboardRoutine(entry));
+            }
+        }
+
+        private IEnumerator AddScoreAndShowLeaderboardRoutine(LeaderboardEntry entry)
+        {
+            Task<bool> task = leaderboardsClient.AddScoreToGlobalLeaderboardAsync(entry);
+            yield return new WaitUntil(() => task.IsCompleted);
+
+            if (task.IsFaulted)
+            {
+                Debug.LogError(task.Exception?.GetBaseException());
+                yield break;
+            }
+
+            if (task.Result)
+                leaderboardPanel.Show();
         }
 
         private void ShowUI(bool isHighestScore)

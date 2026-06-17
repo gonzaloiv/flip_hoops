@@ -1,43 +1,24 @@
-using System.Collections;
 using DigitalLove.Casual.Analytics;
-using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
-using DigitalLove.Game.Balls;
-using DigitalLove.Game.Basket;
-using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
-using DigitalLove.Game.UI;
 using DigitalLove.Global;
-using DigitalLove.Localization;
 using Reflex.Attributes;
 using UnityEngine;
-using UnityEngine.UI;
-using DigitalLove.Casual.UI;
+using DigitalLove.Casual.Flow;
 
 namespace DigitalLove.Game
 {
     public class CountdownState : BaseState
     {
-        private const int CountdownSecs = 3;
-        private int MaxIterations = 5;
-
         [Header("Scene")]
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private GravitySelector gravitySelector;
-        [SerializeField] private BallsSpawner ballSpawner;
-        [SerializeField] private BasketSpawner basketSpawner;
-        [SerializeField] private ThrowZone throwZone;
+        [SerializeField] private CourtSetup courtSetup;
+        [SerializeField] private CountdownStateUI ui;
 
-        [Header("UI")]
-        [SerializeField] private string tableName = "Levels";
-        [SerializeField] private ScoreboardSpawner scoreboardSpawner;
-        [SerializeField] private GrabBallPanel grabBallPanel;
-        [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
-        [SerializeField] private FindTheHoopPanel findTheHoopPanel;
-        [SerializeField] private PosterBehaviour[] posters;
-        [SerializeField] private ReviewPanel reviewPanel;
+        [Header("Checkers")]
+        [SerializeField] private CountdownStateChecker checker;
 
         [Header("Analytics")]
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
@@ -47,123 +28,41 @@ namespace DigitalLove.Game
 
         private Play play;
         private GameLevelData levelData;
-        private int iterations;
 
         public override void Init(StateMachine parent)
         {
             base.Init(parent);
-            grabBallPanel.Hide();
-            basketSpawner.Hide();
-            reviewPanel.Hide();
+            ui.Prepare();
+            checker.SetOnComplete(ToNextState);
         }
 
         public override void Enter()
         {
-            ballSpawner.ballGrabbed += OnBallGrabbed;
-
             play = memoryDataClient.Get<Play>();
             levelData = levelSelector.GetCurrent();
             memoryDataClient.Put(new Round());
 
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
-            Spawn();
-            SendBasketHasSpawnEvent();
-            ShowUI();
-            if (play.Tries >= 1) // ? Show review panel after warm up
-                reviewPanel.Show();
+            courtSetup.Spawn(levelData);
+            roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetup.DistanceToCamera);
+            ui.ShowIntro(play, levelData);
+            checker.DoStart(levelData, play);
         }
 
-        [Button]
-        private void InvokeOnBallGrabbed() => OnBallGrabbed();
-
-        private void OnBallGrabbed()
+        public override void Exit()
         {
-            ballSpawner.ballGrabbed -= OnBallGrabbed;
-            ShowBasketPanel();
-            grabBallPanel.Hide();
-            roundEventsHelper.SendHasGrabbedBallEvent();
-            IEnumerator CountdownRoutine()
-            {
-                int countdown = CountdownSecs;
-                while (countdown > 0)
-                {
-                    scoreboardSpawner.Panel.SetTime(countdown);
-                    basketSpawner.Panel.ShowCountdown(countdown);
-                    yield return new WaitForSecondsRealtime(1);
-                    countdown--;
-                }
-                scoreboardSpawner.Panel.SetTime(countdown);
-                basketSpawner.Panel.ShowCountdown(countdown);
-                ToNextState();
-            }
-            StartCoroutine(CountdownRoutine());
+            checker.DoStop();
         }
 
-        private void ShowBasketPanel()
-        {
-            string initText;
-            string infoText;
-            if (levelData.IsWarmUp)
-            {
-                initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
-                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey, levelData.basketsToScore);
-            }
-            else
-            {
-                initText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_init", play.RoundLabelValue());
-                infoText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_info");
-            }
-            basketSpawner.Panel.Show(initText, infoText);
-        }
-
-        private void ShowUI()
-        {
-            grabBallPanel.Show();
-            scoreboardSpawner.ShowRound(play.RoundLabelValue());
-            highestScorePosterBehaviour.Show();
-            findTheHoopPanel.Show();
-        }
+        #region Debug
 
         [Button]
         private void Respawn()
         {
-            ballSpawner.Unspawn();
-            throwZone.Unspawn();
-            basketSpawner.Hide();
-            Spawn();
+            courtSetup.Clear();
+            courtSetup.Spawn(levelData);
         }
 
-        private void Spawn()
-        {
-            iterations = MaxIterations;
-            GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
-            Vector3 gravityDirection = GetGravityDirection(gravity);
-            posters.Spawn(gravityDirection);
-            throwZone.SetReference(basketSpawner.Basket.transform);
-            ballSpawner.Spawn(levelData.balls, gravityDirection);
-        }
-
-        private Vector3 GetGravityDirection(GravityData gravity)
-        {
-            iterations--;
-            throwZone.Spawn(); // ? Basket spawning gets position based on distance to throw zone
-            Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(gravity, throwZone.transform, levelData.distance);
-            if (gravityDirection == Vector3.zero && iterations > 0)
-            {
-                throwZone.Unspawn();
-                basketSpawner.Hide();
-                return GetGravityDirection(gravity);
-            }
-            else
-            {
-                return gravityDirection;
-            }
-        }
-
-        private void SendBasketHasSpawnEvent()
-        {
-            float distanceToCamera = Vector3.Distance(basketSpawner.Basket.WorldPosition, Camera.main.transform.position);
-            roundEventsHelper.SendBasketHasBeenSpawnedEvent(distanceToCamera);
-        }
+        #endregion
     }
 }
