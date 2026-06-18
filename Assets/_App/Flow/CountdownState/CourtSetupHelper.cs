@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DigitalLove.Game
 {
-    public class CourtSetup : MonoBehaviour
+    public class CourtSetupHelper : MonoBehaviour
     {
         private const int MaxAttempts = 5;
 
