@@ -14,7 +14,7 @@ namespace DigitalLove.Game
     {
         [Header("Scene")]
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private CourtSetup courtSetup;
+        [SerializeField] private CourtSetupHelper courtSetupHelper;
         [SerializeField] private CountdownStateUI ui;
 
         [Header("Checkers")]
@@ -43,8 +43,8 @@ namespace DigitalLove.Game
             memoryDataClient.Put(new Round());
 
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
-            courtSetup.Spawn(levelData);
-            roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetup.DistanceToCamera);
+            courtSetupHelper.Spawn(levelData);
+            roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetupHelper.DistanceToCamera);
             ui.ShowIntro(play, levelData);
             checker.DoStart(levelData, play);
         }
@@ -59,8 +59,8 @@ namespace DigitalLove.Game
         [Button]
         private void Respawn()
         {
-            courtSetup.Clear();
-            courtSetup.Spawn(levelData);
+            courtSetupHelper.Clear();
+            courtSetupHelper.Spawn(levelData);
         }
 
         #endregion

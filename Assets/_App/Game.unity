@@ -597,7 +597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.DataAccess.Leaderboards::DigitalLove.DataAccess.Leaderboards.LeaderboardDebugUtil
   entryToAdd:
     playerName: gonzaloiv
-    score: 2000
+    score: 66
   loadedEntries:
     entries: []
   leaderboardPanel: {fileID: 20916797}
@@ -6396,7 +6396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Play::DigitalLove.Game.CountdownState
   nextState: {fileID: 1514311246}
   levelSelector: {fileID: 1235757813}
-  courtSetup: {fileID: 1515094635}
+  courtSetupHelper: {fileID: 1515094635}
   ui: {fileID: 1515094636}
   checker: {fileID: 1515094637}
   progressionEventsHelper: {fileID: 1210227670}
