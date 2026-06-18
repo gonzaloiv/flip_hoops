@@ -20,7 +20,7 @@ namespace DigitalLove.Game
         [SerializeField] private ReviewPanel reviewPanel;
         [SerializeField] private LeaderboardPanel leaderboardPanel;
 
-        public void Prepare()
+        public void HideAll()
         {
             grabBallPanel.Hide();
             basketSpawner.Hide();
@@ -28,7 +28,7 @@ namespace DigitalLove.Game
             leaderboardPanel.Hide();
         }
 
-        public void ShowIntro(Play play, GameLevelData levelData)
+        public void ShowIntro(Play play)
         {
             grabBallPanel.Show();
             scoreboardSpawner.ShowRound(play.RoundLabelValue());

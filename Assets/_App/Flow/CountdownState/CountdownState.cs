@@ -7,6 +7,7 @@ using DigitalLove.Global;
 using Reflex.Attributes;
 using UnityEngine;
 using DigitalLove.Casual.Flow;
+using DigitalLove.Audio;
 
 namespace DigitalLove.Game
 {
@@ -16,8 +17,9 @@ namespace DigitalLove.Game
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private CourtSetupHelper courtSetupHelper;
         [SerializeField] private CountdownStateUI ui;
+        [SerializeField] private TheRadioBehaviour theRadioBehaviour;
 
-        [Header("Checkers")]
+        [Header("Checker")]
         [SerializeField] private CountdownStateChecker checker;
 
         [Header("Analytics")]
@@ -32,7 +34,7 @@ namespace DigitalLove.Game
         public override void Init(StateMachine parent)
         {
             base.Init(parent);
-            ui.Prepare();
+            ui.HideAll();
             checker.SetOnComplete(ToNextState);
         }
 
@@ -40,12 +42,14 @@ namespace DigitalLove.Game
         {
             play = memoryDataClient.Get<Play>();
             levelData = levelSelector.GetCurrent();
+            if (play.Tries == 0)
+                theRadioBehaviour.Spawn();
             memoryDataClient.Put(new Round());
 
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             courtSetupHelper.Spawn(levelData);
             roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetupHelper.DistanceToCamera);
-            ui.ShowIntro(play, levelData);
+            ui.ShowIntro(play);
             checker.DoStart(levelData, play);
         }
 
