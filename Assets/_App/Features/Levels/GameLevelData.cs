@@ -22,6 +22,5 @@ namespace DigitalLove.Game.Levels
         public bool IsWarmUp => basketsToScore > 0;
         public string InfoKey => $"level_{id}_{LevelInfoKey}";
         public bool HasModifiers => modifiers != null && modifiers.Count > 0;
-
     }
 }

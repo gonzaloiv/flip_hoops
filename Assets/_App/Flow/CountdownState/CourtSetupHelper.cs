@@ -4,6 +4,11 @@ using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.UI;
 using UnityEngine;
+using DigitalLove.Audio;
+using DigitalLove.Casual.Flow;
+using System;
+using Meta.XR.MRUtilityKit;
+using System.Collections;
 
 namespace DigitalLove.Game
 {
@@ -16,24 +21,54 @@ namespace DigitalLove.Game
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private PosterBehaviour[] posters;
+        [SerializeField] private TheRadioBehaviour theRadioBehaviour;
+        [SerializeField] private EffectMesh floorMesh;
 
         public float DistanceToCamera =>
             Vector3.Distance(basketSpawner.Basket.WorldPosition, Camera.main.transform.position);
 
-        public void Spawn(GameLevelData levelData)
+        public void Init()
+        {
+            theRadioBehaviour.SetActive(false);
+        }
+
+        public void Spawn(GameLevelData levelData, Play play, Action onComplete)
         {
             GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
             Vector3 gravityDirection = TrySpawnBasket(gravity, levelData.distance);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravityDirection);
+            SpawnRadioIfFirstTry(play, onComplete);
         }
 
-        public void Clear()
+        private void SpawnRadioIfFirstTry(Play play, Action onComplete)
         {
-            ballSpawner.Unspawn();
-            throwZone.Unspawn();
-            basketSpawner.Hide();
+            if (play.Tries == 0)
+            {
+                IEnumerator SpawnRoutine()
+                {
+                    yield return new WaitUntil(HasFloorAtSpawnPoint);
+                    theRadioBehaviour.SetSpawnPointPosition();
+                    yield return new WaitForFixedUpdate();
+                    theRadioBehaviour.SetActive(true);
+                    onComplete.Invoke();
+                }
+                StartCoroutine(SpawnRoutine());
+            }
+            else
+            {
+                onComplete.Invoke();
+            }
+        }
+
+        private bool HasFloorAtSpawnPoint()
+        {
+            if (floorMesh.EffectMeshObjects.Count == 0)
+                return false;
+
+            Vector3 origin = throwZone.WorldPosition + Vector3.up * 0.5f;
+            return Physics.Raycast(origin, Vector3.down, 1f);
         }
 
         private Vector3 TrySpawnBasket(GravityData gravity, float[] distances)
@@ -50,6 +85,13 @@ namespace DigitalLove.Game
             }
 
             return Vector3.zero;
+        }
+
+        public void Clear()
+        {
+            ballSpawner.Unspawn();
+            throwZone.Unspawn();
+            basketSpawner.Hide();
         }
     }
 }
