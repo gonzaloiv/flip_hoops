@@ -45,13 +45,14 @@ namespace DigitalLove.Game
             levelData = levelSelector.GetCurrent();
             play = memoryDataClient.Get<Play>();
             ballSpawner.Unspawn();
-            bool isHighestScore = await CheckScore();
+            bool isHighestScore = CheckScore();
+            UpdatePlayerData(isHighestScore);
             UpdateLeaderboard(isHighestScore);
             ShowUI(isHighestScore);
             CountDown();
         }
 
-        private async Task<bool> CheckScore()
+        private bool CheckScore()
         {
             Round round = memoryDataClient.Get<Round>();
             progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play), score: round.score);
@@ -63,16 +64,21 @@ namespace DigitalLove.Game
             {
                 previousCookie = new(highestScoreKey.value) { metadata = round.score.ToString() };
                 playerData.AddCookie(previousCookie);
-                await unityPlayerDataClient.Put(playerData);
                 return true;
             }
             else if (int.Parse(previousCookie.metadata) <= round.score)
             {
                 previousCookie.metadata = round.score.ToString();
-                await unityPlayerDataClient.Put(playerData);
                 return true;
             }
             return false;
+        }
+
+        private async void UpdatePlayerData(bool isHighestScore)
+        {
+            if (!isHighestScore)
+                return;
+            await unityPlayerDataClient.Put(memoryDataClient.Get<PlayerData>());
         }
 
         private void UpdateLeaderboard(bool isHighestScore)
@@ -83,7 +89,10 @@ namespace DigitalLove.Game
             void OnUserDisplayNameFetched(string displayName)
             {
                 if (string.IsNullOrEmpty(displayName))
+                {
+                    Debug.LogWarning("DisplayName is empty");
                     return;
+                }
                 LeaderboardEntry entry = new() { score = memoryDataClient.Get<Round>().score, playerName = displayName };
                 StartCoroutine(AddScoreAndShowLeaderboardRoutine(entry));
             }

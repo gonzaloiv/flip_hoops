@@ -5364,6 +5364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1299450678}
   - component: {fileID: 1299450679}
+  - component: {fileID: 1299450680}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -5398,6 +5399,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6809dac8d11073d4abcc0c87830cd3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.XR.Platform::DigitalLove.XR.MetaPlatformHelper
+--- !u!114 &1299450680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299450677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2caa5c6ad39b6742a7ddc2c273976c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Platform::Oculus.Platform.CallbackRunner
+  IsPersistantBetweenSceneLoads: 1
 --- !u!1 &1351310010
 GameObject:
   m_ObjectHideFlags: 0
