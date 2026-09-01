@@ -5,7 +5,7 @@ using UnityEngine.Profiling;
 
 // /////////////////////////////////////////////////////////////////////////////////////////
 //                              More Effective Coroutines
-//                                        v3.15.0
+//                                        v3.17.0
 // 
 // This is an improved implementation of coroutines that boasts zero per-frame memory allocations,
 // runs about twice as fast as Unity's built in coroutines and has a range of extra features.
@@ -173,15 +173,26 @@ namespace MEC
         {
             get
             {
-                if (_instance == null || !_instance.gameObject)
+                if (_instance == null || !_instance.gameObject || !_instance.gameObject.scene.IsValid())
                 {
                     GameObject instanceHome = GameObject.Find("Timing Controller");
+
+                    if (instanceHome != null && !instanceHome.scene.IsValid())
+                    {
+                        instanceHome.name = "Timing Controller (orphaned)";
+                        if (Application.isPlaying)
+                            UnityEngine.Object.Destroy(instanceHome);
+                        else
+                            UnityEngine.Object.DestroyImmediate(instanceHome);
+                        instanceHome = null;
+                    }
 
                     if (instanceHome == null)
                     {
                         instanceHome = new GameObject { name = "Timing Controller" };
 
-                        DontDestroyOnLoad(instanceHome);
+                        if (Application.isPlaying) DontDestroyOnLoad(instanceHome);
+                        else instanceHome.hideFlags = HideFlags.DontSave;
                     }
 
                     _instance = instanceHome.GetComponent<Timing>() ?? instanceHome.AddComponent<Timing>();
