@@ -346,7 +346,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -737,6 +737,8 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+  m_MaxWidth: -1
+  m_MaxHeight: -1
 --- !u!114 &107066995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,7 +1084,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1451,6 +1453,7 @@ MonoBehaviour:
   initialState: {fileID: 1730347950}
   locale: {fileID: 11400000, guid: 1ff9a9496d38d4717a5d7a03bcc77233, type: 2}
   analyticsProviderInstaller: {fileID: 1210227671}
+  playerControllerInstaller: {fileID: 0}
   playerData:
     userId: 
     sessionCount: 2
@@ -1468,9 +1471,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 284223190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd1482e4a9dee141aecc5bcd0a4f0f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5312032623c34414a54ea00e35a7eb8e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Reflex::Reflex.Core.SceneScope
+  m_EditorClassIdentifier: Reflex::Reflex.Core.ContainerScope
 --- !u!1001 &289403287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2294,7 +2297,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -2359,7 +2362,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
 --- !u!212 &323463419
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2416,6 +2419,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &323463420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,7 +2617,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -2662,7 +2666,7 @@ GameObject:
   m_IsActive: 0
 --- !u!212 &436008812
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2719,6 +2723,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!4 &436008813
 Transform:
   m_ObjectHideFlags: 0
@@ -2952,6 +2957,7 @@ MonoBehaviour:
   - {fileID: 188065371}
   isFollowing: 0
   secsToMove: 1
+  updateCheckSecs: 1
 --- !u!114 &539779528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3967,8 +3973,8 @@ VideoPlayer:
   m_DirectAudioVolumes:
   - 1
   m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
+  m_EnabledAudioTracks: 01o
+  m_DirectAudioMutes: 00o
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
@@ -4070,6 +4076,8 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+  m_MaxWidth: -1
+  m_MaxHeight: -1
 --- !u!114 &967146466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5589,6 +5597,7 @@ MonoBehaviour:
   - {fileID: 1260132456}
   isFollowing: 1
   secsToMove: 0.33
+  updateCheckSecs: 1
 --- !u!114 &1363334525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6011,7 +6020,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -6280,6 +6289,7 @@ MonoBehaviour:
   label: {fileID: 1891980505}
   image: {fileID: 0}
   button: {fileID: 1488466821}
+  audioSource: {fileID: 0}
 --- !u!114 &1488466823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7314,7 +7324,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -7414,10 +7424,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.App.Setup::DigitalLove.App.ScenefulOriginSetup
   spaceSetupRequiredPanel: {fileID: 3258995010952126741}
-  forceSceneSetupPanel:
-    value: 0
   launchFunnelHelper: {fileID: 1210227667}
   mrukUtil: {fileID: 1569995676}
+  mrukRoot: {fileID: 0}
+  forceSceneSetupPanel:
+    value: 0
+  skipMRUK:
+    value: 0
 --- !u!114 &1730347952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7668,7 +7681,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -8304,7 +8317,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -8523,7 +8536,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -9919,6 +9932,7 @@ MonoBehaviour:
   - {fileID: 4737829908927659249}
   isFollowing: 1
   secsToMove: 1
+  updateCheckSecs: 1
 --- !u!114 &3258995010952126741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10890,7 +10904,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -10982,7 +10996,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -11090,7 +11104,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
