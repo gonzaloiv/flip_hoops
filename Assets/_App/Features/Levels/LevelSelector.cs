@@ -13,6 +13,8 @@ namespace DigitalLove.Game
 
         private string currentLevelId;
 
+        public int TotalLevels => chapters.GetTotalLevelsCount();
+
         [Inject] private MemoryDataClient memoryDataClient;
 
         public GameLevelData Current

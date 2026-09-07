@@ -3,6 +3,10 @@ using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
 using UnityEngine;
+using DigitalLove.DataAccess;
+using Reflex.Attributes;
+using DigitalLove.Game.Balls;
+using DigitalLove.Game.UI;
 
 namespace DigitalLove.Game
 {
@@ -10,11 +14,17 @@ namespace DigitalLove.Game
     {
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private BasketSpawner basketSpawner;
+        [SerializeField] private BallsSpawner ballsSpawner;
+        [SerializeField] private ScoreboardSpawner scoreboardSpawner;
         [SerializeField] private RoundEventsHelper roundEventsHelper;
 
         [Header("Checkers")]
         [SerializeField] private RoundCountdownChecker countdownChecker;
         [SerializeField] private RoundScoreChecker scoreChecker;
+
+        [Inject] private MemoryDataClient memoryDataClient;
+
+        private Round round;
 
         public override void Init(StateMachine parent)
         {
@@ -26,7 +36,9 @@ namespace DigitalLove.Game
         public override void Enter()
         {
             basketSpawner.scored += OnScored;
+            ballsSpawner.ballThrown += OnBallThrown;
 
+            round = memoryDataClient.Get<Round>();
             basketSpawner.Basket.SetTriggerActive(true);
             GameLevelData levelData = levelSelector.Current;
             BaseRoundChecker checker = levelData.isCountdownLevel ? countdownChecker : scoreChecker;
@@ -38,6 +50,12 @@ namespace DigitalLove.Game
             roundEventsHelper.SendHasScoredEvent();
         }
 
+        private void OnBallThrown()
+        {
+            round.AddThrow();
+            scoreboardSpawner.Panel.SetLeftLabel(round.Throws);
+        }
+
         private void OnComplete()
         {
             ToNextState();
@@ -46,6 +64,7 @@ namespace DigitalLove.Game
         public override void Exit()
         {
             basketSpawner.scored -= OnScored;
+            ballsSpawner.ballThrown -= OnBallThrown;
         }
     }
 }

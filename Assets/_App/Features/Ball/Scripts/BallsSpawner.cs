@@ -22,6 +22,7 @@ namespace DigitalLove.Game.Balls
         public BallBehaviour ValidBall => rented.FindValid();
 
         public Action ballGrabbed = () => { };
+        public Action ballThrown = () => { };
 
         public void Invoke_BallGrabbed() => ballGrabbed.Invoke();
 
@@ -69,6 +70,7 @@ namespace DigitalLove.Game.Balls
 
         private void OnBallUnselected()
         {
+            ballThrown.Invoke();
             foreach (BallSpawnPoint point in points)
             {
                 if (point.ball != null && point.ball.HasBeenUnselected)

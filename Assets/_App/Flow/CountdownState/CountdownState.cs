@@ -45,7 +45,7 @@ namespace DigitalLove.Game
         {
             play = memoryDataClient.Get<Play>();
             memoryDataClient.Put(new Round());
-            levelData = GetLevelData(); 
+            levelData = GetLevelData();
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             courtSetupHelper.Spawn(levelData, play, OnSpawned);
         }
@@ -66,7 +66,7 @@ namespace DigitalLove.Game
         private void OnSpawned()
         {
             roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetupHelper.DistanceToCamera);
-            ui.ShowIntro(play);
+            ui.ShowIntro(play, levelSelector.TotalLevels);
             checker.DoStart(levelData, play);
         }
 

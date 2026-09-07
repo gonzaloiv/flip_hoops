@@ -12,6 +12,7 @@ using System.Collections;
 
 namespace DigitalLove.Game
 {
+    // Used for round init, for access to component elements direct references 
     public class CourtSetupHelper : MonoBehaviour
     {
         private const int MaxAttempts = 5;

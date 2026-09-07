@@ -5,13 +5,16 @@ namespace DigitalLove.Game
     public class Round
     {
         private int score;
+        private int throws;
         private List<string> events = new();
 
         public int Score => score;
+        public int Throws => throws;
 
         public void Reset()
         {
             score = 0;
+            throws = 0;
             events = new();
         }
 
@@ -23,6 +26,11 @@ namespace DigitalLove.Game
         public void SetScore(int score)
         {
             this.score = score;
+        }
+
+        public void AddThrow()
+        {
+            throws++;
         }
 
         public void AddEvent(string eventName)

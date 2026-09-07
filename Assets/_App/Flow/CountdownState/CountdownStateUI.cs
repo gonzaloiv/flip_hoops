@@ -24,10 +24,10 @@ namespace DigitalLove.Game
             reviewPanel.Hide();
         }
 
-        public void ShowIntro(Play play)
+        public void ShowIntro(Play play, int totalLevels)
         {
             grabBallPanel.Show();
-            scoreboardSpawner.Show(play.RoundLabelValue(), GameLevelData.BasketsToScore);
+            scoreboardSpawner.Show(play.RoundLabelValue(), totalLevels);
             if (play.Tries >= 1) // ? Show review panel after warm up
                 reviewPanel.Show();
         }

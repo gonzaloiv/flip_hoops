@@ -1,6 +1,5 @@
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
-using DigitalLove.Game.Modifiers;
 using DigitalLove.Global;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace DigitalLove.Flow.RoundState
     public class EditorDebugTool : MonoBehaviour
     {
         [SerializeField] private BallsSpawner ballsSpawner;
-        [SerializeField] private BasketBehaviour basketBehaviour;
+        [SerializeField] private BasketSpawner basketSpawner;
 
         [Button]
         private void GrabBall()
@@ -20,21 +19,13 @@ namespace DigitalLove.Flow.RoundState
         [Button]
         private void ThrowBallForBasket()
         {
-            ThrowBall(basketBehaviour.transform.position + basketBehaviour.transform.up);
+            ThrowBall(basketSpawner.Basket.transform.position + basketSpawner.Basket.transform.up);
         }
 
         [Button]
         private void ThrowBallForNonBasket()
         {
-            ThrowBall(basketBehaviour.transform.position + basketBehaviour.transform.up + basketBehaviour.transform.right);
-        }
-
-        [Button]
-        private void ThrowBallForMultiplierBasket()
-        {
-            BasketModifierBehaviour modifier = FindAnyObjectByType<BasketModifierBehaviour>();
-            if (modifier != null)
-                ThrowBall(modifier.Basket.transform.position + modifier.Basket.transform.up);
+            ThrowBall(basketSpawner.Basket.transform.position + basketSpawner.Basket.transform.up + basketSpawner.Basket.transform.right);
         }
 
         private void ThrowBall(Vector3 position)
