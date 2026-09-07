@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 1583614520630285503}
   - component: {fileID: 8524844112293677702}
   m_Layer: 0
-  m_Name: CaseIndex
+  m_Name: TopLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,7 +721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4711418305241813596}
   m_Layer: 0
-  m_Name: ScorePanel
+  m_Name: RightPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2965571640187441068}
   m_Layer: 0
-  m_Name: ThrowsPanel
+  m_Name: LeftPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -932,7 +932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806424058204959777}
   m_Layer: 0
-  m_Name: CasePanel
+  m_Name: TopPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1006,9 +1006,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.UI::DigitalLove.Game.UI.ScoreboardPanel
   visuals: {fileID: 3601144133691999408}
-  scoreLabel: {fileID: 7817746323028628396}
-  timeLabel: {fileID: 8524844112293677702}
-  roundLabel: {fileID: 7747740135855162970}
+  topLabel: {fileID: 8524844112293677702}
+  leftLabel: {fileID: 7747740135855162970}
+  rightLabel: {fileID: 7817746323028628396}
   countdownCompleteSource: {fileID: 4664336858147642963}
   lastSecsSource: {fileID: 757915491795533408}
 --- !u!1 &8003695545961264327
@@ -1023,7 +1023,7 @@ GameObject:
   - component: {fileID: 3121889370641950710}
   - component: {fileID: 7817746323028628396}
   m_Layer: 0
-  m_Name: ScoreValue
+  m_Name: RightLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1330,7 +1330,7 @@ GameObject:
   - component: {fileID: 5505164666771350352}
   - component: {fileID: 7747740135855162970}
   m_Layer: 0
-  m_Name: ThrowsValue
+  m_Name: LeftLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

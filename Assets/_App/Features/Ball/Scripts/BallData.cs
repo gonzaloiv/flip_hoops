@@ -6,6 +6,6 @@ namespace DigitalLove.Game.Balls
     public class BallData : ScriptableObject
     {
         public string id;
-        public int score; // TODO: Replacing with the prefab
+        public BallBehaviour prefab;
     }
 }

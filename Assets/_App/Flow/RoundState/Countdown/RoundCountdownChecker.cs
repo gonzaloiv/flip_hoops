@@ -29,11 +29,11 @@ namespace DigitalLove.Game
             StartCountdown();
         }
 
-        private void OnBasketScored(int score)
+        private void OnBasketScored()
         {
-            round.AddScore(score);
-            scoreboardSpawner.Panel.SetRightLabel(score);
-            basketSpawner.ShowScore(score, false);
+            round.AddScore();
+            scoreboardSpawner.Panel.SetRightLabel(round.Score);
+            basketSpawner.ShowScore(round.Score, false);
         }
 
         [Button]

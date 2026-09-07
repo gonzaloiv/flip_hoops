@@ -39,7 +39,7 @@ namespace DigitalLove.Game.Analytics
         {
             AnalyticsEvent analyticsEvent = new AnalyticsEvent(key);
             Play play = memoryDataClient.Get<Play>();
-            analyticsEvent.AddLabel("level_id", levelSelector.GetCurrent().GetIdWithRound(play));
+            analyticsEvent.AddLabel("level_id", levelSelector.Current.GetIdWithRound(play));
             return analyticsEvent;
         }
 

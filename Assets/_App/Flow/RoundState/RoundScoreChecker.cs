@@ -26,7 +26,7 @@ namespace DigitalLove.Game
             round.AddScore(GameLevelData.BasketsToScore);
         }
 
-        private void OnScored(int value)
+        private void OnScored()
         {
             round.AddScore(-1);
             scoreboardSpawner.Panel.SetRightLabel(round.Score);
@@ -37,7 +37,8 @@ namespace DigitalLove.Game
         [Button]
         public void CompleteRound()
         {
-            OnScored(999);
+            round.SetScore(1);
+            OnScored();
         }
 
         private void OnComplete()

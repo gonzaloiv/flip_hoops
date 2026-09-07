@@ -15,7 +15,7 @@ namespace DigitalLove.Game
             events = new();
         }
 
-        public void AddScore(int score)
+        public void AddScore(int score = 1)
         {
             this.score += score;
         }

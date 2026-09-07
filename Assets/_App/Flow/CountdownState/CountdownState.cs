@@ -7,6 +7,7 @@ using DigitalLove.Global;
 using Reflex.Attributes;
 using UnityEngine;
 using DigitalLove.Casual.Flow;
+using DigitalLove.Casual.Levels;
 
 namespace DigitalLove.Game
 {
@@ -29,6 +30,9 @@ namespace DigitalLove.Game
         private Play play;
         private GameLevelData levelData;
 
+        [Header("Debug")]
+        [SerializeField] private DebugBool setRandomLevel;
+
         public override void Init(StateMachine parent)
         {
             base.Init(parent);
@@ -40,12 +44,23 @@ namespace DigitalLove.Game
         public override void Enter()
         {
             play = memoryDataClient.Get<Play>();
-            levelData = levelSelector.GetCurrent();
             memoryDataClient.Put(new Round());
-
+            levelData = GetLevelData(); 
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
-
             courtSetupHelper.Spawn(levelData, play, OnSpawned);
+        }
+
+        private GameLevelData GetLevelData()
+        {
+            if (setRandomLevel.Value)
+            {
+                levelSelector.SetRandom();
+            }
+            else
+            {
+                levelSelector.SetCurrentPlayerLevelId();
+            }
+            return levelSelector.Current;
         }
 
         private void OnSpawned()

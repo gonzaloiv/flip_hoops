@@ -28,12 +28,12 @@ namespace DigitalLove.Game
             basketSpawner.scored += OnScored;
 
             basketSpawner.Basket.SetTriggerActive(true);
-            GameLevelData levelData = levelSelector.GetCurrent();
+            GameLevelData levelData = levelSelector.Current;
             BaseRoundChecker checker = levelData.isCountdownLevel ? countdownChecker : scoreChecker;
             checker.DoStart(levelData);
         }
 
-        private void OnScored(int score)
+        private void OnScored()
         {
             roundEventsHelper.SendHasScoredEvent();
         }

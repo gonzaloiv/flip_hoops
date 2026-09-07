@@ -8,9 +8,10 @@ namespace DigitalLove.Game.Balls
     public class BallsSpawner : MonoBehaviour
     {
         private const float SecsBeforeSpawn = 0.66f;
+        private const int MaxBallsPerType = 10;
 
         [SerializeField] private BallSpawnPoint[] points;
-        [SerializeField] private BallPrefabAmountPair[] pairs;
+        [SerializeField] private BallData[] ballsData;
 
         private List<BallBehaviour> balls = new();
         private string currentBallId;
@@ -20,13 +21,13 @@ namespace DigitalLove.Game.Balls
 
         public Action ballGrabbed = () => { };
 
-        private void Awake()
+        private void Awake() // TODO: Pooling the right balls for each level
         {
-            foreach (BallPrefabAmountPair pair in pairs)
+            foreach (BallData data in ballsData)
             {
-                for (int i = 0; i < pair.amount; i++)
+                for (int i = 0; i < MaxBallsPerType; i++)
                 {
-                    BallBehaviour ball = Instantiate(pair.prefab, transform);
+                    BallBehaviour ball = Instantiate(data.prefab, transform);
                     ball.SetActive(false);
                     balls.Add(ball);
                     ball.select.AddListener(OnBallSelected);
@@ -106,9 +107,9 @@ namespace DigitalLove.Game.Balls
     }
 
     [Serializable]
-    public class BallPrefabAmountPair
+    public class BallPrefabDataPair
     {
+        public BallData data;
         public BallBehaviour prefab;
-        public int amount;
     }
 }

@@ -41,7 +41,7 @@ namespace DigitalLove.Game
             if (!levelData.isCountdownLevel)
             {
                 initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
-                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InitKey, GameLevelData.BasketsToScore);
+                infoText = string.Empty;
             }
             else
             {

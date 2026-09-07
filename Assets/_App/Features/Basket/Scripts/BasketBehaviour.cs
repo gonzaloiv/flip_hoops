@@ -28,7 +28,7 @@ namespace DigitalLove.Game.Basket
         public Transform PanelRef => panelRef;
         public Vector3 WorldPosition => transform.position;
 
-        public UnityEvent<int> scored;
+        public UnityEvent scored;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -37,7 +37,7 @@ namespace DigitalLove.Game.Basket
                 BallBehaviour ball = other.attachedRigidbody.GetComponent<BallBehaviour>();
                 if (!ballsInside.Contains(ball))
                 {
-                    OnScored(ball.Score);
+                    OnScored();
                     ball.HasScored = true;
                     ballsInside.Add(ball);
                     RemoveBallIfNeeded();
@@ -55,14 +55,11 @@ namespace DigitalLove.Game.Basket
             }
         }
 
-        private void OnScored(int score)
+        private void OnScored()
         {
             ps.Play();
-            scored.Invoke(score);
+            scored.Invoke();
         }
-
-        [Button]
-        public void InvokeScored() => OnScored(2);
 
         private void OnDrawGizmos()
         {

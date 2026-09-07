@@ -1,6 +1,7 @@
 using DigitalLove.Casual.Levels;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Balls;
+using DigitalLove.Game.Basket;
 using UnityEngine;
 
 namespace DigitalLove.Game.Levels
@@ -10,12 +11,13 @@ namespace DigitalLove.Game.Levels
     {
         public const int BasketsToScore = 2;
 
-        [Header("GameLevelData")]
-        public GravityData gravity;
+        [Header("GameLevelData.Core")]
         public BallData ball;
+        public BasketData basket;
         public DistanceData distance;
-        public bool isCountdownLevel = false;
+        public GravityData gravity;
 
-        public string InitKey => $"level_{id}_init";
+        [Header("GameLevelData.Other")]
+        public bool isCountdownLevel = false;
     }
 }

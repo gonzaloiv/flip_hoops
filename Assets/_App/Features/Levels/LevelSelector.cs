@@ -1,9 +1,9 @@
-using DigitalLove.Casual.Flow;
 using DigitalLove.Casual.Levels;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Levels;
 using Reflex.Attributes;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace DigitalLove.Game
 {
@@ -11,46 +11,36 @@ namespace DigitalLove.Game
     {
         [SerializeField] private ChapterData[] chapters;
 
-        [Header("Debug")]
-        [SerializeField] private GameLevelData current;
-
         private string currentLevelId;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
-        public void SetCurrentLevelId(string levelId)
+        public GameLevelData Current
         {
-            if (!string.IsNullOrEmpty(levelId))
+            get
             {
-                currentLevelId = levelId;
+                Assert.IsNotNull(chapters, "Chapters are not set");
+                return chapters.GetLevelData<GameLevelData>(currentLevelId);
             }
-            else
-            {
-                currentLevelId = chapters[0].levels[0].id;
-            }
-        }
-
-        public bool SetNextLevelId()
-        {
-            int levelIndex = chapters.GetLevelIndex(currentLevelId);
-            if (chapters.AreThereMoreLevels(levelIndex))
-            {
-                currentLevelId = chapters.GetFollowingLevelData(currentLevelId).id;
-                return true;
-            }
-            return false;
         }
 
         public void SetCurrentPlayerLevelId()
         {
             LevelCompleteCookie lastLevelCompleteCookie = memoryDataClient.Get<PlayerData>().GetLevelCompleteCookies().GetLastLevelCookie();
-            string levelId = lastLevelCompleteCookie != null && lastLevelCompleteCookie.IsValid ? lastLevelCompleteCookie.LevelId : string.Empty;
-            SetCurrentLevelId(levelId);
+            string lastLevelCompleteId = lastLevelCompleteCookie != null && lastLevelCompleteCookie.IsValid ? lastLevelCompleteCookie.LevelId : string.Empty;
+            if (!chapters.AreThereMoreLevels(chapters.GetLevelIndex(lastLevelCompleteId)) || string.IsNullOrEmpty(lastLevelCompleteId))
+            {
+                currentLevelId = chapters[0].levels[0].id;
+                return;
+            }
+
+            currentLevelId = chapters.GetFollowingLevelData(lastLevelCompleteId).id;
         }
 
-        public GameLevelData GetCurrent()
+        // ? Mainly for debug reasons
+        public void SetRandom()
         {
-            return chapters.GetLevelData<GameLevelData>(currentLevelId);
+            currentLevelId = chapters.GetRandomLevelData<GameLevelData>().id;
         }
     }
 }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.Levels.GameLevelData
   id: 01_03
   prefab: {fileID: 0}
-  gravities:
-  - {fileID: 11400000, guid: 90ad00e3fa9b4fa4cabf8c556a37132f, type: 2}
-  basketsToScore: 0
   ball: {fileID: 11400000, guid: ad138f1cc4357084c9b49bfdba37bfc0, type: 2}
+  basket: {fileID: 11400000, guid: 2a95830beac59914db8481b1133689b0, type: 2}
   distance: {fileID: 11400000, guid: 9f14321cf041a464f8378b53a6d9ad2e, type: 2}
+  gravity: {fileID: 11400000, guid: f61f6ff71490c4b46b5e045106ba5bbf, type: 2}
+  isCountdownLevel: 0

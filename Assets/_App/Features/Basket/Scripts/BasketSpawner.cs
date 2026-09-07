@@ -24,7 +24,7 @@ namespace DigitalLove.Game.Basket
         public BasketBehaviour Basket => basket;
         public BasketPanel Panel => panel;
 
-        public Action<int> scored = (score) => { };
+        public Action scored = () => { };
 
         private void Start()
         {
@@ -83,9 +83,9 @@ namespace DigitalLove.Game.Basket
                 position = Vector3.zero;
         }
 
-        private void OnBasketScored(int score)
+        private void OnBasketScored()
         {
-            scored.Invoke(score);
+            scored.Invoke();
         }
 
         public void Hide()

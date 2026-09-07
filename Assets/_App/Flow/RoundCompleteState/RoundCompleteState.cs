@@ -38,7 +38,7 @@ namespace DigitalLove.Game
 
         public override void Enter()
         {
-            levelData = levelSelector.GetCurrent();
+            levelData = levelSelector.Current;
             play = memoryDataClient.Get<Play>();
             ballSpawner.Unspawn();
             bool isHighestScore = SetNewScore(levelData);

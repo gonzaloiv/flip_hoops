@@ -35,7 +35,6 @@ namespace DigitalLove.Game.Balls
         public Vector3 GravityDirection { set { gravityDirection = value; } }
         public bool HasBeenUnselected => hasBeenUnselected;
         public bool IsActive => gameObject.activeInHierarchy;
-        public int Score => data.score;
         public bool HasScored { get { return hasScored; } set { hasScored = value; } }
 
         private void OnEnable()

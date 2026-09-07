@@ -37,10 +37,9 @@ namespace DigitalLove.Game.Modifiers
             basket.scored.AddListener(OnScored);
         }
 
-        private void OnScored(int score)
+        private void OnScored()
         {
-            score = (int)(multiplier * score);
-            scored.Invoke(score);
+            scored.Invoke((int)(multiplier * 1));
         }
 
         private void OnDisable()
