@@ -1,4 +1,3 @@
-using System.Linq;
 using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Levels;
@@ -20,13 +19,9 @@ namespace DigitalLove.Game
         {
             int roundIndex = memoryDataClient.Get<Play>().Tries;
             if (levels.Length <= roundIndex)
-            {
-                current = levels.Last();
-            }
+                current = levels[levels.Length - 1];
             else
-            {
                 current = levels[roundIndex];
-            }
             return current;
         }
     }

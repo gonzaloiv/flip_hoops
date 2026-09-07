@@ -3,7 +3,6 @@ using DigitalLove.Casual.Levels;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Balls;
 using UnityEngine;
-using DigitalLove.Game.Modifiers;
 
 namespace DigitalLove.Game.Levels
 {
@@ -14,13 +13,11 @@ namespace DigitalLove.Game.Levels
 
         [Header("GameLevelData")]
         public List<GravityData> gravities;
-        public int basketsToScore;
-        public List<BallData> balls;
-        [Range(0.5f, 2f)] public float[] distance = new[] { 1.25f, 1.75f };
-        public List<ModifierDataPercentagePair> modifiers;
+        public int basketsToScore = 2;
+        public BallData ball;
+        public DistanceData distance;
 
         public bool IsWarmUp => basketsToScore > 0;
         public string InfoKey => $"level_{id}_{LevelInfoKey}";
-        public bool HasModifiers => modifiers != null && modifiers.Count > 0;
     }
 }

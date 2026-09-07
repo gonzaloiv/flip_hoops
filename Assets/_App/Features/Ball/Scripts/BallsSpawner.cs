@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DigitalLove.Global;
 using UnityEngine;
 
@@ -14,10 +13,10 @@ namespace DigitalLove.Game.Balls
         [SerializeField] private BallPrefabAmountPair[] pairs;
 
         private List<BallBehaviour> balls = new();
-        private List<string> validIds;
+        private string currentBallId;
         private Vector3 gravityDirection;
 
-        public BallBehaviour ValidBall => balls.FirstOrDefault(b => b.IsActive && !b.HasBeenUnselected);
+        public BallBehaviour ValidBall => balls.FindValid();
 
         public Action ballGrabbed = () => { };
 
@@ -48,10 +47,10 @@ namespace DigitalLove.Game.Balls
             }
         }
 
-        public void Spawn(List<BallData> balls, Vector3 gravityDirection)
+        public void Spawn(BallData ball, Vector3 gravityDirection)
         {
             Unspawn();
-            validIds = balls.Select(b => b.id).ToList();
+            currentBallId = ball.id;
             this.gravityDirection = gravityDirection;
             foreach (BallSpawnPoint point in points)
             {
@@ -61,7 +60,7 @@ namespace DigitalLove.Game.Balls
 
         private void SetupBallForPoint(BallSpawnPoint point, float secsBeforeSpawn = 0)
         {
-            BallBehaviour ball = GetInactiveValidBall();
+            BallBehaviour ball = balls.PickRandomInactiveWithId(new List<string> { currentBallId });
             ball.transform.position = point.reference.position;
             ball.GravityDirection = gravityDirection;
             point.ball = ball;
@@ -73,12 +72,6 @@ namespace DigitalLove.Game.Balls
             {
                 ball.SetActive(true);
             }
-        }
-
-        private BallBehaviour GetInactiveValidBall()
-        {
-            BallBehaviour[] selection = balls.Where(b => !b.IsActive && validIds.Contains(b.Data.id)).ToArray();
-            return selection[UnityEngine.Random.Range(0, selection.Length)];
         }
 
         public void Unspawn()

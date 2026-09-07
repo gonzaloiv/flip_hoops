@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace DigitalLove.Game.Court
@@ -17,14 +16,16 @@ namespace DigitalLove.Game.Court
         private GravityData GetRandom(List<GravityData> gravities)
         {
             if (current == null || gravities.Count == 1)
-            {
                 return current = gravities[Random.Range(0, gravities.Count)];
-            }
-            else
+
+            GravityData next;
+            do
             {
-                List<GravityData> selection = gravities.Where(g => g != current).ToList();
-                return current = selection[Random.Range(0, selection.Count)];
+                next = gravities[Random.Range(0, gravities.Count)];
             }
+            while (next == current);
+
+            return current = next;
         }
     }
 }

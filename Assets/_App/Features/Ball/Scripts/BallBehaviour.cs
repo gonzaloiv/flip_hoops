@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using DigitalLove.Game.Court;
 using DigitalLove.Global;
 using Oculus.Interaction;
@@ -99,7 +98,7 @@ namespace DigitalLove.Game.Balls
             rb.isKinematic = false;
             if (queue.Count > 0)
             {
-                Vector3 median = total / queue.Count();
+                Vector3 median = total / queue.Count;
                 rb.AddForce(median * forceMultiplier, ForceMode.Impulse);
             }
             unselect.Invoke();

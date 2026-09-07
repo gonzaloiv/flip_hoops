@@ -19,8 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea664f69d54babf408b1d0481f2fe040, type: 2}
   basketsToScore: 0
   balls:
-  - {fileID: 11400000, guid: 10a2f600d6bb42e4e9382ea8477626fb, type: 2}
   - {fileID: 11400000, guid: ad138f1cc4357084c9b49bfdba37bfc0, type: 2}
-  distance:
-  - 1.25
-  - 1.75
+  - {fileID: 11400000, guid: ad138f1cc4357084c9b49bfdba37bfc0, type: 2}
+  distance: {fileID: 11400000, guid: 9f14321cf041a464f8378b53a6d9ad2e, type: 2}
