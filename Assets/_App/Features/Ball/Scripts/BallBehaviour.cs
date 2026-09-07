@@ -22,6 +22,7 @@ namespace DigitalLove.Game.Balls
         public UnityEvent unselect;
 
         public UnityEvent collisionEnter;
+        public UnityEvent becameInactive;
 
         private Vector3 gravityDirection;
         private Queue<Vector3> queue = new();
@@ -52,6 +53,7 @@ namespace DigitalLove.Game.Balls
             grabbable.WhenPointerEventRaised -= ListenPointer;
 
             gravityDirection = Vector3.zero;
+            becameInactive?.Invoke();
         }
 
         private void ListenPointer(PointerEvent pointer)

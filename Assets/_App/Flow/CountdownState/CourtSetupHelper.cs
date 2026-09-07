@@ -33,7 +33,7 @@ namespace DigitalLove.Game
 
         public void Spawn(GameLevelData levelData, Play play, Action onComplete)
         {
-            Vector3 gravityDirection = TrySpawnBasket(levelData.gravity, levelData.distance.minMax);
+            Vector3 gravityDirection = TrySpawnBasket(levelData);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.ball, gravityDirection);
@@ -69,12 +69,16 @@ namespace DigitalLove.Game
             return Physics.Raycast(origin, Vector3.down, 1f);
         }
 
-        private Vector3 TrySpawnBasket(GravityData gravity, float[] distances)
+        private Vector3 TrySpawnBasket(GameLevelData levelData)
         {
             for (int attempt = 0; attempt < MaxAttempts; attempt++)
             {
                 throwZone.Spawn();
-                Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(gravity, throwZone.transform, distances);
+                Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(
+                    levelData.basket,
+                    levelData.gravity,
+                    throwZone.transform,
+                    levelData.distance.minMax);
                 if (gravityDirection != Vector3.zero)
                     return gravityDirection;
 
