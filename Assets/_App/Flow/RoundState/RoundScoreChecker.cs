@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DigitalLove.Game
 {
-    public class RoundWarmUpChecker : BaseRoundChecker
+    public class RoundScoreChecker : BaseRoundChecker
     {
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private LevelSelector levelSelector;
@@ -23,7 +23,7 @@ namespace DigitalLove.Game
         {
             round = memoryDataClient.Get<Round>();
             basketSpawner.scored += OnScored;
-            round.AddScore(levelSelector.GetCurrent().basketsToScore);
+            round.AddScore(GameLevelData.BasketsToScore);
         }
 
         private void OnScored(int value)

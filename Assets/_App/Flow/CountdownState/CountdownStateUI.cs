@@ -38,10 +38,10 @@ namespace DigitalLove.Game
         {
             string initText;
             string infoText;
-            if (levelData.IsWarmUp)
+            if (!levelData.isCountdownLevel)
             {
                 initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
-                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey, levelData.basketsToScore);
+                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey, GameLevelData.BasketsToScore);
             }
             else
             {

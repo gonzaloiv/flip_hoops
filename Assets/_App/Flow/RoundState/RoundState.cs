@@ -14,7 +14,7 @@ namespace DigitalLove.Game
 
         [Header("Checkers")]
         [SerializeField] private RoundCountdownChecker countdownChecker;
-        [SerializeField] private RoundWarmUpChecker scoreChecker;
+        [SerializeField] private RoundScoreChecker scoreChecker;
 
         public override void Init(StateMachine parent)
         {
@@ -29,7 +29,7 @@ namespace DigitalLove.Game
 
             basketSpawner.Basket.SetTriggerActive(true);
             GameLevelData levelData = levelSelector.GetCurrent();
-            BaseRoundChecker checker = levelData.IsWarmUp ? scoreChecker : countdownChecker;
+            BaseRoundChecker checker = levelData.isCountdownLevel ? countdownChecker : scoreChecker;
             checker.DoStart(levelData);
         }
 

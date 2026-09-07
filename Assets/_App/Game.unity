@@ -792,10 +792,10 @@ MonoBehaviour:
     userId: 
     sessionCount: 2
     cookies:
-    - id: highest_score
+    - id: 
       metadata: 125
   forceLocalPlayerData:
-    value: 0
+    value: 1
 --- !u!114 &284223193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3802,7 +3802,7 @@ GameObject:
   - component: {fileID: 1235757813}
   - component: {fileID: 1235757814}
   m_Layer: 0
-  m_Name: Scene
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3839,10 +3839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d890afd29066d1f458fc341b746e5b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.LevelSelector
-  levels:
-  - {fileID: 11400000, guid: 505b37fafe503604b9665e492081e2df, type: 2}
-  - {fileID: 11400000, guid: 18b5e078b85a7a24bba25c82ad7b6a6e, type: 2}
-  - {fileID: 11400000, guid: 82f7480477f349843be0c77612d269e1, type: 2}
+  levels: []
   current: {fileID: 0}
 --- !u!114 &1235757814
 MonoBehaviour:
@@ -5307,7 +5304,7 @@ MonoBehaviour:
   throwZone: {fileID: 1869005711}
   ballSpawner: {fileID: 1097701444}
   basketSpawner: {fileID: 550383219}
-  highestScoreKey: {fileID: 11400000, guid: a418ae6b8a7cde94f86a9ac0bb1a4e3d, type: 2}
+  levelCompleteKey: {fileID: 0}
   audioSource: {fileID: 513495050}
   progressionEventsHelper: {fileID: 1210227670}
   levelSelector: {fileID: 1235757813}

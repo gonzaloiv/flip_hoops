@@ -9,15 +9,14 @@ namespace DigitalLove.Game.Levels
     [CreateAssetMenu(fileName = "GameLevelData", menuName = "DigitalLove/Game/GameLevelData")]
     public class GameLevelData : LevelData
     {
-        private const string LevelInfoKey = "info";
+        public const int BasketsToScore = 2;
 
         [Header("GameLevelData")]
         public List<GravityData> gravities;
-        public int basketsToScore = 2;
         public BallData ball;
         public DistanceData distance;
+        public bool isCountdownLevel = false;
 
-        public bool IsWarmUp => basketsToScore > 0;
-        public string InfoKey => $"level_{id}_{LevelInfoKey}";
+        public string InfoKey => $"level_{id}_info";
     }
 }

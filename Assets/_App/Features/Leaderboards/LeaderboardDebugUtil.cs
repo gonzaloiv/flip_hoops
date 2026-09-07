@@ -8,7 +8,6 @@ namespace DigitalLove.DataAccess.Leaderboards
     public class LeaderboardDebugUtil : MonoBehaviour
     {
         [SerializeField] private LeaderboardEntry entryToAdd;
-        [SerializeField] private LeaderboardEntryGroup loadedEntries;
         [SerializeField] private LeaderboardPanel leaderboardPanel;
 
         private LeaderboardsClient leaderboardsClient = new();
@@ -57,7 +56,6 @@ namespace DigitalLove.DataAccess.Leaderboards
 
             if (task.Result != null && task.Result.HasAnyValid)
             {
-                loadedEntries = task.Result;
                 if (leaderboardPanel != null)
                     leaderboardPanel.Show();
             }

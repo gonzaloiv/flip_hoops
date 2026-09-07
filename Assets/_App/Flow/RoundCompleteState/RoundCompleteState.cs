@@ -12,6 +12,7 @@ using DigitalLove.Casual.Analytics;
 using DigitalLove.Game.Levels;
 using DigitalLove.Global;
 using DigitalLove.XR;
+using DigitalLove.Casual.Levels;
 
 namespace DigitalLove.Game
 {
@@ -23,7 +24,7 @@ namespace DigitalLove.Game
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
-        [SerializeField] private StringValue highestScoreKey;
+        [SerializeField] private StringValue levelCompleteKey;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
         [SerializeField] private LevelSelector levelSelector;
@@ -35,31 +36,39 @@ namespace DigitalLove.Game
         private GameLevelData levelData;
         private Play play;
 
-        public override async void Enter()
+        public override void Enter()
         {
             levelData = levelSelector.GetCurrent();
             play = memoryDataClient.Get<Play>();
             ballSpawner.Unspawn();
-            bool isHighestScore = CheckScore();
-            UpdatePlayerData(isHighestScore);
-            UpdateLeaderboard(isHighestScore);
+            bool isHighestScore = SetNewScore(levelData);
+            UpdatePlayerData();
             ShowUI(isHighestScore);
             CountDown();
         }
 
-        private bool CheckScore()
+        private bool SetNewScore(GameLevelData levelData)
         {
-            Round round = memoryDataClient.Get<Round>();
-            int score = round.Score;
-            progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play), score: score);
-            if (levelData.IsWarmUp)
-                return false;
             PlayerData playerData = memoryDataClient.Get<PlayerData>();
-            Cookie previousCookie = playerData.GetCookieById(highestScoreKey.value);
+            var levelCompleteCookie = new LevelCompleteCookie(levelData.id);
+            LevelCompleteCookie previousCookie = null;
+
+            // Find if this LevelCompleteCookie already exists
+            foreach (var cookie in playerData.GetLevelCompleteCookies())
+            {
+                if (cookie.LevelId == levelData.id)
+                {
+                    previousCookie = cookie;
+                    break;
+                }
+            }
+
+            int score = memoryDataClient.Get<Round>().Score;
+
             if (previousCookie == null)
             {
-                previousCookie = new(highestScoreKey.value) { metadata = score.ToString() };
-                playerData.AddCookie(previousCookie);
+                levelCompleteCookie.metadata = score.ToString();
+                playerData.AddCookie(levelCompleteCookie);
                 return true;
             }
             else if (int.Parse(previousCookie.metadata) <= score)
@@ -70,26 +79,9 @@ namespace DigitalLove.Game
             return false;
         }
 
-        private async void UpdatePlayerData(bool isHighestScore)
+        private async void UpdatePlayerData()
         {
-            if (!isHighestScore)
-                return;
             await unityPlayerDataClient.Put(memoryDataClient.Get<PlayerData>());
-        }
-
-        private void UpdateLeaderboard(bool isHighestScore)
-        {
-            if (!isHighestScore)
-                return;
-            metaPlatformClient.FetchUserDisplayName(OnUserDisplayNameFetched);
-            void OnUserDisplayNameFetched(string displayName)
-            {
-                if (string.IsNullOrEmpty(displayName))
-                {
-                    Debug.LogWarning("DisplayName is empty");
-                    return;
-                }
-            }
         }
 
         private void ShowUI(bool isHighestScore)
