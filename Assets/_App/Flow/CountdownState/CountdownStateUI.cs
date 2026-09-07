@@ -1,5 +1,4 @@
 using DigitalLove.Casual.UI;
-using DigitalLove.DataAccess.Leaderboards;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.UI;
@@ -15,26 +14,20 @@ namespace DigitalLove.Game
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
         [SerializeField] private GrabBallPanel grabBallPanel;
-        [SerializeField] private HighestScorePosterBehaviour highestScorePosterBehaviour;
         [SerializeField] private FindTheHoopPanel findTheHoopPanel;
         [SerializeField] private ReviewPanel reviewPanel;
-        [SerializeField] private LeaderboardPanel leaderboardPanel;
 
         public void HideAll()
         {
             grabBallPanel.Hide();
             basketSpawner.Hide();
             reviewPanel.Hide();
-            leaderboardPanel.Hide();
         }
 
         public void ShowIntro(Play play)
         {
             grabBallPanel.Show();
             scoreboardSpawner.ShowRound(play.RoundLabelValue());
-            highestScorePosterBehaviour.Show();
-            findTheHoopPanel.Show();
-            leaderboardPanel.Show();
             if (play.Tries >= 1) // ? Show review panel after warm up
                 reviewPanel.Show();
         }

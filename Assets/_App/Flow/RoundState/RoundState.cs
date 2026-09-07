@@ -2,7 +2,6 @@ using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
-using DigitalLove.Game.Modifiers;
 using UnityEngine;
 
 namespace DigitalLove.Game

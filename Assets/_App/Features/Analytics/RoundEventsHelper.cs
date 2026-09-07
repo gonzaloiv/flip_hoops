@@ -48,7 +48,7 @@ namespace DigitalLove.Game.Analytics
         {
             if (HasToSend(analyticsEvent.key))
             {
-                memoryDataClient.Get<Round>().events.Add(analyticsEvent.key);
+                memoryDataClient.Get<Round>().AddEvent(analyticsEvent.key);
                 analyticsProvider.Send(analyticsEvent);
             }
         }
@@ -56,7 +56,7 @@ namespace DigitalLove.Game.Analytics
         private bool HasToSend(string key)
         {
             Round round = memoryDataClient.Get<Round>();
-            return round != null && !round.events.Any(e => string.Equals(e, key));
+            return round != null && !round.HasEvent(key);
         }
     }
 }

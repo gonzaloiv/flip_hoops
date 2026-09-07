@@ -9,7 +9,6 @@ namespace DigitalLove.Game
 {
     public class LevelSelector : MonoBehaviour
     {
-        [SerializeField] private GameLevelData[] firstSessionLevels;
         [SerializeField] private GameLevelData[] levels;
 
         [Header("Debug")]
@@ -19,15 +18,14 @@ namespace DigitalLove.Game
 
         public GameLevelData GetCurrent()
         {
-            GameLevelData[] data = memoryDataClient.Get<PlayerData>().IsFirstSession ? firstSessionLevels : levels;
             int roundIndex = memoryDataClient.Get<Play>().Tries;
-            if (data.Length <= roundIndex)
+            if (levels.Length <= roundIndex)
             {
-                current = data.Last();
+                current = levels.Last();
             }
             else
             {
-                current = data[roundIndex];
+                current = levels[roundIndex];
             }
             return current;
         }

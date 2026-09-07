@@ -2,7 +2,6 @@ using System.Collections;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
-using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;
 using Reflex.Attributes;
@@ -16,8 +15,6 @@ namespace DigitalLove.Game
 
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
-        [SerializeField] private ModifiersSpawner modifiersSpawner;
-        [SerializeField] private StreakCounter streakCounter;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
@@ -27,34 +24,16 @@ namespace DigitalLove.Game
         public override void DoStart(GameLevelData levelData)
         {
             basketSpawner.scored += OnBasketScored;
-            modifiersSpawner.scored += OnMultiplierScored;
 
             round = memoryDataClient.Get<Round>();
-            streakCounter.Reset();
-            if (levelData.HasModifiers)
-                modifiersSpawner.DoStart(levelData.modifiers);
             StartCountdown();
         }
 
         private void OnBasketScored(int score)
         {
-            int realScore = DoScore(score);
-            basketSpawner.ShowScore(realScore, streakCounter.IsInStreak);
-        }
-
-        private void OnMultiplierScored(int score)
-        {
-            int realScore = DoScore(score);
-            modifiersSpawner.ShowScore(realScore, streakCounter.IsInStreak);
-        }
-
-        private int DoScore(int score)
-        {
-            streakCounter.IncrementStreak();
-            int realScore = (int)(score * streakCounter.CurrentStreakMultiplier);
-            round.score += realScore;
-            scoreboardSpawner.Panel.SetScore(realScore);
-            return realScore;
+            round.AddScore(score);
+            scoreboardSpawner.Panel.SetScore(score);
+            basketSpawner.ShowScore(score, false);
         }
 
         [Button]
@@ -80,9 +59,6 @@ namespace DigitalLove.Game
         private void OnComplete()
         {
             basketSpawner.scored -= OnBasketScored;
-            modifiersSpawner.scored -= OnMultiplierScored;
-
-            modifiersSpawner.DoStop();
 
             onComplete();
         }

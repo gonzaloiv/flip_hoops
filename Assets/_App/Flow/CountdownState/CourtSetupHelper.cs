@@ -35,7 +35,7 @@ namespace DigitalLove.Game
         public void Spawn(GameLevelData levelData, Play play, Action onComplete)
         {
             GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
-            Vector3 gravityDirection = TrySpawnBasket(gravity, levelData.distance);
+            Vector3 gravityDirection = TrySpawnBasket(gravity, levelData.distance.minMax);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.balls, gravityDirection);

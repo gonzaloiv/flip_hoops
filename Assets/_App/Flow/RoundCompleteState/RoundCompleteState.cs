@@ -10,8 +10,6 @@ using UnityEngine;
 using DigitalLove.Audio;
 using DigitalLove.Casual.Analytics;
 using DigitalLove.Game.Levels;
-using System.Threading.Tasks;
-using DigitalLove.DataAccess.Leaderboards;
 using DigitalLove.Global;
 using DigitalLove.XR;
 
@@ -22,7 +20,6 @@ namespace DigitalLove.Game
         private int RoundCompleteSecs = 5;
 
         [SerializeField] private string tableName = "Levels";
-        [SerializeField] private GravitySelector gravitiesBehaviour;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
@@ -30,7 +27,6 @@ namespace DigitalLove.Game
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private LeaderboardPanel leaderboardPanel;
         [SerializeField] private MetaPlatformClient metaPlatformClient;
 
         [Inject] private MemoryDataClient memoryDataClient;
@@ -38,7 +34,6 @@ namespace DigitalLove.Game
 
         private GameLevelData levelData;
         private Play play;
-        private LeaderboardsClient leaderboardsClient = new();
 
         public override async void Enter()
         {
@@ -55,20 +50,21 @@ namespace DigitalLove.Game
         private bool CheckScore()
         {
             Round round = memoryDataClient.Get<Round>();
-            progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play), score: round.score);
+            int score = round.Score;
+            progressionEventsHelper.SendLevelCompleteEvent(levelId: levelData.GetIdWithRound(play), score: score);
             if (levelData.IsWarmUp)
                 return false;
             PlayerData playerData = memoryDataClient.Get<PlayerData>();
             Cookie previousCookie = playerData.GetCookieById(highestScoreKey.value);
             if (previousCookie == null)
             {
-                previousCookie = new(highestScoreKey.value) { metadata = round.score.ToString() };
+                previousCookie = new(highestScoreKey.value) { metadata = score.ToString() };
                 playerData.AddCookie(previousCookie);
                 return true;
             }
-            else if (int.Parse(previousCookie.metadata) <= round.score)
+            else if (int.Parse(previousCookie.metadata) <= score)
             {
-                previousCookie.metadata = round.score.ToString();
+                previousCookie.metadata = score.ToString();
                 return true;
             }
             return false;
@@ -93,24 +89,7 @@ namespace DigitalLove.Game
                     Debug.LogWarning("DisplayName is empty");
                     return;
                 }
-                LeaderboardEntry entry = new() { score = memoryDataClient.Get<Round>().score, playerName = displayName };
-                StartCoroutine(AddScoreAndShowLeaderboardRoutine(entry));
             }
-        }
-
-        private IEnumerator AddScoreAndShowLeaderboardRoutine(LeaderboardEntry entry)
-        {
-            Task<bool> task = leaderboardsClient.AddScoreToGlobalLeaderboardAsync(entry);
-            yield return new WaitUntil(() => task.IsCompleted);
-
-            if (task.IsFaulted)
-            {
-                Debug.LogError(task.Exception?.GetBaseException());
-                yield break;
-            }
-
-            if (task.Result)
-                leaderboardPanel.Show();
         }
 
         private void ShowUI(bool isHighestScore)

@@ -23,22 +23,21 @@ namespace DigitalLove.Game
         {
             round = memoryDataClient.Get<Round>();
             basketSpawner.scored += OnScored;
-            round.score = levelSelector.GetCurrent().basketsToScore;
+            round.AddScore(levelSelector.GetCurrent().basketsToScore);
         }
 
         private void OnScored(int value)
         {
-            round.score--;
-            scoreboardSpawner.Panel.SetScore(round.score);
-            if (round.score <= 0)
+            round.AddScore(-1);
+            scoreboardSpawner.Panel.SetScore(round.Score);
+            if (round.Score <= 0)
                 OnComplete();
         }
 
         [Button]
         public void CompleteRound()
         {
-            round.score = 1;
-            OnScored(2);
+            OnScored(999);
         }
 
         private void OnComplete()

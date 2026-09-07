@@ -13,20 +13,19 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private ParticleSystem ps;
         [SerializeField] private Collider trigger;
 
-        private List<BallBehaviour> ballsInside = new();
-
         [Header("Physics")]
         [SerializeField] private float radius;
-        public float Radius => radius;
-
         [SerializeField] private float height = 1f;
-        public float Height => height;
 
         [Header("UI")]
         [SerializeField] private GameObject lookHerePanel;
         [SerializeField] private Transform panelRef;
-        public Transform PanelRef => panelRef;
 
+        private List<BallBehaviour> ballsInside = new();
+
+        public float Height => height;
+        public float Radius => radius;
+        public Transform PanelRef => panelRef;
         public Vector3 WorldPosition => transform.position;
 
         public UnityEvent<int> scored;

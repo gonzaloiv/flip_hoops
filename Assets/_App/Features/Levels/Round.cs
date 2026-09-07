@@ -4,13 +4,35 @@ namespace DigitalLove.Game
 {
     public class Round
     {
-        public int score;
-        public List<string> events = new();
+        private int score;
+        private List<string> events = new();
+
+        public int Score => score;
 
         public void Reset()
         {
             score = 0;
             events = new();
+        }
+
+        public void AddScore(int score)
+        {
+            this.score += score;
+        }
+
+        public void SetScore(int score)
+        {
+            this.score = score;
+        }
+
+        public void AddEvent(string eventName)
+        {
+            events.Add(eventName);
+        }
+
+        public bool HasEvent(string eventName)
+        {
+            return events.Contains(eventName);
         }
     }
 }
