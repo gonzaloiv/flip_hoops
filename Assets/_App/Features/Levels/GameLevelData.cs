@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DigitalLove.Casual.Levels;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Balls;
@@ -12,11 +11,11 @@ namespace DigitalLove.Game.Levels
         public const int BasketsToScore = 2;
 
         [Header("GameLevelData")]
-        public List<GravityData> gravities;
+        public GravityData gravity;
         public BallData ball;
         public DistanceData distance;
         public bool isCountdownLevel = false;
 
-        public string InfoKey => $"level_{id}_info";
+        public string InitKey => $"level_{id}_init";
     }
 }

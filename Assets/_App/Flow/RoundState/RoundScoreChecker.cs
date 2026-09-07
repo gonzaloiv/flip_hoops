@@ -29,7 +29,7 @@ namespace DigitalLove.Game
         private void OnScored(int value)
         {
             round.AddScore(-1);
-            scoreboardSpawner.Panel.SetScore(round.Score);
+            scoreboardSpawner.Panel.SetRightLabel(round.Score);
             if (round.Score <= 0)
                 OnComplete();
         }

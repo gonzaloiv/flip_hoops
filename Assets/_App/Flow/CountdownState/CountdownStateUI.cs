@@ -27,7 +27,7 @@ namespace DigitalLove.Game
         public void ShowIntro(Play play)
         {
             grabBallPanel.Show();
-            scoreboardSpawner.ShowRound(play.RoundLabelValue());
+            scoreboardSpawner.Show(play.RoundLabelValue(), GameLevelData.BasketsToScore);
             if (play.Tries >= 1) // ? Show review panel after warm up
                 reviewPanel.Show();
         }
@@ -41,7 +41,7 @@ namespace DigitalLove.Game
             if (!levelData.isCountdownLevel)
             {
                 initText = LocalizationUtil.GetValue(tableName: tableName, levelData.IntroKey);
-                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InfoKey, GameLevelData.BasketsToScore);
+                infoText = LocalizationUtil.GetValue(tableName: tableName, levelData.InitKey, GameLevelData.BasketsToScore);
             }
             else
             {
@@ -53,7 +53,7 @@ namespace DigitalLove.Game
 
         public void ShowCountdown(int seconds)
         {
-            scoreboardSpawner.Panel.SetTime(seconds);
+            scoreboardSpawner.Panel.SetLeftLabel(seconds);
             basketSpawner.Panel.ShowCountdown(seconds);
         }
     }

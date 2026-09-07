@@ -32,7 +32,7 @@ namespace DigitalLove.Game
         private void OnBasketScored(int score)
         {
             round.AddScore(score);
-            scoreboardSpawner.Panel.SetScore(score);
+            scoreboardSpawner.Panel.SetRightLabel(score);
             basketSpawner.ShowScore(score, false);
         }
 
@@ -46,11 +46,11 @@ namespace DigitalLove.Game
             {
                 while (countdown > 0)
                 {
-                    scoreboardSpawner.Panel.SetTime(countdown);
+                    scoreboardSpawner.Panel.SetLeftLabel(countdown);
                     yield return new WaitForSecondsRealtime(1);
                     countdown--;
                 }
-                scoreboardSpawner.Panel.SetTime(countdown);
+                scoreboardSpawner.Panel.SetLeftLabel(countdown);
                 OnComplete();
             }
             StartCoroutine(CoundownRoutine());

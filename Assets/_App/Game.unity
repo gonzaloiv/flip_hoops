@@ -792,7 +792,7 @@ MonoBehaviour:
     userId: 
     sessionCount: 2
     cookies:
-    - id: 
+    - id: levlel_complete_01_01
       metadata: 125
   forceLocalPlayerData:
     value: 1
@@ -3839,7 +3839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d890afd29066d1f458fc341b746e5b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.LevelSelector
-  levels: []
+  chapters: []
   current: {fileID: 0}
 --- !u!114 &1235757814
 MonoBehaviour:
@@ -4991,7 +4991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b1580380d64247868d8499b27a3622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravitySelector: {fileID: 1235757814}
   ballSpawner: {fileID: 1097701444}
   basketSpawner: {fileID: 550383219}
   throwZone: {fileID: 1869005711}
@@ -5321,34 +5320,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scoreboard
       objectReference: {fileID: 0}
-    - target: {fileID: 7817746323028628396, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.015686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 7817746323028628396, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.5294118
-      objectReference: {fileID: 0}
-    - target: {fileID: 7817746323028628396, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.9490197
-      objectReference: {fileID: 0}
-    - target: {fileID: 7817746323028628396, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 2818869234
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479490556878964900, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479490556878964900, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479490556878964900, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.75
-      objectReference: {fileID: 0}
     - target: {fileID: 8479490556878964900, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5388,10 +5359,6 @@ PrefabInstance:
     - target: {fileID: 8479490556878964900, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479490556878964900, guid: 4b9df6c7ad05b6443b75399047b54bd1, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

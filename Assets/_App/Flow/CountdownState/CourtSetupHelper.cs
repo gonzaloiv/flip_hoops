@@ -16,7 +16,6 @@ namespace DigitalLove.Game
     {
         private const int MaxAttempts = 5;
 
-        [SerializeField] private GravitySelector gravitySelector;
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ThrowZone throwZone;
@@ -34,8 +33,7 @@ namespace DigitalLove.Game
 
         public void Spawn(GameLevelData levelData, Play play, Action onComplete)
         {
-            GravityData gravity = gravitySelector.SelectRandom(levelData.gravities);
-            Vector3 gravityDirection = TrySpawnBasket(gravity, levelData.distance.minMax);
+            Vector3 gravityDirection = TrySpawnBasket(levelData.gravity, levelData.distance.minMax);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.ball, gravityDirection);

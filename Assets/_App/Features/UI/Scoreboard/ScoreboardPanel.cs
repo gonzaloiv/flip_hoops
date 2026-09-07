@@ -6,37 +6,33 @@ namespace DigitalLove.Game.UI
     public class ScoreboardPanel : MonoBehaviour
     {
         [SerializeField] private GameObject visuals;
-        [SerializeField] private TextMeshProUGUI scoreLabel;
-        [SerializeField] private TextMeshProUGUI timeLabel;
-        [SerializeField] private TextMeshProUGUI roundLabel;
+        [SerializeField] private TextMeshProUGUI topLabel;
+        [SerializeField] private TextMeshProUGUI leftLabel;
+        [SerializeField] private TextMeshProUGUI rightLabel;
         [SerializeField] private AudioSource countdownCompleteSource;
         [SerializeField] private AudioSource lastSecsSource;
 
-        public void Show()
+        public void Show(int currentCaseIndex, int totalCases)
         {
             visuals.SetActive(true);
-            SetScore(0);
-            timeLabel.text = 0.ToString("00:00");
-            SetRound(0);
+            SetTopLabel(currentCaseIndex, totalCases);
+            SetLeftLabel(0);
+            SetRightLabel(0);
         }
 
-        public void SetScore(int score)
+        private void SetTopLabel(int currentCaseIndex, int totalCases)
         {
-            scoreLabel.text = score.ToString("00");
+            topLabel.text = $"{currentCaseIndex + 1:00}/{totalCases:00}";
         }
 
-        public void SetTime(int time)
+        public void SetLeftLabel(int throws)
         {
-            timeLabel.text = time.ToString("00:00");
-            if (time <= 3 && time > 0)
-                lastSecsSource.Play();
-            if (time <= 0)
-                countdownCompleteSource.Play();
+            leftLabel.text = throws.ToString("00");
         }
 
-        public void SetRound(int round)
+        public void SetRightLabel(int score)
         {
-            roundLabel.text = round.ToString("00");
+            rightLabel.text = score.ToString("00");
         }
 
         public void Hide()

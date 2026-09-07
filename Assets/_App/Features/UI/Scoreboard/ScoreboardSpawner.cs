@@ -10,12 +10,11 @@ namespace DigitalLove.Game.UI
 
         public ScoreboardPanel Panel => panel;
 
-        public void ShowRound(int value)
+        public void Show(int currentCaseIndex, int totalCases)
         {
-            if (!onTheWallSpawner.HasBeenSpawned) 
+            if (!onTheWallSpawner.HasBeenSpawned)
                 onTheWallSpawner.Spawn();
-            Panel.Show();
-            Panel.SetRound(value);
+            Panel.Show(currentCaseIndex, totalCases);
         }
     }
 }
