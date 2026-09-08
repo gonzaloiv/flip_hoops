@@ -19,14 +19,14 @@ namespace DigitalLove.Game
 
         private Action onComplete;
         private GameLevelData levelData;
-        private Play play;
+        private int levelIndex;
 
         public void SetOnComplete(Action onComplete) => this.onComplete = onComplete;
 
-        public void DoStart(GameLevelData levelData, Play play)
+        public void DoStart(GameLevelData levelData, int levelIndex)
         {
             this.levelData = levelData;
-            this.play = play;
+            this.levelIndex = levelIndex;
             ballSpawner.ballGrabbed += OnBallGrabbed;
         }
 
@@ -38,7 +38,7 @@ namespace DigitalLove.Game
         private void OnBallGrabbed()
         {
             ballSpawner.ballGrabbed -= OnBallGrabbed;
-            ui.ShowBasketInstructions(levelData, play);
+            ui.ShowBasketInstructions(levelData, levelIndex);
             ui.HideGrabBallPanel();
             roundEventsHelper.SendHasGrabbedBallEvent();
             StartCoroutine(CountdownRoutine());

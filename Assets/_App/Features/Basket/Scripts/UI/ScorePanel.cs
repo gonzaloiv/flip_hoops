@@ -1,4 +1,3 @@
-using System;
 using DigitalLove.Global;
 using DigitalLove.Localization;
 using DigitalLove.VFX;

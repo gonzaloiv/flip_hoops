@@ -795,7 +795,7 @@ MonoBehaviour:
     - id: level_complete_01_01
       metadata: 125
   forceLocalPlayerData:
-    value: 1
+    value: 0
 --- !u!114 &284223193
 MonoBehaviour:
   m_ObjectHideFlags: 0

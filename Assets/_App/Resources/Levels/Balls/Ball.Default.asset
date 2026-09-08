@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d736a4711fcff24a8dba8e6835083e6, type: 3}
-  m_Name: Ball.Blue
+  m_Name: Ball.Default
   m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Court.BallData
-  id: Blue
-  prefab: {fileID: 2131148223093465136, guid: fba58581a86e6da4ea343f2b82b5883b, type: 3}
+  id: Default
+  prefab: {fileID: 550548915678113984, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}

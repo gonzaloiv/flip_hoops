@@ -10,6 +10,8 @@ namespace DigitalLove.Game
 {
     public class CountdownStateUI : MonoBehaviour
     {
+        private const int MinLevelIndexToShowReviewPanel = 2;
+
         [SerializeField] private string tableName = "Levels";
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ScoreboardSpawner scoreboardSpawner;
@@ -24,17 +26,17 @@ namespace DigitalLove.Game
             reviewPanel.Hide();
         }
 
-        public void ShowIntro(Play play, int totalLevels)
+        public void ShowIntro(int levelIndex, int totalLevels)
         {
             grabBallPanel.Show();
-            scoreboardSpawner.Show(play.RoundLabelValue(), totalLevels);
-            if (play.Tries >= 1) // ? Show review panel after warm up
+            scoreboardSpawner.Show(levelIndex, totalLevels);
+            if (levelIndex >= MinLevelIndexToShowReviewPanel)
                 reviewPanel.Show();
         }
 
         public void HideGrabBallPanel() => grabBallPanel.Hide();
 
-        public void ShowBasketInstructions(GameLevelData levelData, Play play)
+        public void ShowBasketInstructions(GameLevelData levelData, int levelIndex)
         {
             string initText;
             string infoText;
@@ -45,7 +47,7 @@ namespace DigitalLove.Game
             }
             else
             {
-                initText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_init", play.RoundLabelValue());
+                initText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_init", levelIndex + 1);
                 infoText = LocalizationUtil.GetValue(tableName: tableName, "high_score_level_info");
             }
             basketSpawner.Panel.Show(initText, infoText);

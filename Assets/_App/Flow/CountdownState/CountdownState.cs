@@ -7,7 +7,6 @@ using DigitalLove.Global;
 using Reflex.Attributes;
 using UnityEngine;
 using DigitalLove.Casual.Flow;
-using DigitalLove.Casual.Levels;
 
 namespace DigitalLove.Game
 {
@@ -66,8 +65,8 @@ namespace DigitalLove.Game
         private void OnSpawned()
         {
             roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetupHelper.DistanceToCamera);
-            ui.ShowIntro(play, levelSelector.TotalLevels);
-            checker.DoStart(levelData, play);
+            ui.ShowIntro(levelSelector.CurrentLevelIndex, levelSelector.TotalLevels);
+            checker.DoStart(levelData, levelSelector.CurrentLevelIndex);
         }
 
         public override void Exit()

@@ -26,6 +26,8 @@ namespace DigitalLove.Game
             }
         }
 
+        public int CurrentLevelIndex => chapters.GetLevelIndex(currentLevelId);
+
         public void SetCurrentPlayerLevelId()
         {
             LevelCompleteCookie lastLevelCompleteCookie = memoryDataClient.Get<PlayerData>().GetLevelCompleteCookies().GetLastLevelCookie();
