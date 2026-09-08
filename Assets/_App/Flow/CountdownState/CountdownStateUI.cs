@@ -1,20 +1,21 @@
+using System;
 using DigitalLove.Casual.UI;
+using DigitalLove.DataAccess;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.UI;
 using DigitalLove.Localization;
 using UnityEngine;
-using DigitalLove.Casual.Flow;
 
 namespace DigitalLove.Game
 {
     public class CountdownStateUI : MonoBehaviour
     {
         private const int MinLevelIndexToShowReviewPanel = 2;
+        private const string tableName = "Levels";
 
-        [SerializeField] private string tableName = "Levels";
         [SerializeField] private BasketSpawner basketSpawner;
-        [SerializeField] private ScoreboardSpawner scoreboardSpawner;
+        [SerializeField] private WallStackSpawner wallStackSpawner;
         [SerializeField] private GrabBallPanel grabBallPanel;
         [SerializeField] private FindTheHoopPanel findTheHoopPanel;
         [SerializeField] private ReviewPanel reviewPanel;
@@ -26,15 +27,42 @@ namespace DigitalLove.Game
             reviewPanel.Hide();
         }
 
-        public void ShowIntro(int levelIndex, int totalLevels)
+        public void ShowIntro(int levelIndex, int totalLevels, int tries)
         {
-            grabBallPanel.Show();
-            scoreboardSpawner.Show(levelIndex, totalLevels);
+            grabBallPanel.Show(showVideo: tries == 0);
+            if (tries < 1)
+                findTheHoopPanel.Show();
+            else
+                findTheHoopPanel.Hide();
+            wallStackSpawner.Show(levelIndex, totalLevels);
             if (levelIndex >= MinLevelIndexToShowReviewPanel)
                 reviewPanel.Show();
         }
 
         public void HideGrabBallPanel() => grabBallPanel.Hide();
+
+        public void SetLevelsInteraction(bool enabled) =>
+            wallStackSpawner.LevelsPanel?.SetInteractionEnabled(enabled);
+
+        public void RefreshLevels(LevelSelector levelSelector, PlayerData playerData)
+        {
+            LevelsPanel panel = wallStackSpawner.LevelsPanel;
+            if (panel == null)
+                return;
+            panel.Refresh(LevelItemDataBuilder.Build(levelSelector, playerData));
+        }
+
+        public void SubscribeLevelPressed(Action<string> handler)
+        {
+            if (wallStackSpawner.LevelsPanel != null)
+                wallStackSpawner.LevelsPanel.levelPressed += handler;
+        }
+
+        public void UnsubscribeLevelPressed(Action<string> handler)
+        {
+            if (wallStackSpawner.LevelsPanel != null)
+                wallStackSpawner.LevelsPanel.levelPressed -= handler;
+        }
 
         public void ShowBasketInstructions(GameLevelData levelData, int levelIndex)
         {
@@ -55,7 +83,7 @@ namespace DigitalLove.Game
 
         public void ShowCountdown(int seconds)
         {
-            scoreboardSpawner.Panel.SetLeftLabel(seconds);
+            wallStackSpawner.Panel.SetLeftLabel(seconds);
             basketSpawner.Panel.ShowCountdown(seconds);
         }
     }

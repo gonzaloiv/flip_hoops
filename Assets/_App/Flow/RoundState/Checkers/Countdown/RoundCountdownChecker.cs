@@ -14,7 +14,7 @@ namespace DigitalLove.Game
         private const int RoundSecs = 33;
 
         [SerializeField] private BasketSpawner basketSpawner;
-        [SerializeField] private ScoreboardSpawner scoreboardSpawner;
+        [SerializeField] private WallStackSpawner wallStackSpawner;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
@@ -32,7 +32,7 @@ namespace DigitalLove.Game
         private void OnBasketScored()
         {
             round.AddScore();
-            scoreboardSpawner.Panel.SetRightLabel(round.Score);
+            wallStackSpawner.Panel.SetRightLabel(round.Score);
             basketSpawner.ShowScore(round.Score, false);
         }
 
@@ -46,11 +46,11 @@ namespace DigitalLove.Game
             {
                 while (countdown > 0)
                 {
-                    scoreboardSpawner.Panel.SetLeftLabel(countdown);
+                    wallStackSpawner.Panel.SetLeftLabel(countdown);
                     yield return new WaitForSecondsRealtime(1);
                     countdown--;
                 }
-                scoreboardSpawner.Panel.SetLeftLabel(countdown);
+                wallStackSpawner.Panel.SetLeftLabel(countdown);
                 OnComplete();
             }
             StartCoroutine(CoundownRoutine());

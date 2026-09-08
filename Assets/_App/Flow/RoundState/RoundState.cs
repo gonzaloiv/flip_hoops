@@ -15,7 +15,7 @@ namespace DigitalLove.Game
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private BallsSpawner ballsSpawner;
-        [SerializeField] private ScoreboardSpawner scoreboardSpawner;
+        [SerializeField] private WallStackSpawner wallStackSpawner;
         [SerializeField] private RoundEventsHelper roundEventsHelper;
 
         [Header("Checkers")]
@@ -53,7 +53,7 @@ namespace DigitalLove.Game
         private void OnBallThrown()
         {
             round.AddThrow();
-            scoreboardSpawner.Panel.SetLeftLabel(round.Throws);
+            wallStackSpawner.Panel.SetLeftLabel(round.Throws);
         }
 
         private void OnComplete()

@@ -1,6 +1,3 @@
-using DigitalLove.Casual.Flow;
-using DigitalLove.DataAccess;
-using Reflex.Attributes;
 using UnityEngine;
 
 namespace DigitalLove.Game.UI
@@ -11,37 +8,37 @@ namespace DigitalLove.Game.UI
         [SerializeField] private GameObject video;
         [SerializeField] private float maxDistanceForVideo = 1;
 
-        [Inject] private MemoryDataClient memoryDataClient;
-
         private bool isActive;
+        private bool showVideo;
         private Camera cam;
 
         private Camera Cam => cam ??= Camera.main;
 
-        public void Show()
+        public void Show(bool showVideo)
         {
             isActive = true;
+            this.showVideo = showVideo;
             label.SetActive(true);
         }
 
         private void Update()
         {
-            if (isActive && memoryDataClient.Get<Play>().Tries == 0)
+            if (isActive && showVideo)
             {
                 float distanceToCamera = Vector3.Distance(video.transform.position, Cam.transform.position);
                 if (distanceToCamera < maxDistanceForVideo)
                     video.SetActive(true);
             }
-            else
+            else if (video.activeInHierarchy)
             {
-                if (video.activeInHierarchy)
-                    video.SetActive(false);
+                video.SetActive(false);
             }
         }
 
         public void Hide()
         {
             isActive = false;
+            showVideo = false;
             label.SetActive(false);
             video.SetActive(false);
         }

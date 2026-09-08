@@ -1,5 +1,4 @@
 using DigitalLove.DataAccess;
-using DigitalLove.Game;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.UI;
@@ -13,7 +12,7 @@ namespace DigitalLove.Game
     {
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private ScoreboardSpawner scoreboardSpawner;
+        [SerializeField] private WallStackSpawner wallStackSpawner;
 
         [Inject] private MemoryDataClient memoryDataClient;
 
@@ -29,7 +28,7 @@ namespace DigitalLove.Game
         private void OnScored()
         {
             round.AddScore(-1);
-            scoreboardSpawner.Panel.SetRightLabel(round.Score);
+            wallStackSpawner.Panel.SetRightLabel(round.Score);
             if (round.Score <= 0)
                 OnComplete();
         }

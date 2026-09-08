@@ -1,18 +1,18 @@
 using System.Collections;
+using DigitalLove.Audio;
+using DigitalLove.Casual.Analytics;
 using DigitalLove.Casual.Flow;
+using DigitalLove.Casual.Levels;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
+using DigitalLove.Game.Levels;
+using DigitalLove.Game.UI;
+using DigitalLove.Global;
 using DigitalLove.Localization;
 using Reflex.Attributes;
 using UnityEngine;
-using DigitalLove.Audio;
-using DigitalLove.Casual.Analytics;
-using DigitalLove.Game.Levels;
-using DigitalLove.Global;
-using DigitalLove.XR;
-using DigitalLove.Casual.Levels;
 
 namespace DigitalLove.Game
 {
@@ -28,7 +28,7 @@ namespace DigitalLove.Game
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private ProgressionEventsHelper progressionEventsHelper;
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private MetaPlatformClient metaPlatformClient;
+        [SerializeField] private LevelsPanel levelsPanel;
 
         [Inject] private MemoryDataClient memoryDataClient;
         [Inject] private UnityPlayerDataClient unityPlayerDataClient;
@@ -41,42 +41,42 @@ namespace DigitalLove.Game
             levelData = levelSelector.Current;
             play = memoryDataClient.Get<Play>();
             ballSpawner.Unspawn();
+            bool wasAlreadyPassed = HasPassCookie(levelData.id);
             bool isHighestScore = SetNewScore(levelData);
+            ApplyPlayCursorAfterRound(wasAlreadyPassed);
+            levelsPanel?.Refresh(LevelItemDataBuilder.Build(levelSelector, memoryDataClient.Get<PlayerData>()));
             UpdatePlayerData();
             ShowUI(isHighestScore);
             CountDown();
         }
 
+        private bool HasPassCookie(string levelId) =>
+            memoryDataClient.Get<PlayerData>().GetLevelCompleteCookies().HasLevelIdCookie(levelId);
+
         private bool SetNewScore(GameLevelData levelData)
         {
             PlayerData playerData = memoryDataClient.Get<PlayerData>();
-            var levelCompleteCookie = new LevelCompleteCookie(levelData.id);
-            LevelCompleteCookie previousCookie = null;
-
-            // Find if this LevelCompleteCookie already exists
-            foreach (var cookie in playerData.GetLevelCompleteCookies())
-            {
-                if (cookie.LevelId == levelData.id)
-                {
-                    previousCookie = cookie;
-                    break;
-                }
-            }
-
+            string cookieId = new LevelCompleteCookie(levelData.id).id;
             int score = memoryDataClient.Get<Round>().Score;
-
-            if (previousCookie == null)
+            Cookie stored = playerData.GetCookieById(cookieId);
+            if (stored == null)
             {
-                levelCompleteCookie.metadata = score.ToString();
-                playerData.AddCookie(levelCompleteCookie);
+                playerData.AddCookie(new LevelCompleteCookie(levelData.id).SetMetadata(score.ToString()));
                 return true;
             }
-            else if (int.Parse(previousCookie.metadata) <= score)
+
+            if (string.IsNullOrEmpty(stored.metadata) || int.Parse(stored.metadata) <= score)
             {
-                previousCookie.metadata = score.ToString();
+                stored.metadata = score.ToString();
                 return true;
             }
             return false;
+        }
+
+        private void ApplyPlayCursorAfterRound(bool wasAlreadyPassed)
+        {
+            if (!wasAlreadyPassed)
+                levelSelector.AdvancePlayCursorToFollowing();
         }
 
         private async void UpdatePlayerData()
@@ -87,8 +87,9 @@ namespace DigitalLove.Game
         private void ShowUI(bool isHighestScore)
         {
             string initText = LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_title", play.RoundLabelValue());
-            string infoText = !isHighestScore ? LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_info") :
-                LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_highest_score");
+            string infoText = !isHighestScore
+                ? LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_info")
+                : LocalizationUtil.GetValue(tableName: tableName, "default_round_complete_highest_score");
             basketSpawner.Panel.Show(initText, infoText);
         }
 
@@ -118,7 +119,6 @@ namespace DigitalLove.Game
 
         public override void Exit()
         {
-
         }
     }
 }

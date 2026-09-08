@@ -4,7 +4,6 @@ using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Levels;
 using DigitalLove.Global;
 using UnityEngine;
-using DigitalLove.Casual.Flow;
 using DigitalLove.Game.Balls;
 
 namespace DigitalLove.Game
@@ -20,6 +19,7 @@ namespace DigitalLove.Game
         private Action onComplete;
         private GameLevelData levelData;
         private int levelIndex;
+        private Coroutine countdownRoutine;
 
         public void SetOnComplete(Action onComplete) => this.onComplete = onComplete;
 
@@ -32,7 +32,16 @@ namespace DigitalLove.Game
 
         public void DoStop()
         {
+            CancelCountdown();
             ballSpawner.ballGrabbed -= OnBallGrabbed;
+        }
+
+        public void CancelCountdown()
+        {
+            if (countdownRoutine == null)
+                return;
+            StopCoroutine(countdownRoutine);
+            countdownRoutine = null;
         }
 
         private void OnBallGrabbed()
@@ -41,7 +50,7 @@ namespace DigitalLove.Game
             ui.ShowBasketInstructions(levelData, levelIndex);
             ui.HideGrabBallPanel();
             roundEventsHelper.SendHasGrabbedBallEvent();
-            StartCoroutine(CountdownRoutine());
+            countdownRoutine = StartCoroutine(CountdownRoutine());
         }
 
         private IEnumerator CountdownRoutine()
@@ -54,7 +63,8 @@ namespace DigitalLove.Game
                 countdown--;
             }
             ui.ShowCountdown(countdown);
-            onComplete();
+            countdownRoutine = null;
+            onComplete?.Invoke();
         }
 
         #region Debug

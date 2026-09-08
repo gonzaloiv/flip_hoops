@@ -1,4 +1,5 @@
 using DigitalLove.Casual.Analytics;
+using DigitalLove.Casual.Flow;
 using DigitalLove.DataAccess;
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
@@ -6,7 +7,6 @@ using DigitalLove.Game.Levels;
 using DigitalLove.Global;
 using Reflex.Attributes;
 using UnityEngine;
-using DigitalLove.Casual.Flow;
 
 namespace DigitalLove.Game
 {
@@ -28,6 +28,7 @@ namespace DigitalLove.Game
 
         private Play play;
         private GameLevelData levelData;
+        private bool isSpawning;
 
         [Header("Debug")]
         [SerializeField] private DebugBool setRandomLevel;
@@ -44,34 +45,64 @@ namespace DigitalLove.Game
         {
             play = memoryDataClient.Get<Play>();
             memoryDataClient.Put(new Round());
-            levelData = GetLevelData();
+            EnsurePlayCursor();
+            levelData = levelSelector.Current;
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
-            courtSetupHelper.Spawn(levelData, play, OnSpawned);
-        }
-
-        private GameLevelData GetLevelData()
-        {
-            if (setRandomLevel.Value)
-            {
-                levelSelector.SetRandom();
-            }
-            else
-            {
-                levelSelector.SetCurrentPlayerLevelId();
-            }
-            return levelSelector.Current;
-        }
-
-        private void OnSpawned()
-        {
-            roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetupHelper.DistanceToCamera);
-            ui.ShowIntro(levelSelector.CurrentLevelIndex, levelSelector.TotalLevels);
-            checker.DoStart(levelData, levelSelector.CurrentLevelIndex);
+            ui.SetLevelsInteraction(true);
+            ui.SubscribeLevelPressed(OnLevelPressed);
+            SpawnCourt(OnEnterSpawned);
         }
 
         public override void Exit()
         {
+            ui.UnsubscribeLevelPressed(OnLevelPressed);
+            ui.SetLevelsInteraction(false);
             checker.DoStop();
+        }
+
+        private void EnsurePlayCursor()
+        {
+            if (setRandomLevel.Value)
+                levelSelector.SetRandom();
+            else if (!levelSelector.HasPlayCursor)
+                levelSelector.SeedPlayCursorFromCookies();
+        }
+
+        private void SpawnCourt(System.Action onComplete)
+        {
+            isSpawning = true;
+            courtSetupHelper.Spawn(levelData, play, () =>
+            {
+                isSpawning = false;
+                onComplete();
+            });
+        }
+
+        private void OnEnterSpawned()
+        {
+            roundEventsHelper.SendBasketHasBeenSpawnedEvent(courtSetupHelper.DistanceToCamera);
+            ShowIntroAndArmGrab();
+        }
+
+        private void ShowIntroAndArmGrab()
+        {
+            ui.ShowIntro(levelSelector.CurrentLevelIndex, levelSelector.TotalLevels, play.Tries);
+            ui.RefreshLevels(levelSelector, memoryDataClient.Get<PlayerData>());
+            checker.DoStart(levelData, levelSelector.CurrentLevelIndex);
+        }
+
+        private void OnLevelPressed(string levelId)
+        {
+            if (isSpawning || !levelSelector.IsPressable(levelId))
+                return;
+            if (levelSelector.HasPlayCursor && string.Equals(levelSelector.Current.id, levelId))
+                return;
+
+            levelSelector.SetPlayCursor(levelId);
+            levelData = levelSelector.Current;
+            checker.DoStop();
+            courtSetupHelper.Clear();
+            SpawnCourt(ShowIntroAndArmGrab);
         }
 
         #region Debug
@@ -80,7 +111,7 @@ namespace DigitalLove.Game
         private void Respawn()
         {
             courtSetupHelper.Clear();
-            courtSetupHelper.Spawn(levelData, play, OnSpawned);
+            SpawnCourt(ShowIntroAndArmGrab);
         }
 
         #endregion
