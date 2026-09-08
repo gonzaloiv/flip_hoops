@@ -36,12 +36,24 @@ namespace DigitalLove.Game
             {
                 levelId = level.id,
                 identityLabel = $"{index + 1:00}",
-                scoreText = passed ? cookie.metadata : string.Empty,
+                scoreText = passed ? BuildScoreText(level, cookie) : string.Empty,
                 passed = passed,
                 selected = string.Equals(level.id, selectedId),
                 frontier = string.Equals(level.id, frontierId),
                 locked = !levelSelector.IsPressable(level.id)
             };
+        }
+
+        private static string BuildScoreText(GameLevelData level, LevelCompleteCookie cookie)
+        {
+            if (level.isCountdownLevel)
+                return cookie.metadata ?? string.Empty;
+
+            LevelClearBests bests = LevelClearBestsCodec.ParseScoreMode(cookie.metadata);
+            if (!bests.HasValue)
+                return string.Empty;
+
+            return $"{bests.Stars}* {bests.Points}";
         }
     }
 }

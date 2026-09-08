@@ -15,7 +15,7 @@ namespace DigitalLove.Game.UI
         public void Show(int currentCaseIndex, int totalCases)
         {
             if (!onTheWallSpawner.HasBeenSpawned)
-                onTheWallSpawner.Spawn();
+                onTheWallSpawner.SpawnInFrontOfCameraWhenReady();
             Panel.Show(currentCaseIndex, totalCases);
             levelsPanel?.Show();
         }

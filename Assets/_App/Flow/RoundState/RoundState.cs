@@ -25,6 +25,7 @@ namespace DigitalLove.Game
         [Inject] private MemoryDataClient memoryDataClient;
 
         private Round round;
+        private bool isCountdownLevel;
 
         public override void Init(StateMachine parent)
         {
@@ -41,7 +42,8 @@ namespace DigitalLove.Game
             round = memoryDataClient.Get<Round>();
             basketSpawner.Basket.SetTriggerActive(true);
             GameLevelData levelData = levelSelector.Current;
-            BaseRoundChecker checker = levelData.isCountdownLevel ? countdownChecker : scoreChecker;
+            isCountdownLevel = levelData.isCountdownLevel;
+            BaseRoundChecker checker = isCountdownLevel ? countdownChecker : scoreChecker;
             checker.DoStart(levelData);
         }
 
@@ -53,7 +55,11 @@ namespace DigitalLove.Game
         private void OnBallThrown()
         {
             round.AddThrow();
-            wallStackSpawner.Panel.SetLeftLabel(round.Throws);
+            if (isCountdownLevel)
+                return;
+
+            round.OpenThrow();
+            wallStackSpawner.Panel.SetLeftLabel(round.RemainingMakes);
         }
 
         private void OnComplete()

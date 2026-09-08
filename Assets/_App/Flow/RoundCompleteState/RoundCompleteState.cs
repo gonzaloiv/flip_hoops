@@ -55,6 +55,13 @@ namespace DigitalLove.Game
 
         private bool SetNewScore(GameLevelData levelData)
         {
+            if (levelData.isCountdownLevel)
+                return SetCountdownScore(levelData);
+            return SetScoreModeBests(levelData);
+        }
+
+        private bool SetCountdownScore(GameLevelData levelData)
+        {
             PlayerData playerData = memoryDataClient.Get<PlayerData>();
             string cookieId = new LevelCompleteCookie(levelData.id).id;
             int score = memoryDataClient.Get<Round>().Score;
@@ -71,6 +78,27 @@ namespace DigitalLove.Game
                 return true;
             }
             return false;
+        }
+
+        private bool SetScoreModeBests(GameLevelData levelData)
+        {
+            PlayerData playerData = memoryDataClient.Get<PlayerData>();
+            Round round = memoryDataClient.Get<Round>();
+            LevelClearBests stored = default;
+            Cookie cookie = playerData.GetCookieById(new LevelCompleteCookie(levelData.id).id);
+            if (cookie != null)
+                stored = LevelClearBestsCodec.ParseScoreMode(cookie.metadata);
+
+            LevelClearBests merged = LevelClearBestsCodec.Merge(stored, round.StarsEarned(), round.Score);
+            string encoded = LevelClearBestsCodec.Encode(merged.Stars, merged.Points);
+            bool pointsImproved = !stored.HasValue || round.Score > stored.Points;
+
+            if (cookie == null)
+                playerData.AddCookie(new LevelCompleteCookie(levelData.id).SetMetadata(encoded));
+            else
+                cookie.metadata = encoded;
+
+            return pointsImproved;
         }
 
         private void ApplyPlayCursorAfterRound(bool wasAlreadyPassed)
