@@ -32,11 +32,17 @@ namespace DigitalLove.Game
         {
             LevelCompleteCookie cookie = cookies.GetLevelIdCookie(level.id);
             bool passed = cookie != null;
+            int stars = 0;
+            string scoreText = string.Empty;
+            if (passed)
+                FillPassedScore(level, cookie, out stars, out scoreText);
+
             return new LevelItemData
             {
                 levelId = level.id,
                 identityLabel = $"{index + 1:00}",
-                scoreText = passed ? BuildScoreText(level, cookie) : string.Empty,
+                scoreText = scoreText,
+                stars = stars,
                 passed = passed,
                 selected = string.Equals(level.id, selectedId),
                 frontier = string.Equals(level.id, frontierId),
@@ -44,16 +50,26 @@ namespace DigitalLove.Game
             };
         }
 
-        private static string BuildScoreText(GameLevelData level, LevelCompleteCookie cookie)
+        private static void FillPassedScore(
+            GameLevelData level,
+            LevelCompleteCookie cookie,
+            out int stars,
+            out string scoreText)
         {
+            stars = 0;
+            scoreText = string.Empty;
             if (level.isCountdownLevel)
-                return cookie.metadata ?? string.Empty;
+            {
+                scoreText = cookie.metadata ?? string.Empty;
+                return;
+            }
 
             LevelClearBests bests = LevelClearBestsCodec.ParseScoreMode(cookie.metadata);
             if (!bests.HasValue)
-                return string.Empty;
+                return;
 
-            return $"{bests.Stars}* {bests.Points}";
+            stars = bests.Stars;
+            scoreText = bests.Points.ToString();
         }
     }
 }

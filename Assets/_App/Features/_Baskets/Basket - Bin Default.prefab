@@ -400,7 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9fd59a64c994c44b4274da4704383b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Basket::DigitalLove.Game.Basket.BasketBehaviour
-  maxBallsInside: 3
   ballLayerMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -408,6 +407,9 @@ MonoBehaviour:
   trigger: {fileID: 8850761356981703373}
   radius: 0.33
   height: 0.66
+  binRadius: 0.1
+  binHeight: 0.12
+  packingFactor: 0.5
   lookHerePanel: {fileID: 6198183463859414879}
   panelRef: {fileID: 4935404470378165855}
   scored:

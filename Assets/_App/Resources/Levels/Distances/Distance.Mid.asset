@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29efe13e63c7eef4e8552f85556a7f96, type: 3}
-  m_Name: DistanceData.Long
+  m_Name: Distance.Mid
   m_EditorClassIdentifier: DigitalLove.Game.Court::DigitalLove.Game.Court.DistanceData
   minMax:
-  - 2
-  - 1.5
+  - 1.25
+  - 1.75

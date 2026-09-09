@@ -14,5 +14,13 @@ namespace DigitalLove.Game.Balls
             }
             return null;
         }
+
+        public static float TotalVolume(this List<BallBehaviour> balls)
+        {
+            float total = 0f;
+            for (int i = 0; i < balls.Count; i++)
+                total += balls[i].Volume;
+            return total;
+        }
     }
 }

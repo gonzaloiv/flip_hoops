@@ -8,6 +8,7 @@ namespace DigitalLove.Game.UI
     public class LevelItem : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI identityLabel;
+        [SerializeField] private TextMeshProUGUI starsLabel;
         [SerializeField] private TextMeshProUGUI scoreLabel;
         [SerializeField] private TextMeshProUGUI statusLabel;
         [SerializeField] private Button button;
@@ -29,9 +30,21 @@ namespace DigitalLove.Game.UI
             this.pressesEnabled = pressesEnabled;
             locked = data.locked;
             identityLabel.text = data.identityLabel;
+            starsLabel.text = FormatStars(data.stars);
             scoreLabel.text = data.scoreText;
             statusLabel.text = BuildStatusText(data);
             ApplyInteractable();
+        }
+
+        private static string FormatStars(int stars)
+        {
+            if (stars >= 3)
+                return "***";
+            if (stars == 2)
+                return "**";
+            if (stars == 1)
+                return "*";
+            return string.Empty;
         }
 
         private static string BuildStatusText(LevelItemData data)

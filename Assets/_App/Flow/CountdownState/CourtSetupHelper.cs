@@ -37,7 +37,7 @@ namespace DigitalLove.Game
             Vector3 gravityDirection = TrySpawnBasket(levelData);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
-            ballSpawner.Spawn(levelData.ball, gravityDirection);
+            ballSpawner.Spawn(levelData.ball, gravityDirection, basketSpawner.Basket.transform);
             SpawnRadioIfFirstTry(play, onComplete);
         }
 

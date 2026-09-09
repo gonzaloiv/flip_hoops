@@ -28,6 +28,16 @@ namespace DigitalLove.Flow.RoundState
             ThrowBall(basketSpawner.Basket.transform.position + basketSpawner.Basket.transform.up + basketSpawner.Basket.transform.right);
         }
 
+        [Button]
+        private void ThrowBall()
+        {
+            BallBehaviour ball = ballsSpawner.ValidBall;
+            if (ball == null)
+                return;
+            ball.Invoke_OnSelect();
+            ball.Invoke_OnUnselect();
+        }
+
         private void ThrowBall(Vector3 position)
         {
             BallBehaviour ball = ballsSpawner.ValidBall;

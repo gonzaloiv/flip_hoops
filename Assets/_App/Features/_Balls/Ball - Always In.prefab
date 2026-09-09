@@ -13,9 +13,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 10a2f600d6bb42e4e9382ea8477626fb, type: 2}
     - target: {fileID: 550548915678113984, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
-      propertyPath: score
-      value: 4
-      objectReference: {fileID: 0}
+      propertyPath: throwBehaviour
+      value: 
+      objectReference: {fileID: 7726493810527461839}
     - target: {fileID: 853233370564235272, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: InitialModule.startColor.minColor.b
       value: 0.7725491
@@ -78,14 +78,45 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: d5d60ae84f0741a46970f0c55694c754, type: 2}
     - target: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: m_Name
-      value: Ball - Blue
+      value: Ball - Always In
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793315736553346107, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482608285683780187, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8122688724143621961, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 468feaef163750f4cbbbb60d76719d3e, type: 2}
-    m_RemovedComponents: []
+      objectReference: {fileID: 2100000, guid: de523e13d96f4d740931f72e5ce679df, type: 2}
+    m_RemovedComponents:
+    - {fileID: 4829173640582719351, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7726493810527461839}
   m_SourcePrefab: {fileID: 100100000, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+--- !u!1 &3779674075967311952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+  m_PrefabInstance: {fileID: 1887198832627323120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7726493810527461839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3779674075967311952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77315d19dce422c96409a5f40b685b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Balls::DigitalLove.Game.Balls.AlwaysInBallThrow
+  entryOffset: 0.175
+  minSpeed: 4

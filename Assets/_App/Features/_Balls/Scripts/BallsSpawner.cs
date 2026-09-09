@@ -17,6 +17,7 @@ namespace DigitalLove.Game.Balls
         private ObjectPool<BallBehaviour> pool;
         private BallData currentData;
         private Vector3 gravityDirection;
+        private Transform throwTarget;
         private bool isReleasing;
 
         public BallBehaviour ValidBall => rented.FindValid();
@@ -26,11 +27,12 @@ namespace DigitalLove.Game.Balls
 
         public void Invoke_BallGrabbed() => ballGrabbed.Invoke();
 
-        public void Spawn(BallData ball, Vector3 gravityDirection)
+        public void Spawn(BallData ball, Vector3 gravityDirection, Transform throwTarget = null)
         {
             Unspawn();
             EnsurePool(ball);
             this.gravityDirection = gravityDirection;
+            this.throwTarget = throwTarget;
             foreach (BallSpawnPoint point in points)
                 SetupBallForPoint(point);
         }
@@ -38,6 +40,7 @@ namespace DigitalLove.Game.Balls
         public void Unspawn()
         {
             gravityDirection = Vector3.zero;
+            throwTarget = null;
             ClearSpawnPoints();
             ReleaseAllRented();
         }
@@ -83,6 +86,7 @@ namespace DigitalLove.Game.Balls
             BallBehaviour ball = Rent();
             ball.transform.position = point.reference.position;
             ball.GravityDirection = gravityDirection;
+            ball.SetThrowTarget(throwTarget);
             point.ball = ball;
             if (secsBeforeSpawn != 0)
                 this.InvokeAfterSecs(secsBeforeSpawn, () => ActivateIfRented(ball));

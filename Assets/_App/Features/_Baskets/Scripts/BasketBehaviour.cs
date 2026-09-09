@@ -8,7 +8,6 @@ namespace DigitalLove.Game.Basket
 {
     public class BasketBehaviour : MonoBehaviour
     {
-        [SerializeField] private int maxBallsInside = 3;
         [SerializeField] private LayerMask ballLayerMask;
         [SerializeField] private ParticleSystem ps;
         [SerializeField] private Collider trigger;
@@ -16,6 +15,11 @@ namespace DigitalLove.Game.Basket
         [Header("Physics")]
         [SerializeField] private float radius;
         [SerializeField] private float height = 1f;
+
+        [Header("Capacity")]
+        [SerializeField] private float binRadius = 0.1f;
+        [SerializeField] private float binHeight = 0.12f;
+        [SerializeField, Range(0.05f, 1f)] private float packingFactor = 0.5f;
 
         [Header("UI")]
         [SerializeField] private GameObject lookHerePanel;
@@ -29,6 +33,8 @@ namespace DigitalLove.Game.Basket
         public Vector3 WorldPosition => transform.position;
 
         public UnityEvent scored;
+
+        private float Capacity => Mathf.PI * binRadius * binRadius * binHeight * packingFactor;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -47,10 +53,10 @@ namespace DigitalLove.Game.Basket
 
         private void RemoveBallIfNeeded()
         {
-            if (ballsInside.Count > maxBallsInside)
+            while (ballsInside.Count > 1 && ballsInside.TotalVolume() > Capacity)
             {
                 BallBehaviour ballToDisable = ballsInside[0];
-                ballsInside.Remove(ballToDisable);
+                ballsInside.RemoveAt(0);
                 ballToDisable.SetActive(false);
             }
         }
@@ -65,6 +71,16 @@ namespace DigitalLove.Game.Basket
         {
             Gizmos.color = Color.orange;
             Gizmos.DrawWireSphere(transform.position, radius);
+            Gizmos.color = Color.cyan;
+            DrawBinGizmo();
+        }
+
+        private void DrawBinGizmo()
+        {
+            Vector3 center = transform.position + transform.up * (binHeight * 0.5f);
+            Gizmos.matrix = Matrix4x4.TRS(center, transform.rotation, Vector3.one);
+            Gizmos.DrawWireCube(Vector3.zero, new Vector3(binRadius * 2f, binHeight, binRadius * 2f));
+            Gizmos.matrix = Matrix4x4.identity;
         }
 
         public void SetTriggerActive(bool isActive)

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d736a4711fcff24a8dba8e6835083e6, type: 3}
+  m_Name: Ball.Bowling
+  m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Court.BallData
+  id: Ball.Bowling
+  prefab: {fileID: 1034930714117079337, guid: bf2bfa5025fe85e4c9aedd6ccc9a5352, type: 3}
