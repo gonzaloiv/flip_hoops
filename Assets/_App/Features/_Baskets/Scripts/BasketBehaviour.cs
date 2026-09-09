@@ -88,13 +88,23 @@ namespace DigitalLove.Game.Basket
             trigger.enabled = isActive;
         }
 
-        public void Show(Vector3 position, Vector3 upDirection)
+        public void Show(Vector3 position, Vector3 upDirection, Vector3 lookTarget)
         {
             transform.position = position;
             transform.up = upDirection;
+            FaceOnY(lookTarget);
             SetTriggerActive(false);
             gameObject.SetActive(true);
             lookHerePanel?.SetActive(true);
+        }
+
+        private void FaceOnY(Vector3 lookTarget)
+        {
+            Vector3 flatTarget = new(lookTarget.x, transform.position.y, lookTarget.z);
+            Vector3 toTarget = flatTarget - transform.position;
+            if (toTarget.sqrMagnitude < 0.0001f)
+                return;
+            transform.rotation = Quaternion.LookRotation(toTarget, transform.up);
         }
 
         public void Hide()

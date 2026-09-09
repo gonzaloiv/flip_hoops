@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d736a4711fcff24a8dba8e6835083e6, type: 3}
   m_Name: Ball.Bouncy
   m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Court.BallData
-  id: Ball.Bouncy
+  id: ball_bouncy
   prefab: {fileID: 5271049185117613270, guid: 46276bab4fdc7674eae95512cdf2c13f, type: 3}

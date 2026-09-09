@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d736a4711fcff24a8dba8e6835083e6, type: 3}
   m_Name: Ball.Beach
   m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Court.BallData
-  id: Ball.Beach
+  id: ball_beach
   prefab: {fileID: 7447599368520888555, guid: 70bc7bcb89b003949a7953f21a9ac593, type: 3}

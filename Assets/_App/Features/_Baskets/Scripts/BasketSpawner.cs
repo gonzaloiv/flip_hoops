@@ -40,7 +40,7 @@ namespace DigitalLove.Game.Basket
             EnsureBasket(data);
             if (GetPosition(gravity, reference, distancesToReference))
             {
-                basket.Show(position, normal);
+                basket.Show(position, normal, reference.position);
                 panel.transform.position = basket.PanelRef.position;
                 return -normal;
             }

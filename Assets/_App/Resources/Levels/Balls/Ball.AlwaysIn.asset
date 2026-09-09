@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d736a4711fcff24a8dba8e6835083e6, type: 3}
   m_Name: Ball.AlwaysIn
   m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Court.BallData
-  id: Ball.AlwaysIn
+  id: ball_always_in
   prefab: {fileID: 2131148223093465136, guid: fba58581a86e6da4ea343f2b82b5883b, type: 3}

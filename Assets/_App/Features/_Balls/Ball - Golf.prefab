@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4215395911715742691, guid: 3068c8f51e6660d4c8db796af881a7cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ba8e10feecd610b438bbec18473021f7, type: 2}
     - target: {fileID: 8288189441579845519, guid: 3068c8f51e6660d4c8db796af881a7cf, type: 3}
       propertyPath: m_Name
       value: Body
@@ -108,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ChrisNolet.QuickOutline::Outline
   outlineMode: 0
   outlineColor: {r: 0.28627452, g: 0.29411766, b: 0.30980393, a: 1}
-  outlineWidth: 3
+  outlineWidth: 1
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 289301614986012343, guid: 2dc994e0e7a114c49bf5f61f2405f93b, type: 3}

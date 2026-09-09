@@ -4835,6 +4835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.LevelSelector
   chapters:
   - {fileID: 11400000, guid: 6d2a80bd95b19ee4ebf6d651e4ff9f73, type: 2}
+  - {fileID: 11400000, guid: c09a823bd8a26f14591a7e125a47f2bd, type: 2}
 --- !u!1 &1243884015
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,7 +46,6 @@ namespace DigitalLove.Game
             play = memoryDataClient.Get<Play>();
             memoryDataClient.Put(new Round());
             EnsurePlayCursor();
-            levelData = levelSelector.Current;
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             ui.SetLevelsInteraction(true);
             ui.SubscribeLevelPressed(OnLevelPressed);
@@ -66,6 +65,7 @@ namespace DigitalLove.Game
                 levelSelector.SetRandom();
             else if (!levelSelector.HasPlayCursor)
                 levelSelector.SeedPlayCursorFromCookies();
+            levelData = levelSelector.Current;
         }
 
         private void SpawnCourt(System.Action onComplete)

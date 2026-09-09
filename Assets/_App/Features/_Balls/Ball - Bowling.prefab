@@ -1140,7 +1140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8332801902902035642, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: _maxInteractors
-      value: 2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8332801902902035642, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: '_colliders.Array.data[0]'
@@ -1148,6 +1148,14 @@ PrefabInstance:
       objectReference: {fileID: 5817166856997219445}
     - target: {fileID: 8332801902902035642, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: _maxSelectingInteractors
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111780593419608101, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: _transferOnSecondSelection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111780593419608101, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: _maxGrabPoints
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8677366228562185283, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
@@ -1196,7 +1204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Balls::DigitalLove.Game.Balls.TwoHandGrabRequirement
   interactable: {fileID: 8816691807065978195}
   grabbable: {fileID: 3526560366587908556}
-  minHoveringInteractors: 2
+  maxSelectingInteractors: 2
 --- !u!114 &3526560366587908556 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4111780593419608101, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
