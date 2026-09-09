@@ -1059,9 +1059,11 @@ MonoBehaviour:
     sessionCount: 2
     cookies:
     - id: level_complete_01_01
-      metadata: 125
+      metadata: 3|12
+    - id: level_complete_01_02
+      metadata: 2|25
   forceLocalPlayerData:
-    value: 0
+    value: 1
 --- !u!114 &284223193
 MonoBehaviour:
   m_ObjectHideFlags: 0

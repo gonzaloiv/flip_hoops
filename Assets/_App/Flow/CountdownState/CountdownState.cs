@@ -86,8 +86,8 @@ namespace DigitalLove.Game
 
         private void ShowIntroAndArmGrab()
         {
-            ui.ShowIntro(levelSelector.CurrentLevelIndex, levelSelector.TotalLevels, play.Tries);
             ui.RefreshLevels(levelSelector, memoryDataClient.Get<PlayerData>());
+            ui.ShowIntro(levelSelector.CurrentLevelIndex, levelSelector.TotalLevels, play.Tries);
             checker.DoStart(levelData, levelSelector.CurrentLevelIndex);
         }
 
