@@ -1116,7 +1116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793315736553346107, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4111780593419608101, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: _maxGrabPoints
@@ -1148,14 +1148,6 @@ PrefabInstance:
       objectReference: {fileID: 5817166856997219445}
     - target: {fileID: 8332801902902035642, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: _maxSelectingInteractors
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4111780593419608101, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
-      propertyPath: _transferOnSecondSelection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4111780593419608101, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
-      propertyPath: _maxGrabPoints
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8677366228562185283, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DigitalLove.Game.Court;
 using DigitalLove.Global;
 using Oculus.Interaction;
@@ -14,8 +13,10 @@ namespace DigitalLove.Game.Balls
         [SerializeField] private Rigidbody rb;
         [SerializeField] private BallThrowBehaviour throwBehaviour;
         [SerializeField] private int maxQueueValues = 10;
-        [SerializeField] private float forceMultiplier = 10;
+        [SerializeField, Tooltip("Scales sampled release velocity (m/s) into throw velocity.")]
+        private float forceMultiplier = 1.25f;
         [SerializeField] private BallTrail trail;
+        [SerializeField] private BallIdleMotion idleMotion;
 
         public UnityEvent hover;
         public UnityEvent unhover;
@@ -26,10 +27,9 @@ namespace DigitalLove.Game.Balls
         public UnityEvent becameInactive;
 
         private Vector3 gravityDirection;
-        private Queue<Vector3> queue = new();
+        private BallReleaseSampler releaseSampler;
         private bool isSelected;
         private bool hasBeenUnselected;
-        private Vector3 previousPosition;
         private bool hasScored;
         private bool isInStreak;
 
@@ -41,6 +41,7 @@ namespace DigitalLove.Game.Balls
         public float Volume => cachedVolume < 0f ? cachedVolume = ComputeVolume() : cachedVolume;
 
         private BallThrowBehaviour ThrowBehaviour => throwBehaviour ??= GetComponent<BallThrowBehaviour>();
+        private BallReleaseSampler ReleaseSampler => releaseSampler ??= new BallReleaseSampler();
         private float cachedVolume = -1f;
 
         private void OnEnable()
@@ -51,6 +52,7 @@ namespace DigitalLove.Game.Balls
             hasBeenUnselected = false;
             hasScored = false;
             rb.isKinematic = true;
+            ReleaseSampler.Clear();
             trail.Reset();
         }
 
@@ -86,7 +88,9 @@ namespace DigitalLove.Game.Balls
         private void OnSelect()
         {
             isSelected = true;
-            queue.Clear();
+            ReleaseSampler.Clear();
+            if (idleMotion != null)
+                idleMotion.StopIdle();
             select.Invoke();
         }
 
@@ -98,38 +102,23 @@ namespace DigitalLove.Game.Balls
             isSelected = false;
             hasBeenUnselected = true;
             rb.isKinematic = false;
-            ThrowBehaviour.ApplyThrow(rb, GetReleaseDelta(), forceMultiplier);
+            ThrowBehaviour.ApplyThrow(rb, ReleaseSampler.Resolve(), forceMultiplier);
             unselect.Invoke();
             trail.ShowStreak(isInStreak);
         }
 
         public void SetThrowTarget(Transform target) => ThrowBehaviour.SetTarget(target);
 
-        private Vector3 GetReleaseDelta()
-        {
-            if (queue.Count == 0)
-                return Vector3.zero;
-
-            Vector3 total = Vector3.zero;
-            foreach (Vector3 value in queue)
-                total += value;
-            return total / queue.Count;
-        }
-
         private void FixedUpdate()
         {
             if (isSelected)
             {
-                if (queue.Count > maxQueueValues)
-                    queue.Dequeue();
-                Vector3 delta = transform.position - previousPosition;
-                queue.Enqueue(delta);
-                previousPosition = transform.position;
+                ReleaseSampler.Sample(transform, Time.fixedDeltaTime, maxQueueValues);
+                return;
             }
-            else if (ShouldApplyGravity())
-            {
+
+            if (ShouldApplyGravity())
                 rb.AddForce(gravityDirection * GravityData.Force, ForceMode.Force);
-            }
         }
 
         private bool ShouldApplyGravity()

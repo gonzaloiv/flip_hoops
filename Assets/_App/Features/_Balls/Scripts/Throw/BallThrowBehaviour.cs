@@ -6,7 +6,7 @@ namespace DigitalLove.Game.Balls
     {
         public virtual bool ControlsFlight => false;
 
-        public abstract void ApplyThrow(Rigidbody rb, Vector3 releaseDelta, float forceMultiplier);
+        public abstract void ApplyThrow(Rigidbody rb, BallThrowRelease release, float forceMultiplier);
 
         public virtual void SetTarget(Transform target) { }
     }

@@ -539,8 +539,9 @@ MonoBehaviour:
   rb: {fileID: 9163818528921441707}
   throwBehaviour: {fileID: 4829173640582719351}
   maxQueueValues: 7
-  forceMultiplier: 66
+  forceMultiplier: 1.25
   trail: {fileID: 3208119151612854899}
+  idleMotion: {fileID: 2847391056284710936}
   hover:
     m_PersistentCalls:
       m_Calls:
@@ -8046,6 +8047,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 887313401967117469}
+  - component: {fileID: 2847391056284710936}
   m_Layer: 11
   m_Name: Visuals
   m_TagString: Untagged
@@ -8070,6 +8072,24 @@ Transform:
   - {fileID: 4920867240104640410}
   m_Father: {fileID: 2590799862095003302}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2847391056284710936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112972606079028821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c3e91f4b2d6840a8e5f1c92637bd04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Balls::DigitalLove.Game.Balls.BallIdleMotion
+  content: {fileID: 3809598318649538530}
+  minCycleSecs: 1.5
+  maxCycleSecs: 2.5
+  punchSecs: 0.25
+  punchMultiplier: 0.12
+  degreesPerSecond: {x: 12, y: 40, z: 8}
 --- !u!1 &9086859690814871549
 GameObject:
   m_ObjectHideFlags: 0

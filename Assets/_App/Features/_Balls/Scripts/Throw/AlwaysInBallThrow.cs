@@ -24,15 +24,16 @@ namespace DigitalLove.Game.Balls
 
         public override void SetTarget(Transform target) => this.target = target;
 
-        public override void ApplyThrow(Rigidbody rb, Vector3 releaseDelta, float forceMultiplier)
+        public override void ApplyThrow(Rigidbody rb, BallThrowRelease release, float forceMultiplier)
         {
             this.rb = rb;
             isFlying = target != null;
             if (!isFlying)
                 return;
 
-            float speed = Mathf.Max(releaseDelta.magnitude * forceMultiplier, minSpeed);
+            float speed = Mathf.Max(release.LinearVelocity.magnitude * forceMultiplier, minSpeed);
             rb.linearVelocity = DirectionToAim() * speed;
+            rb.angularVelocity = release.AngularVelocity;
         }
 
         private void FixedUpdate()
