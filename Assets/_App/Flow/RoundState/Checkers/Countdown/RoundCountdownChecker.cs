@@ -2,6 +2,7 @@ using System.Collections;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;
 using Reflex.Attributes;
@@ -14,6 +15,8 @@ namespace DigitalLove.Game
         private const int RoundSecs = 33;
 
         [SerializeField] private BasketSpawner basketSpawner;
+        [SerializeField] private ObstacleSpawner obstacleSpawner;
+        [SerializeField] private BankShotRejectFeedback rejectFeedback;
         [SerializeField] private WallStackSpawner wallStackSpawner;
 
         [Inject] private MemoryDataClient memoryDataClient;
@@ -31,6 +34,12 @@ namespace DigitalLove.Game
 
         private void OnBasketScored()
         {
+            if (obstacleSpawner != null && !obstacleSpawner.CanCreditMake())
+            {
+                rejectFeedback?.PlayReject();
+                return;
+            }
+
             round.AddScore();
             wallStackSpawner.Panel.SetRightLabel(round.Score);
             basketSpawner.ShowScore(round.Score, false);

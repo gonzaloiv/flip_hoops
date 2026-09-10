@@ -2,6 +2,7 @@ using DigitalLove.Casual.Levels;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
+using DigitalLove.Game.Obstacles;
 using UnityEngine;
 
 namespace DigitalLove.Game.Levels
@@ -16,6 +17,9 @@ namespace DigitalLove.Game.Levels
         public BasketData basket;
         public DistanceData distance;
         public GravityData gravity;
+
+        [Header("GameLevelData.Obstacles")]
+        public ObstaclePlacement[] obstacles;
 
         [Header("GameLevelData.Other")]
         public bool isCountdownLevel = false;

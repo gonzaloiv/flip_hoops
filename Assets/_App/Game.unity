@@ -1057,11 +1057,7 @@ MonoBehaviour:
   playerData:
     userId: 
     sessionCount: 2
-    cookies:
-    - id: level_complete_01_01
-      metadata: 3|12
-    - id: level_complete_01_02
-      metadata: 2|25
+    cookies: []
   forceLocalPlayerData:
     value: 1
 --- !u!114 &284223193
@@ -2707,8 +2703,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   panel: {fileID: 3089920621793611421}
-  position: {x: 0, y: 0, z: 0}
-  normal: {x: 0, y: 0, z: 0}
 --- !u!1 &587785173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3451,6 +3445,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.UI::DigitalLove.Game.UI.LevelsPanel
   itemTemplate: {fileID: 1843983235}
   content: {fileID: 82881975}
+--- !u!1 &882699973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 882699974}
+  - component: {fileID: 882699975}
+  m_Layer: 0
+  m_Name: BanckShotReject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &882699974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882699973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2059213608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882699975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882699973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237d9a9f605f8d64db961faf4a36f43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Obstacles::DigitalLove.Game.Obstacles.BankShotRejectFeedback
+  audioSource: {fileID: 0}
+  rejectClip: {fileID: 0}
+  colorFade: {fileID: 0}
 --- !u!1 &905294906
 GameObject:
   m_ObjectHideFlags: 0
@@ -4819,6 +4860,7 @@ Transform:
   - {fileID: 186588926}
   - {fileID: 1869005710}
   - {fileID: 550383218}
+  - {fileID: 2059213608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1235757813
@@ -4834,7 +4876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Levels::DigitalLove.Game.LevelSelector
   chapters:
-  - {fileID: 11400000, guid: c09a823bd8a26f14591a7e125a47f2bd, type: 2}
+  - {fileID: 11400000, guid: 9b10dbdb37e8c4844952b307cbe1cd04, type: 2}
 --- !u!1 &1243884015
 GameObject:
   m_ObjectHideFlags: 0
@@ -5678,6 +5720,51 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: 0
+--- !u!1 &1458367245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1458367246}
+  - component: {fileID: 1458367247}
+  m_Layer: 0
+  m_Name: RequirementPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1458367246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458367245}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2059213608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1458367247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458367245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e2b93ad5dd3a54480cc83bd903be9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Obstacles::DigitalLove.Game.Obstacles.BankShotRequirementPanel
+  root: {fileID: 1458367245}
 --- !u!1 &1465585656
 GameObject:
   m_ObjectHideFlags: 0
@@ -5968,6 +6055,7 @@ MonoBehaviour:
   nextState: {fileID: 1699423994}
   levelSelector: {fileID: 1235757813}
   basketSpawner: {fileID: 550383219}
+  obstacleSpawner: {fileID: 2059213609}
   ballsSpawner: {fileID: 1097701444}
   wallStackSpawner: {fileID: 186588927}
   roundEventsHelper: {fileID: 1210227672}
@@ -5986,6 +6074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Flow::DigitalLove.RoundScoreChecker
   basketSpawner: {fileID: 550383219}
+  obstacleSpawner: {fileID: 2059213609}
+  rejectFeedback: {fileID: 882699975}
   levelSelector: {fileID: 1235757813}
   wallStackSpawner: {fileID: 186588927}
 --- !u!114 &1514311250
@@ -6001,6 +6091,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Flow.RoundState::DigitalLove.Game.RoundCountdownChecker
   basketSpawner: {fileID: 550383219}
+  obstacleSpawner: {fileID: 2059213609}
+  rejectFeedback: {fileID: 882699975}
   wallStackSpawner: {fileID: 186588927}
 --- !u!1 &1515094632
 GameObject:
@@ -6076,6 +6168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballSpawner: {fileID: 1097701444}
   basketSpawner: {fileID: 550383219}
+  obstacleSpawner: {fileID: 2059213609}
   throwZone: {fileID: 1869005711}
   posters:
   - {fileID: 5497837668605531769}
@@ -8287,6 +8380,58 @@ MonoBehaviour:
   m_SendPointerHoverToParent: 1
   _useInitialPressPositionForDrag: 1
   _exclusiveMode: 1
+--- !u!1 &2059213607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2059213608}
+  - component: {fileID: 2059213609}
+  m_Layer: 0
+  m_Name: Obstacles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2059213608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1458367246}
+  - {fileID: 882699974}
+  m_Father: {fileID: 1235757812}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059213609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9acd79cb964326940915b512f8931ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Obstacles::DigitalLove.Game.Obstacles.ObstacleSpawner
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  lateralHalfExtent: 0.5
+  heightHalfExtent: 0.45
+  requirementPanel: {fileID: 1458367247}
 --- !u!1001 &2096158474
 PrefabInstance:
   m_ObjectHideFlags: 0

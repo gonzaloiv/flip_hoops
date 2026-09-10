@@ -15,10 +15,8 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private BasketPanel panel;
 
-        [Header("Debug")]
-        [SerializeField] private Vector3 position;
-        [SerializeField] private Vector3 normal;
-
+        private Vector3 position;
+        private Vector3 normal;
         private ObjectPool<BasketBehaviour> pool;
         private BasketData currentData;
         private BasketBehaviour basket;

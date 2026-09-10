@@ -1,6 +1,7 @@
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;
 using Reflex.Attributes;
@@ -11,6 +12,8 @@ namespace DigitalLove.Game
     public class RoundScoreChecker : BaseRoundChecker
     {
         [SerializeField] private BasketSpawner basketSpawner;
+        [SerializeField] private ObstacleSpawner obstacleSpawner;
+        [SerializeField] private BankShotRejectFeedback rejectFeedback;
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private WallStackSpawner wallStackSpawner;
 
@@ -28,6 +31,12 @@ namespace DigitalLove.Game
 
         private void OnScored()
         {
+            if (obstacleSpawner != null && !obstacleSpawner.CanCreditMake())
+            {
+                rejectFeedback?.PlayReject();
+                return;
+            }
+
             round.ResolveActiveThrow();
             round.DecrementRemainingMakes();
             RefreshHud();

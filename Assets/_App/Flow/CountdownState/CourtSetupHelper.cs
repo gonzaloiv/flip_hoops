@@ -2,6 +2,7 @@ using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.UI;
 using UnityEngine;
 using DigitalLove.Audio;
@@ -12,13 +13,13 @@ using System.Collections;
 
 namespace DigitalLove.Game
 {
-    // Used for round init, for access to component elements direct references 
     public class CourtSetupHelper : MonoBehaviour
     {
         private const int MaxAttempts = 5;
 
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
+        [SerializeField] private ObstacleSpawner obstacleSpawner;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private PosterBehaviour[] posters;
         [SerializeField] private TheRadioBehaviour theRadioBehaviour;
@@ -34,7 +35,7 @@ namespace DigitalLove.Game
 
         public void Spawn(GameLevelData levelData, Play play, Action onComplete)
         {
-            Vector3 gravityDirection = TrySpawnBasket(levelData);
+            Vector3 gravityDirection = TrySpawnCourt(levelData);
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.ball, gravityDirection, basketSpawner.Basket.transform);
@@ -44,21 +45,18 @@ namespace DigitalLove.Game
         private void SpawnRadioIfFirstTry(Play play, Action onComplete)
         {
             if (play.Tries == 0)
-            {
-                IEnumerator SpawnRoutine()
-                {
-                    yield return new WaitUntil(HasFloorAtSpawnPoint);
-                    theRadioBehaviour.SetSpawnPointPosition();
-                    yield return new WaitForFixedUpdate();
-                    theRadioBehaviour.SetActive(true);
-                    onComplete.Invoke();
-                }
-                StartCoroutine(SpawnRoutine());
-            }
+                StartCoroutine(SpawnRadioRoutine(onComplete));
             else
-            {
                 onComplete.Invoke();
-            }
+        }
+
+        private IEnumerator SpawnRadioRoutine(Action onComplete)
+        {
+            yield return new WaitUntil(HasFloorAtSpawnPoint);
+            theRadioBehaviour.SetSpawnPointPosition();
+            yield return new WaitForFixedUpdate();
+            theRadioBehaviour.SetActive(true);
+            onComplete.Invoke();
         }
 
         private bool HasFloorAtSpawnPoint()
@@ -70,24 +68,50 @@ namespace DigitalLove.Game
             return Physics.Raycast(origin, Vector3.down, 1f);
         }
 
-        private Vector3 TrySpawnBasket(GameLevelData levelData)
+        private Vector3 TrySpawnCourt(GameLevelData levelData)
         {
             for (int attempt = 0; attempt < MaxAttempts; attempt++)
             {
-                throwZone.Spawn();
-                Vector3 gravityDirection = basketSpawner.SpawnAndGetGravityDirection(
-                    levelData.basket,
-                    levelData.gravity,
-                    throwZone.transform,
-                    levelData.distance.minMax);
-                if (gravityDirection != Vector3.zero)
+                if (TrySpawnCourtOnce(levelData, out Vector3 gravityDirection))
                     return gravityDirection;
 
-                throwZone.Unspawn();
-                basketSpawner.Hide();
+                FailAttempt();
             }
 
             return Vector3.zero;
+        }
+
+        private bool TrySpawnCourtOnce(GameLevelData levelData, out Vector3 gravityDirection)
+        {
+            throwZone.Spawn();
+            gravityDirection = basketSpawner.SpawnAndGetGravityDirection(
+                levelData.basket,
+                levelData.gravity,
+                throwZone.transform,
+                levelData.distance.minMax);
+            if (gravityDirection == Vector3.zero)
+                return false;
+
+            return TrySpawnObstacles(levelData);
+        }
+
+        private bool TrySpawnObstacles(GameLevelData levelData)
+        {
+            if (obstacleSpawner == null)
+                return true;
+
+            return obstacleSpawner.TrySpawnAll(
+                levelData.obstacles,
+                throwZone.transform,
+                basketSpawner.Basket.transform);
+        }
+
+        private void FailAttempt()
+        {
+            throwZone.Unspawn();
+            basketSpawner.Hide();
+            if (obstacleSpawner != null)
+                obstacleSpawner.Clear();
         }
 
         public void Clear()
@@ -95,6 +119,8 @@ namespace DigitalLove.Game
             ballSpawner.Unspawn();
             throwZone.Unspawn();
             basketSpawner.Hide();
+            if (obstacleSpawner != null)
+                obstacleSpawner.Clear();
         }
     }
 }

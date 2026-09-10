@@ -2,6 +2,7 @@ using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Obstacles;
 using UnityEngine;
 using DigitalLove.DataAccess;
 using Reflex.Attributes;
@@ -14,6 +15,7 @@ namespace DigitalLove.Game
     {
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private BasketSpawner basketSpawner;
+        [SerializeField] private ObstacleSpawner obstacleSpawner;
         [SerializeField] private BallsSpawner ballsSpawner;
         [SerializeField] private WallStackSpawner wallStackSpawner;
         [SerializeField] private RoundEventsHelper roundEventsHelper;
@@ -54,6 +56,9 @@ namespace DigitalLove.Game
 
         private void OnBallThrown()
         {
+            if (obstacleSpawner != null)
+                obstacleSpawner.ResetHitsForThrow();
+
             round.AddThrow();
             if (isCountdownLevel)
                 return;
