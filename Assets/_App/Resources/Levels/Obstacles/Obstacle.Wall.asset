@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08831b1982fdca347912f88ed7629bda, type: 3}
+  m_Name: Obstacle.Wall
+  m_EditorClassIdentifier: DigitalLove.Game.Obstacles::DigitalLove.Game.Obstacles.ObstacleData
+  id: obstacle_wall
+  prefab: {fileID: 5100001003, guid: b3c4d5e6f708192a3b4c5d6e7f8a9b03, type: 3}
