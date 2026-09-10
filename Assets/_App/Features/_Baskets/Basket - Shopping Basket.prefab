@@ -113,6 +113,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7370156802671013846, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7370156802671013846, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7370156802671013846, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5349201053103243050, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -138,6 +150,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2766212503428324877, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8448870079116268683}
+    - targetCorrespondingSourceObject: {fileID: 2766212503428324877, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 236772783334836542}
   m_SourcePrefab: {fileID: 100100000, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
 --- !u!4 &5127836065012646611 stripped
 Transform:
@@ -168,7 +183,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7495059876166621711, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
 --- !u!1 &7404073210572946229 stripped
@@ -198,6 +213,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6659003102834268097, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
+--- !u!114 &236772783334836542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404073210572946229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61936469aec24eba86afeab1ca896e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Basket::DigitalLove.Game.Basket.BasketHandleMotion
+  axis: 2
+  minAngle: -70
+  maxAngle: 70
+  degreesPerSecond: 60
+  randomizeStart: 1
 --- !u!23 &8457992359863100910 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -5349201053103243050, guid: efbc7a4b25bd51643a76bef280233ed4, type: 3}
@@ -213,15 +245,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 482544134502676733, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.53803
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 482544134502676733, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25819
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 482544134502676733, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.68437
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 482544134502676733, guid: 0ac8afaeec14f1c48b79f24998be7064, type: 3}
       propertyPath: m_LocalRotation.w

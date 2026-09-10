@@ -15,6 +15,10 @@ namespace DigitalLove.Game.Balls
         [SerializeField] private int maxQueueValues = 10;
         [SerializeField, Tooltip("Scales sampled release velocity (m/s) into throw velocity.")]
         private float forceMultiplier = 1.25f;
+        [SerializeField, Tooltip("While grabbed, force Meta unselect once sampled hand speed reaches this (m/s).")]
+        private float forceReleaseSpeed = 1.25f;
+        [SerializeField, Tooltip("Headset logs: Select, holding peak/speed, ForceRelease, Unselect.")]
+        private bool logGrabRelease;
         [SerializeField] private BallTrail trail;
         [SerializeField] private BallIdleMotion idleMotion;
 
@@ -28,6 +32,8 @@ namespace DigitalLove.Game.Balls
 
         private Vector3 gravityDirection;
         private BallReleaseSampler releaseSampler;
+        private BallGrabForceRelease grabForceRelease;
+        private BallGrabReleaseLogger grabReleaseLogger;
         private bool isSelected;
         private bool hasBeenUnselected;
         private bool hasScored;
@@ -42,6 +48,11 @@ namespace DigitalLove.Game.Balls
 
         private BallThrowBehaviour ThrowBehaviour => throwBehaviour ??= GetComponent<BallThrowBehaviour>();
         private BallReleaseSampler ReleaseSampler => releaseSampler ??= new BallReleaseSampler();
+        private BallGrabForceRelease GrabForceRelease => grabForceRelease ??= new BallGrabForceRelease(
+            GetComponent<TouchHandGrabInteractable>(),
+            GetComponent<GrabInteractable>());
+        private BallGrabReleaseLogger GrabReleaseLogger =>
+            grabReleaseLogger ??= new BallGrabReleaseLogger(name);
         private float cachedVolume = -1f;
 
         private void OnEnable()
@@ -89,6 +100,8 @@ namespace DigitalLove.Game.Balls
         {
             isSelected = true;
             ReleaseSampler.Clear();
+            GrabReleaseLogger.SetEnabled(logGrabRelease);
+            GrabReleaseLogger.OnSelect();
             if (idleMotion != null)
                 idleMotion.StopIdle();
             select.Invoke();
@@ -102,7 +115,11 @@ namespace DigitalLove.Game.Balls
             isSelected = false;
             hasBeenUnselected = true;
             rb.isKinematic = false;
-            ThrowBehaviour.ApplyThrow(rb, ReleaseSampler.Resolve(), forceMultiplier);
+            BallThrowRelease release = ReleaseSampler.Resolve();
+            ThrowBehaviour.ApplyThrow(rb, release, forceMultiplier);
+            GrabReleaseLogger.OnUnselect(
+                release.LinearVelocity.magnitude,
+                rb.linearVelocity.magnitude);
             unselect.Invoke();
             trail.ShowStreak(isInStreak);
         }
@@ -113,12 +130,21 @@ namespace DigitalLove.Game.Balls
         {
             if (isSelected)
             {
-                ReleaseSampler.Sample(transform, Time.fixedDeltaTime, maxQueueValues);
+                SampleGrabAndMaybeForceRelease();
                 return;
             }
 
             if (ShouldApplyGravity())
                 rb.AddForce(gravityDirection * GravityData.Force, ForceMode.Force);
+        }
+
+        private void SampleGrabAndMaybeForceRelease()
+        {
+            ReleaseSampler.Sample(transform, Time.fixedDeltaTime, maxQueueValues);
+            float speed = ReleaseSampler.Resolve().LinearVelocity.magnitude;
+            GrabReleaseLogger.ObserveSpeed(speed, forceReleaseSpeed);
+            if (GrabForceRelease.TryRelease(speed, forceReleaseSpeed))
+                GrabReleaseLogger.OnForceRelease(speed, forceReleaseSpeed);
         }
 
         private bool ShouldApplyGravity()
