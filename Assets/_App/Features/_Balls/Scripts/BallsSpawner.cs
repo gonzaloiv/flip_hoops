@@ -76,9 +76,18 @@ namespace DigitalLove.Game.Balls
             ballThrown.Invoke();
             foreach (BallSpawnPoint point in points)
             {
-                if (point.ball != null && point.ball.HasBeenUnselected)
+                if (NeedsRefill(point))
                     SetupBallForPoint(point, SecsBeforeSpawn);
             }
+        }
+
+        // Delayed replacements stay inactive until activate, so they must not count as "thrown".
+        // Recycled pool balls can still have HasBeenUnselected until OnEnable.
+        private static bool NeedsRefill(BallSpawnPoint point)
+        {
+            return point.ball != null
+                && point.ball.IsActive
+                && point.ball.HasBeenUnselected;
         }
 
         private void SetupBallForPoint(BallSpawnPoint point, float secsBeforeSpawn = 0)
