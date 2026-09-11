@@ -1,10 +1,10 @@
 using DigitalLove.Game.Balls;
-using DigitalLove.Global;
+using DigitalLove.Game.BankShot;
 using UnityEngine;
 
 namespace DigitalLove.Game.Obstacles
 {
-    public class ObstacleBehaviour : MonoBehaviour
+    public class ObstacleBehaviour : MonoBehaviour, IObligatoryActivatable
     {
         [SerializeField] private float clearanceRadius = 0.2f;
         [SerializeField] private Renderer pulseRenderer;
@@ -13,23 +13,25 @@ namespace DigitalLove.Game.Obstacles
         [SerializeField] private VerticalSpanFitter verticalSpanFitter;
 
         private bool obligatory;
-        private bool hitThisThrow;
-        private Color baseColor;
-        private Material runtimeMaterial;
-        private bool pulseActive;
+        private bool activatedThisThrow;
+        private ObligatoryPulseVisual pulseVisual;
 
         public bool IsObligatory => obligatory;
-        public bool HitThisThrow => hitThisThrow;
+        public bool ActivatedThisThrow => activatedThisThrow;
+        public bool HitThisThrow => activatedThisThrow;
         public float ClearanceRadius => clearanceRadius;
         public bool FitsVerticalSpan => VerticalSpanFitterProp != null;
 
         private VerticalSpanFitter VerticalSpanFitterProp =>
             verticalSpanFitter ??= GetComponent<VerticalSpanFitter>();
 
+        private ObligatoryPulseVisual PulseVisual =>
+            pulseVisual ??= new ObligatoryPulseVisual(pulseRenderer, pulseColor, pulseSpeed);
+
         public void Configure(bool isObligatory)
         {
             obligatory = isObligatory;
-            EnsureMaterial();
+            PulseVisual.EnsureMaterial();
             ResetForThrow();
         }
 
@@ -44,29 +46,22 @@ namespace DigitalLove.Game.Obstacles
 
         public void ResetForThrow()
         {
-            hitThisThrow = false;
-            pulseActive = obligatory;
-            ApplySettledColor();
+            activatedThisThrow = false;
+            PulseVisual.SetPulseActive(obligatory);
         }
 
-        public void RegisterHit()
+        public void RegisterActivation()
         {
-            if (hitThisThrow)
+            if (activatedThisThrow)
                 return;
 
-            hitThisThrow = true;
-            pulseActive = false;
-            ApplySettledColor();
+            activatedThisThrow = true;
+            PulseVisual.SetPulseActive(false);
         }
 
-        private void Update()
-        {
-            if (!pulseActive || runtimeMaterial == null)
-                return;
+        public void RegisterHit() => RegisterActivation();
 
-            float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) * 0.5f;
-            runtimeMaterial.color = Color.Lerp(baseColor, pulseColor, t);
-        }
+        private void Update() => PulseVisual.Tick();
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -77,30 +72,9 @@ namespace DigitalLove.Game.Obstacles
             if (ball == null)
                 return;
 
-            RegisterHit();
+            RegisterActivation();
         }
 
-        private void EnsureMaterial()
-        {
-            if (pulseRenderer == null || runtimeMaterial != null)
-                return;
-
-            runtimeMaterial = pulseRenderer.material;
-            baseColor = runtimeMaterial.color;
-        }
-
-        private void ApplySettledColor()
-        {
-            if (runtimeMaterial == null)
-                return;
-
-            runtimeMaterial.color = baseColor;
-        }
-
-        private void OnDestroy()
-        {
-            if (runtimeMaterial != null)
-                Destroy(runtimeMaterial);
-        }
+        private void OnDestroy() => PulseVisual.DestroyMaterial();
     }
 }

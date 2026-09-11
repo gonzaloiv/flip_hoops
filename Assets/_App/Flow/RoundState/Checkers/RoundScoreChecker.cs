@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using DigitalLove.DataAccess;
+using DigitalLove.Game.BankShot;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;
@@ -13,6 +16,7 @@ namespace DigitalLove.Game
     {
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ObstacleSpawner obstacleSpawner;
+        [SerializeField] private ModifierSpawner modifierSpawner;
         [SerializeField] private BankShotRejectFeedback rejectFeedback;
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private WallStackSpawner wallStackSpawner;
@@ -20,6 +24,7 @@ namespace DigitalLove.Game
         [Inject] private MemoryDataClient memoryDataClient;
 
         private Round round;
+        private readonly List<ThrowScoreOp> scoreOps = new();
 
         public override void DoStart(GameLevelData levelData)
         {
@@ -31,17 +36,38 @@ namespace DigitalLove.Game
 
         private void OnScored()
         {
-            if (obstacleSpawner != null && !obstacleSpawner.CanCreditMake())
+            if (!CanCreditMake())
             {
                 rejectFeedback?.PlayReject();
                 return;
             }
 
-            round.ResolveActiveThrow();
+            ApplyModifierScoreOps();
+            int points = round.ResolveActiveThrow();
             round.DecrementRemainingMakes();
             RefreshHud();
+            if (modifierSpawner != null && scoreOps.Count > 0)
+                basketSpawner.ShowScore(points, true);
+
             if (round.RemainingMakes <= 0)
                 OnComplete();
+        }
+
+        private bool CanCreditMake()
+        {
+            bool obstaclesOk = obstacleSpawner == null || obstacleSpawner.CanCreditMake();
+            bool modifiersOk = modifierSpawner == null || modifierSpawner.CanCreditMake();
+            return obstaclesOk && modifiersOk;
+        }
+
+        private void ApplyModifierScoreOps()
+        {
+            scoreOps.Clear();
+            if (modifierSpawner == null)
+                return;
+
+            modifierSpawner.CopyActivationOrderScoreOps(scoreOps);
+            round.ApplyActiveThrowOps(scoreOps);
         }
 
         [Button]

@@ -15,7 +15,7 @@ namespace DigitalLove.Game.Obstacles
                 if (obstacle == null || !obstacle.IsObligatory)
                     continue;
 
-                if (!obstacle.HitThisThrow)
+                if (!obstacle.ActivatedThisThrow)
                     return false;
             }
 

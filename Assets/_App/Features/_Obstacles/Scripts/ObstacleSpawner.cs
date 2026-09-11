@@ -25,10 +25,7 @@ namespace DigitalLove.Game.Obstacles
         {
             Clear();
             if (placements == null || placements.Length == 0)
-            {
-                requirementPanel?.Hide();
                 return true;
-            }
 
             for (int i = 0; i < placements.Length; i++)
             {
@@ -39,9 +36,11 @@ namespace DigitalLove.Game.Obstacles
                 }
             }
 
-            requirementPanel?.SetVisible(spawned.HasAnyObligatory());
             return true;
         }
+
+        public void SetRequirementVisible(bool visible) =>
+            requirementPanel?.SetVisible(visible);
 
         public void Clear()
         {

@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using DigitalLove.DataAccess;
+using DigitalLove.Game.BankShot;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.UI;
 using DigitalLove.Global;
@@ -16,6 +19,7 @@ namespace DigitalLove.Game
 
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ObstacleSpawner obstacleSpawner;
+        [SerializeField] private ModifierSpawner modifierSpawner;
         [SerializeField] private BankShotRejectFeedback rejectFeedback;
         [SerializeField] private WallStackSpawner wallStackSpawner;
 
@@ -23,6 +27,7 @@ namespace DigitalLove.Game
 
         private Round round;
         private int countdown;
+        private readonly List<ThrowScoreOp> scoreOps = new();
 
         public override void DoStart(GameLevelData levelData)
         {
@@ -34,15 +39,26 @@ namespace DigitalLove.Game
 
         private void OnBasketScored()
         {
-            if (obstacleSpawner != null && !obstacleSpawner.CanCreditMake())
+            if (!CanCreditMake())
             {
                 rejectFeedback?.PlayReject();
                 return;
             }
 
-            round.AddScore();
+            scoreOps.Clear();
+            if (modifierSpawner != null)
+                modifierSpawner.CopyActivationOrderScoreOps(scoreOps);
+
+            int points = round.CreditCountdownMake(scoreOps);
             wallStackSpawner.Panel.SetRightLabel(round.Score);
-            basketSpawner.ShowScore(round.Score, false);
+            basketSpawner.ShowScore(points, scoreOps.Count > 0);
+        }
+
+        private bool CanCreditMake()
+        {
+            bool obstaclesOk = obstacleSpawner == null || obstacleSpawner.CanCreditMake();
+            bool modifiersOk = modifierSpawner == null || modifierSpawner.CanCreditMake();
+            return obstaclesOk && modifiersOk;
         }
 
         [Button]

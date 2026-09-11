@@ -9,7 +9,7 @@ namespace DigitalLove.Game.Obstacles
         public ObstacleData obstacle;
         public bool obligatory;
 
-        [Tooltip("Lateral / height / depth each in {-1, 0, 1}")]
+        [Tooltip("Lateral / height / depth each in {-1, 0, 1}; height −1 = floor")]
         public Vector3Int cell;
     }
 }

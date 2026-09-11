@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace DigitalLove.Game.Obstacles
+namespace DigitalLove.Game.Modifiers
 {
-    public class ObstacleGridPose
+    public class ModifierPathCellPose
     {
         private readonly float lateralHalfExtent;
         private readonly float heightHalfExtent;
 
-        public ObstacleGridPose(float lateralHalfExtent, float heightHalfExtent)
+        public ModifierPathCellPose(float lateralHalfExtent, float heightHalfExtent)
         {
             this.lateralHalfExtent = lateralHalfExtent;
             this.heightHalfExtent = heightHalfExtent;
@@ -35,9 +35,7 @@ namespace DigitalLove.Game.Obstacles
             return along;
         }
 
-        public Vector3Int MirrorLateral(Vector3Int cell)
-        {
-            return new Vector3Int(-cell.x, cell.y, cell.z);
-        }
+        public Vector3Int MirrorLateral(Vector3Int cell) =>
+            new Vector3Int(-cell.x, cell.y, cell.z);
     }
 }

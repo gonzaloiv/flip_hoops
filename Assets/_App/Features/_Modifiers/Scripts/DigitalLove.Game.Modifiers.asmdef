@@ -1,11 +1,9 @@
 {
-    "name": "DigitalLove.Game.Obstacles",
+    "name": "DigitalLove.Game.Modifiers",
     "rootNamespace": "",
     "references": [
-        "GUID:e92401e0d4937944f9a0beae62ddf4b5",
-        "GUID:447181e61705f4d6f954add1124817a5",
-        "GUID:8d1a0410b0c159b49879a29ad02b2fbb",
-        "GUID:b8f3c2a14e6d4901a7c95e2d8f1b4a60"
+        "GUID:b8f3c2a14e6d4901a7c95e2d8f1b4a60",
+        "GUID:e92401e0d4937944f9a0beae62ddf4b5"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

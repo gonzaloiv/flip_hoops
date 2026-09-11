@@ -3,6 +3,7 @@ using DigitalLove.Game.Court;
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Obstacles;
+using DigitalLove.Game.Modifiers;
 using UnityEngine;
 
 namespace DigitalLove.Game.Levels
@@ -20,6 +21,9 @@ namespace DigitalLove.Game.Levels
 
         [Header("GameLevelData.Obstacles")]
         public ObstaclePlacement[] obstacles;
+
+        [Header("GameLevelData.Modifiers")]
+        public ModifierPlacement[] modifiers;
 
         [Header("GameLevelData.Other")]
         public bool isCountdownLevel = false;

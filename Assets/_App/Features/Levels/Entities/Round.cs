@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DigitalLove.Game.BankShot;
 
 namespace DigitalLove.Game
 {
@@ -65,10 +66,27 @@ namespace DigitalLove.Game
             activeThrow = new Throw(basePoints);
         }
 
+        public void ApplyActiveThrowOps(IReadOnlyList<ThrowScoreOp> scoreOps)
+        {
+            if (activeThrow == null || scoreOps == null || scoreOps.Count == 0)
+                return;
+
+            activeThrow.ApplyOps(scoreOps);
+        }
+
         public int ResolveActiveThrow()
         {
             int points = activeThrow != null ? activeThrow.ResolvedPoints : BaseMakePoints;
             activeThrow = null;
+            AddScore(points);
+            return points;
+        }
+
+        public int CreditCountdownMake(IReadOnlyList<ThrowScoreOp> scoreOps = null)
+        {
+            Throw throwPoints = new Throw(1);
+            throwPoints.ApplyOps(scoreOps);
+            int points = throwPoints.ResolvedPoints;
             AddScore(points);
             return points;
         }

@@ -2,6 +2,7 @@ using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
+using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.UI;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace DigitalLove.Game
         [SerializeField] private BallsSpawner ballSpawner;
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ObstacleSpawner obstacleSpawner;
+        [SerializeField] private ModifierSpawner modifierSpawner;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private PosterBehaviour[] posters;
         [SerializeField] private TheRadioBehaviour theRadioBehaviour;
@@ -92,7 +94,17 @@ namespace DigitalLove.Game
             if (gravityDirection == Vector3.zero)
                 return false;
 
-            return TrySpawnObstacles(levelData);
+            return TrySpawnObstacles(levelData) && TrySpawnModifiers(levelData) && FinishCourtAttempt();
+        }
+
+        private bool FinishCourtAttempt()
+        {
+            bool requiresBankShot =
+                (obstacleSpawner != null && obstacleSpawner.RequiresBankShot()) ||
+                (modifierSpawner != null && modifierSpawner.HasAnyObligatory());
+            if (obstacleSpawner != null)
+                obstacleSpawner.SetRequirementVisible(requiresBankShot);
+            return true;
         }
 
         private bool TrySpawnObstacles(GameLevelData levelData)
@@ -106,12 +118,25 @@ namespace DigitalLove.Game
                 basketSpawner.Basket.transform);
         }
 
+        private bool TrySpawnModifiers(GameLevelData levelData)
+        {
+            if (modifierSpawner == null)
+                return true;
+
+            return modifierSpawner.TrySpawnAll(
+                levelData.modifiers,
+                throwZone.transform,
+                basketSpawner.Basket.transform);
+        }
+
         private void FailAttempt()
         {
             throwZone.Unspawn();
             basketSpawner.Hide();
             if (obstacleSpawner != null)
                 obstacleSpawner.Clear();
+            if (modifierSpawner != null)
+                modifierSpawner.Clear();
         }
 
         public void Clear()
@@ -121,6 +146,8 @@ namespace DigitalLove.Game
             basketSpawner.Hide();
             if (obstacleSpawner != null)
                 obstacleSpawner.Clear();
+            if (modifierSpawner != null)
+                modifierSpawner.Clear();
         }
     }
 }
