@@ -26,6 +26,12 @@ namespace DigitalLove.Game.Basket
         [SerializeField] private Transform panelRef;
 
         private List<BallBehaviour> ballsInside = new();
+        private float baseRadius;
+        private float baseHeight;
+        private float baseBinRadius;
+        private float baseBinHeight;
+        private Vector3 baseLocalScale;
+        private bool hasBaseSizes;
 
         public float Height => height;
         public float Radius => radius;
@@ -35,6 +41,32 @@ namespace DigitalLove.Game.Basket
         public UnityEvent scored;
 
         private float Capacity => Mathf.PI * binRadius * binRadius * binHeight * packingFactor;
+
+        public void ApplyScale(float factor)
+        {
+            CacheBaseSizesIfNeeded();
+            float safeFactor = Mathf.Max(0.01f, factor);
+            radius = baseRadius * safeFactor;
+            height = baseHeight * safeFactor;
+            binRadius = baseBinRadius * safeFactor;
+            binHeight = baseBinHeight * safeFactor;
+            transform.localScale = baseLocalScale * safeFactor;
+        }
+
+        public void ResetScale() => ApplyScale(1f);
+
+        private void CacheBaseSizesIfNeeded()
+        {
+            if (hasBaseSizes)
+                return;
+
+            baseRadius = radius;
+            baseHeight = height;
+            baseBinRadius = binRadius;
+            baseBinHeight = binHeight;
+            baseLocalScale = transform.localScale;
+            hasBaseSizes = true;
+        }
 
         private void OnTriggerEnter(Collider other)
         {

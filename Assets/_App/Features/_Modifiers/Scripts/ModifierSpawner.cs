@@ -32,25 +32,24 @@ namespace DigitalLove.Game.Modifiers
 
         public IReadOnlyList<ModifierBehaviour> Spawned => spawned;
 
-        public bool TrySpawnAll(
+        private float hoopScaleFactor = 1f;
+
+        public void TrySpawnAll(
             ModifierPlacement[] placements,
             Transform throwZone,
-            Transform basket)
+            Transform basket,
+            float scaleFactor = 1f)
         {
             Clear();
+            hoopScaleFactor = Mathf.Max(0.01f, scaleFactor);
             if (placements == null || placements.Length == 0)
-                return true;
+                return;
 
             for (int i = 0; i < placements.Length; i++)
             {
                 if (!TrySpawnOne(placements[i], throwZone, basket))
-                {
-                    Clear();
-                    return false;
-                }
+                    continue;
             }
-
-            return true;
         }
 
         public void Clear()
@@ -159,6 +158,8 @@ namespace DigitalLove.Game.Modifiers
                 rotation,
                 transform);
             instance.Configure(placement.obligatory, data.scoreEffectKind, data.scoreEffectValue);
+            if (instance is HoopModifierBehaviour)
+                instance.transform.localScale *= hoopScaleFactor;
             instance.Activated += OnModifierActivated;
             spawned.Add(instance);
             return true;

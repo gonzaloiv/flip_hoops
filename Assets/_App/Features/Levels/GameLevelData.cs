@@ -4,6 +4,7 @@ using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Obstacles;
 using DigitalLove.Game.Modifiers;
+using DigitalLove.Game.Furniture;
 using UnityEngine;
 
 namespace DigitalLove.Game.Levels
@@ -24,6 +25,9 @@ namespace DigitalLove.Game.Levels
 
         [Header("GameLevelData.Modifiers")]
         public ModifierPlacement[] modifiers;
+
+        [Header("GameLevelData.Furniture")]
+        public FurnitureSeedData furnitureSeed;
 
         [Header("GameLevelData.Other")]
         public bool isCountdownLevel = false;

@@ -1,6 +1,7 @@
 using DigitalLove.FlowControl;
 using DigitalLove.Game.Analytics;
 using DigitalLove.Game.Basket;
+using DigitalLove.Game.Furniture;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.Obstacles;
@@ -18,6 +19,7 @@ namespace DigitalLove.Game
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ObstacleSpawner obstacleSpawner;
         [SerializeField] private ModifierSpawner modifierSpawner;
+        [SerializeField] private FurnitureSpawner furnitureSpawner;
         [SerializeField] private BallsSpawner ballsSpawner;
         [SerializeField] private WallStackSpawner wallStackSpawner;
         [SerializeField] private RoundEventsHelper roundEventsHelper;
@@ -62,6 +64,8 @@ namespace DigitalLove.Game
                 obstacleSpawner.ResetHitsForThrow();
             if (modifierSpawner != null)
                 modifierSpawner.ResetActivationsForThrow();
+            if (furnitureSpawner != null)
+                furnitureSpawner.ResetActivationsForThrow();
 
             round.AddThrow();
             if (isCountdownLevel)

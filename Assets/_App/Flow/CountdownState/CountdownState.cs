@@ -70,14 +70,23 @@ namespace DigitalLove.Game
             levelData = levelSelector.Current;
         }
 
-        private void SpawnCourt(System.Action onComplete)
+        private void SpawnCourt(System.Action onSuccess)
         {
             isSpawning = true;
-            courtSetupHelper.Spawn(levelData, play, () =>
+            courtSetupHelper.Spawn(levelData, play, success =>
             {
                 isSpawning = false;
-                onComplete();
+                if (success)
+                    onSuccess();
+                else
+                    OnSpawnFailed();
             });
+        }
+
+        private void OnSpawnFailed()
+        {
+            ui.RefreshLevels(levelSelector, memoryDataClient.Get<PlayerData>());
+            ui.SetLevelsInteraction(true);
         }
 
         private void OnEnterSpawned()

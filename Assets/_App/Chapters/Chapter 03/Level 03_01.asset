@@ -16,7 +16,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   ball: {fileID: 11400000, guid: ad138f1cc4357084c9b49bfdba37bfc0, type: 2}
   basket: {fileID: 11400000, guid: 8d12ede3f7f4617449c68911061375a3, type: 2}
-  distance: {fileID: 11400000, guid: 9f14321cf041a464f8378b53a6d9ad2e, type: 2}
+  distance: {fileID: 11400000, guid: f0dc549a808b7b54f8f7974f75b0cac3, type: 2}
   gravity: {fileID: 11400000, guid: f61f6ff71490c4b46b5e045106ba5bbf, type: 2}
   obstacles:
   - obstacle: {fileID: 11400000, guid: f60718293a4b5c6d7e8f901234567890, type: 2}

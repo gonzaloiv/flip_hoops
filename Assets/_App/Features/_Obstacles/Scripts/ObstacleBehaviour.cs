@@ -1,5 +1,6 @@
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.BankShot;
+using DigitalLove.Global;
 using UnityEngine;
 
 namespace DigitalLove.Game.Obstacles

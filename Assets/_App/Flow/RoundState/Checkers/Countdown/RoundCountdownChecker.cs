@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.BankShot;
 using DigitalLove.Game.Basket;
+using DigitalLove.Game.Furniture;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.Obstacles;
@@ -20,6 +21,7 @@ namespace DigitalLove.Game
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ObstacleSpawner obstacleSpawner;
         [SerializeField] private ModifierSpawner modifierSpawner;
+        [SerializeField] private FurnitureSpawner furnitureSpawner;
         [SerializeField] private BankShotRejectFeedback rejectFeedback;
         [SerializeField] private WallStackSpawner wallStackSpawner;
 
@@ -48,6 +50,8 @@ namespace DigitalLove.Game
             scoreOps.Clear();
             if (modifierSpawner != null)
                 modifierSpawner.CopyActivationOrderScoreOps(scoreOps);
+            if (furnitureSpawner != null)
+                furnitureSpawner.CopyActivationOrderScoreOps(scoreOps);
 
             int points = round.CreditCountdownMake(scoreOps);
             wallStackSpawner.Panel.SetRightLabel(round.Score);

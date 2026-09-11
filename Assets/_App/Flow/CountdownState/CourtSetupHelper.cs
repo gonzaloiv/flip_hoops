@@ -1,6 +1,7 @@
 using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
+using DigitalLove.Game.Furniture;
 using DigitalLove.Game.Levels;
 using DigitalLove.Game.Modifiers;
 using DigitalLove.Game.Obstacles;
@@ -22,26 +23,38 @@ namespace DigitalLove.Game
         [SerializeField] private BasketSpawner basketSpawner;
         [SerializeField] private ObstacleSpawner obstacleSpawner;
         [SerializeField] private ModifierSpawner modifierSpawner;
+        [SerializeField] private FurnitureSpawner furnitureSpawner;
         [SerializeField] private ThrowZone throwZone;
         [SerializeField] private PosterBehaviour[] posters;
         [SerializeField] private TheRadioBehaviour theRadioBehaviour;
         [SerializeField] private EffectMesh floorMesh;
+        [SerializeField] private float throwAxisMaxRay = 8f;
 
-        public float DistanceToCamera =>
-            Vector3.Distance(basketSpawner.Basket.WorldPosition, Camera.main.transform.position);
-
-        public void Init()
+        public float DistanceToCamera
         {
-            theRadioBehaviour.SetActive(false);
+            get
+            {
+                if (basketSpawner.Basket == null || Camera.main == null)
+                    return 0f;
+                return Vector3.Distance(basketSpawner.Basket.WorldPosition, Camera.main.transform.position);
+            }
         }
 
-        public void Spawn(GameLevelData levelData, Play play, Action onComplete)
+        public void Init() => theRadioBehaviour.SetActive(false);
+
+        public void Spawn(GameLevelData levelData, Play play, Action<bool> onComplete)
         {
             Vector3 gravityDirection = TrySpawnCourt(levelData);
+            if (gravityDirection == Vector3.zero || basketSpawner.Basket == null)
+            {
+                onComplete?.Invoke(false);
+                return;
+            }
+
             posters.Spawn(gravityDirection);
             throwZone.SetReference(basketSpawner.Basket.transform);
             ballSpawner.Spawn(levelData.ball, gravityDirection, basketSpawner.Basket.transform);
-            SpawnRadioIfFirstTry(play, onComplete);
+            SpawnRadioIfFirstTry(play, () => onComplete?.Invoke(true));
         }
 
         private void SpawnRadioIfFirstTry(Play play, Action onComplete)
@@ -85,48 +98,74 @@ namespace DigitalLove.Game
 
         private bool TrySpawnCourtOnce(GameLevelData levelData, out Vector3 gravityDirection)
         {
-            throwZone.Spawn();
-            gravityDirection = basketSpawner.SpawnAndGetGravityDirection(
+            gravityDirection = Vector3.zero;
+            if (!throwZone.TrySpawnForBand(
+                    levelData.distance,
+                    throwAxisMaxRay,
+                    out float scaleFactor,
+                    out float desiredMeters))
+                return false;
+
+            gravityDirection = basketSpawner.SpawnOnAxis(
                 levelData.basket,
                 levelData.gravity,
                 throwZone.transform,
-                levelData.distance.minMax);
+                desiredMeters,
+                scaleFactor);
             if (gravityDirection == Vector3.zero)
                 return false;
 
-            return TrySpawnObstacles(levelData) && TrySpawnModifiers(levelData) && FinishCourtAttempt();
+            SoftSpawnProps(levelData, scaleFactor);
+            return FinishCourtAttempt(levelData);
         }
 
-        private bool FinishCourtAttempt()
+        private void SoftSpawnProps(GameLevelData levelData, float scaleFactor)
+        {
+            TrySpawnObstacles(levelData);
+            TrySpawnModifiers(levelData, scaleFactor);
+        }
+
+        private bool FinishCourtAttempt(GameLevelData levelData)
         {
             bool requiresBankShot =
                 (obstacleSpawner != null && obstacleSpawner.RequiresBankShot()) ||
                 (modifierSpawner != null && modifierSpawner.HasAnyObligatory());
             if (obstacleSpawner != null)
                 obstacleSpawner.SetRequirementVisible(requiresBankShot);
+
+            TryRollFurniture(levelData);
             return true;
         }
 
-        private bool TrySpawnObstacles(GameLevelData levelData)
+        private void TryRollFurniture(GameLevelData levelData)
+        {
+            if (furnitureSpawner == null)
+                return;
+
+            furnitureSpawner.TryRoll(levelData.furnitureSeed);
+        }
+
+        private void TrySpawnObstacles(GameLevelData levelData)
         {
             if (obstacleSpawner == null)
-                return true;
+                return;
 
-            return obstacleSpawner.TrySpawnAll(
+            obstacleSpawner.TrySpawnAll(
                 levelData.obstacles,
                 throwZone.transform,
                 basketSpawner.Basket.transform);
         }
 
-        private bool TrySpawnModifiers(GameLevelData levelData)
+        private void TrySpawnModifiers(GameLevelData levelData, float scaleFactor)
         {
             if (modifierSpawner == null)
-                return true;
+                return;
 
-            return modifierSpawner.TrySpawnAll(
+            modifierSpawner.TrySpawnAll(
                 levelData.modifiers,
                 throwZone.transform,
-                basketSpawner.Basket.transform);
+                basketSpawner.Basket.transform,
+                scaleFactor);
         }
 
         private void FailAttempt()
@@ -150,6 +189,8 @@ namespace DigitalLove.Game
                 obstacleSpawner.Clear();
             if (modifierSpawner != null)
                 modifierSpawner.Clear();
+            if (furnitureSpawner != null)
+                furnitureSpawner.Clear();
         }
     }
 }

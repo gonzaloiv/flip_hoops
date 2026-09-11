@@ -5753,6 +5753,7 @@ Transform:
   - {fileID: 550383218}
   - {fileID: 2059213608}
   - {fileID: 2059213702}
+  - {fileID: 2059213802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1235757813
@@ -6949,6 +6950,7 @@ MonoBehaviour:
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
   modifierSpawner: {fileID: 2059213703}
+  furnitureSpawner: {fileID: 2059213803}
   ballsSpawner: {fileID: 1097701444}
   wallStackSpawner: {fileID: 186588927}
   roundEventsHelper: {fileID: 1210227672}
@@ -6969,6 +6971,7 @@ MonoBehaviour:
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
   modifierSpawner: {fileID: 2059213703}
+  furnitureSpawner: {fileID: 2059213803}
   rejectFeedback: {fileID: 882699975}
   wallStackSpawner: {fileID: 186588927}
 --- !u!114 &1514311250
@@ -6986,6 +6989,7 @@ MonoBehaviour:
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
   modifierSpawner: {fileID: 2059213703}
+  furnitureSpawner: {fileID: 2059213803}
   rejectFeedback: {fileID: 882699975}
   wallStackSpawner: {fileID: 186588927}
 --- !u!1 &1515094632
@@ -7064,12 +7068,14 @@ MonoBehaviour:
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
   modifierSpawner: {fileID: 2059213703}
+  furnitureSpawner: {fileID: 2059213803}
   throwZone: {fileID: 1869005711}
   posters:
   - {fileID: 5497837668605531769}
   - {fileID: 5497837668732915453}
   theRadioBehaviour: {fileID: 1713138809}
   floorMesh: {fileID: 1263726606}
+  throwAxisMaxRay: 8
 --- !u!114 &1515094636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9170,6 +9176,7 @@ Transform:
   m_Children:
   - {fileID: 8047981335211663218}
   - {fileID: 5456522118234410087}
+  - {fileID: 2059213902}
   - {fileID: 1263726604}
   - {fileID: 1299450678}
   - {fileID: 1351310011}
@@ -9373,12 +9380,118 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Modifiers::DigitalLove.Game.Modifiers.ModifierSpawner
   occlusionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   lateralHalfExtent: 0.5
   heightHalfExtent: 0.45
   roomBoundaryHeightOffset: 0.9
   roomBoundaryMaxRay: 4
   clearanceRadius: 0.2
+--- !u!1 &2059213801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2059213802}
+  - component: {fileID: 2059213803}
+  m_Layer: 0
+  m_Name: Furniture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2059213802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1235757812}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059213803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d4e5f6a7b8091c2d3e4f5a6b7c8d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Furniture::DigitalLove.Game.Furniture.FurnitureSpawner
+  effectMesh: {fileID: 2059213903}
+  bounceMaterial: {fileID: 13400000, guid: c3d4e5f60718293a4b5c6d7e8f901234, type: 2}
+  boostTint: {r: 0.2, g: 0.9, b: 0.35, a: 0.55}
+  reduceTint: {r: 0.95, g: 0.25, b: 0.2, a: 0.55}
+  suitableLabels: 792
+--- !u!1 &2059213901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2059213902}
+  - component: {fileID: 2059213903}
+  m_Layer: 0
+  m_Name: EffectMesh Furniture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2059213902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213901}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1972154422}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059213903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76943ac7e7394f3e969f0c048b26639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnOnStart: 2
+  MeshMaterial: {fileID: 2100000, guid: 1b118000f99223a47a1d4696126f2d9c, type: 2}
+  BarycentricCoordinatesEnabled: 0
+  Colliders: 1
+  CutHoles: 0
+  castShadows: 0
+  hideMesh: 0
+  Layer: 0
+  textureCoordinateModes:
+  - WallU: 5
+    WallV: 2
+    AnchorUV: 1
+  Labels: 792
 --- !u!1001 &2096158474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10474,7 +10587,7 @@ MonoBehaviour:
   - WallU: 5
     WallV: 2
     AnchorUV: 1
-  Labels: 442366
+  Labels: 441574
 --- !u!224 &2388041210548200971
 RectTransform:
   m_ObjectHideFlags: 0

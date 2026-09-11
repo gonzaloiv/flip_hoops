@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DigitalLove.Global
+namespace DigitalLove.Game.Obstacles
 {
     public class VerticalSpanFitter : MonoBehaviour
     {

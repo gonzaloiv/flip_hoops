@@ -19,25 +19,20 @@ namespace DigitalLove.Game.Obstacles
 
         public IReadOnlyList<ObstacleBehaviour> Spawned => spawned;
 
-        public bool TrySpawnAll(
+        public void TrySpawnAll(
             ObstaclePlacement[] placements,
             Transform throwZone,
             Transform basket)
         {
             Clear();
             if (placements == null || placements.Length == 0)
-                return true;
+                return;
 
             for (int i = 0; i < placements.Length; i++)
             {
                 if (!TrySpawnOne(placements[i], throwZone, basket))
-                {
-                    Clear();
-                    return false;
-                }
+                    continue;
             }
-
-            return true;
         }
 
         public void SetRequirementVisible(bool visible) =>

@@ -14,9 +14,38 @@ namespace DigitalLove.Game.Court
 
         public Vector3 WorldPosition => onTheFloorSpawner.WorldPosition;
 
-        public void Spawn()
+        public bool TrySpawnForBand(
+            DistanceData band,
+            float maxRayDistance,
+            out float scaleFactor,
+            out float desiredMeters)
         {
-            onTheFloorSpawner.Spawn();
+            scaleFactor = 1f;
+            desiredMeters = 0f;
+            if (!ThrowAxisBandPose.TryPlaceForBand(
+                    band,
+                    maxRayDistance,
+                    onTheFloorSpawner.Radius,
+                    onTheFloorSpawner.ClearanceMask,
+                    out Vector3 position,
+                    out Vector3 forward,
+                    out scaleFactor,
+                    out desiredMeters))
+                return false;
+
+            ApplySpawn(position, forward);
+            return true;
+        }
+
+        private void ApplySpawn(Vector3 position, Vector3 forward)
+        {
+            onTheFloorSpawner.ApplySpawn(position);
+            transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+            PlaySpawnFx();
+        }
+
+        private void PlaySpawnFx()
+        {
             onSpawnSource.Play();
             floor.SetActive(true);
             scalePunch.Animate();

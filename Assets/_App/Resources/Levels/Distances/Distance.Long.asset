@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Distance.Long
   m_EditorClassIdentifier: DigitalLove.Game.Court::DigitalLove.Game.Court.DistanceData
   minMax:
-  - 2
-  - 1.5
+  - 0.7
+  - 1
+  referenceMidMeters: 1.5
