@@ -7,10 +7,7 @@ namespace DigitalLove.Game.Modifiers
     {
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.rigidbody == null)
-                return;
-
-            if (collision.rigidbody.GetComponent<BallBehaviour>() == null)
+            if (!BallBehaviour.TryGetFromRigidbody(collision.rigidbody, out _))
                 return;
 
             RegisterActivation();

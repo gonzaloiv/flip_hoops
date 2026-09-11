@@ -4,15 +4,15 @@ namespace DigitalLove.Game.BankShot
 {
     public static class ObligatoryActivatableExtensions
     {
-        public static bool AllObligatorySatisfied(
-            this IReadOnlyList<IObligatoryActivatable> activatables)
+        public static bool AllObligatorySatisfied<T>(this IReadOnlyList<T> activatables)
+            where T : class, IObligatoryActivatable
         {
             if (activatables == null || activatables.Count == 0)
                 return true;
 
             for (int i = 0; i < activatables.Count; i++)
             {
-                IObligatoryActivatable activatable = activatables[i];
+                T activatable = activatables[i];
                 if (activatable == null || !activatable.IsObligatory)
                     continue;
 
@@ -23,8 +23,8 @@ namespace DigitalLove.Game.BankShot
             return true;
         }
 
-        public static bool HasAnyObligatory(
-            this IReadOnlyList<IObligatoryActivatable> activatables)
+        public static bool HasAnyObligatory<T>(this IReadOnlyList<T> activatables)
+            where T : class, IObligatoryActivatable
         {
             if (activatables == null)
                 return false;
@@ -38,8 +38,8 @@ namespace DigitalLove.Game.BankShot
             return false;
         }
 
-        public static void ResetAllForThrow(
-            this IReadOnlyList<IObligatoryActivatable> activatables)
+        public static void ResetAllForThrow<T>(this IReadOnlyList<T> activatables)
+            where T : class, IObligatoryActivatable
         {
             if (activatables == null)
                 return;
@@ -51,8 +51,8 @@ namespace DigitalLove.Game.BankShot
             }
         }
 
-        public static bool CanCreditMake(
-            this IReadOnlyList<IObligatoryActivatable> activatables)
+        public static bool CanCreditMake<T>(this IReadOnlyList<T> activatables)
+            where T : class, IObligatoryActivatable
         {
             if (!activatables.HasAnyObligatory())
                 return true;
@@ -60,9 +60,11 @@ namespace DigitalLove.Game.BankShot
             return activatables.AllObligatorySatisfied();
         }
 
-        public static bool CanCreditMake(
-            IReadOnlyList<IObligatoryActivatable> first,
-            IReadOnlyList<IObligatoryActivatable> second)
+        public static bool CanCreditMake<TFirst, TSecond>(
+            IReadOnlyList<TFirst> first,
+            IReadOnlyList<TSecond> second)
+            where TFirst : class, IObligatoryActivatable
+            where TSecond : class, IObligatoryActivatable
         {
             return first.CanCreditMake() && second.CanCreditMake();
         }

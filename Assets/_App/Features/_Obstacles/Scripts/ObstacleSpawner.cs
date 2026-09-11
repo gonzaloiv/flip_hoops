@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DigitalLove.Game.BankShot;
 using UnityEngine;
 
 namespace DigitalLove.Game.Obstacles
@@ -56,17 +57,10 @@ namespace DigitalLove.Game.Obstacles
 
         public void ResetHitsForThrow() => spawned.ResetAllForThrow();
 
-        public bool BankShotSatisfied() => spawned.AllObligatorySatisfied();
-
         public bool RequiresBankShot() => spawned.HasAnyObligatory();
 
-        public bool CanCreditMake()
-        {
-            if (!RequiresBankShot())
-                return true;
+        public bool CanCreditMake() => spawned.CanCreditMake();
 
-            return BankShotSatisfied();
-        }
         private bool TrySpawnOne(
             ObstaclePlacement placement,
             Transform throwZone,
@@ -75,7 +69,7 @@ namespace DigitalLove.Game.Obstacles
             if (placement == null || placement.obstacle == null || placement.obstacle.prefab == null)
                 return false;
 
-            Vector3Int cell = ClampCell(placement.cell);
+            Vector3Int cell = ThrowPathCellPose.ClampCell(placement.cell);
             if (TryPlace(placement, throwZone, basket, cell))
                 return true;
 
@@ -101,7 +95,7 @@ namespace DigitalLove.Game.Obstacles
             ObstacleBehaviour instance = Instantiate(
                 prefab,
                 position,
-                Quaternion.identity,
+                ThrowPathCellPose.FaceBasket(position, basket),
                 transform);
             instance.Configure(placement.obligatory);
             if (!instance.TryApplyVerticalFit(occlusionMask))
@@ -110,25 +104,8 @@ namespace DigitalLove.Game.Obstacles
                 return false;
             }
 
-            FaceBasket(instance.transform, basket);
             spawned.Add(instance);
             return true;
-        }
-
-        private static void FaceBasket(Transform obstacle, Transform basket)
-        {
-            Vector3 look = basket.position - obstacle.position;
-            look.y = 0f;
-            if (look.sqrMagnitude > 0.0001f)
-                obstacle.rotation = Quaternion.LookRotation(look.normalized, Vector3.up);
-        }
-
-        private static Vector3Int ClampCell(Vector3Int cell)
-        {
-            return new Vector3Int(
-                Mathf.Clamp(cell.x, -1, 1),
-                Mathf.Clamp(cell.y, -1, 1),
-                Mathf.Clamp(cell.z, -1, 1));
         }
     }
 }

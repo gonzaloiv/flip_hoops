@@ -18,7 +18,6 @@ namespace DigitalLove.Game
         [SerializeField] private ObstacleSpawner obstacleSpawner;
         [SerializeField] private ModifierSpawner modifierSpawner;
         [SerializeField] private BankShotRejectFeedback rejectFeedback;
-        [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private WallStackSpawner wallStackSpawner;
 
         [Inject] private MemoryDataClient memoryDataClient;
@@ -46,19 +45,17 @@ namespace DigitalLove.Game
             int points = round.ResolveActiveThrow();
             round.DecrementRemainingMakes();
             RefreshHud();
-            if (modifierSpawner != null && scoreOps.Count > 0)
+            if (scoreOps.Count > 0)
                 basketSpawner.ShowScore(points, true);
 
             if (round.RemainingMakes <= 0)
                 OnComplete();
         }
 
-        private bool CanCreditMake()
-        {
-            bool obstaclesOk = obstacleSpawner == null || obstacleSpawner.CanCreditMake();
-            bool modifiersOk = modifierSpawner == null || modifierSpawner.CanCreditMake();
-            return obstaclesOk && modifiersOk;
-        }
+        private bool CanCreditMake() =>
+            ObligatoryActivatableExtensions.CanCreditMake(
+                obstacleSpawner != null ? obstacleSpawner.Spawned : null,
+                modifierSpawner != null ? modifierSpawner.Spawned : null);
 
         private void ApplyModifierScoreOps()
         {

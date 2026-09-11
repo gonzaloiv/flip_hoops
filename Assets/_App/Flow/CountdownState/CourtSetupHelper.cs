@@ -133,10 +133,7 @@ namespace DigitalLove.Game
         {
             throwZone.Unspawn();
             basketSpawner.Hide();
-            if (obstacleSpawner != null)
-                obstacleSpawner.Clear();
-            if (modifierSpawner != null)
-                modifierSpawner.Clear();
+            ClearLevelElements();
         }
 
         public void Clear()
@@ -144,6 +141,11 @@ namespace DigitalLove.Game
             ballSpawner.Unspawn();
             throwZone.Unspawn();
             basketSpawner.Hide();
+            ClearLevelElements();
+        }
+
+        private void ClearLevelElements()
+        {
             if (obstacleSpawner != null)
                 obstacleSpawner.Clear();
             if (modifierSpawner != null)

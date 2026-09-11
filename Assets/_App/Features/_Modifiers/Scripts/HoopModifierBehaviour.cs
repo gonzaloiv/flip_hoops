@@ -7,11 +7,7 @@ namespace DigitalLove.Game.Modifiers
     {
         private void OnTriggerEnter(Collider other)
         {
-            Rigidbody body = other.attachedRigidbody;
-            if (body == null)
-                return;
-
-            if (body.GetComponent<BallBehaviour>() == null)
+            if (!BallBehaviour.TryGetFromRigidbody(other.attachedRigidbody, out _))
                 return;
 
             RegisterActivation();

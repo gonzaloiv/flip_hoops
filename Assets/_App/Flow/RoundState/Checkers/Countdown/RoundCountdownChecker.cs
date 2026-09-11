@@ -54,12 +54,10 @@ namespace DigitalLove.Game
             basketSpawner.ShowScore(points, scoreOps.Count > 0);
         }
 
-        private bool CanCreditMake()
-        {
-            bool obstaclesOk = obstacleSpawner == null || obstacleSpawner.CanCreditMake();
-            bool modifiersOk = modifierSpawner == null || modifierSpawner.CanCreditMake();
-            return obstaclesOk && modifiersOk;
-        }
+        private bool CanCreditMake() =>
+            ObligatoryActivatableExtensions.CanCreditMake(
+                obstacleSpawner != null ? obstacleSpawner.Spawned : null,
+                modifierSpawner != null ? modifierSpawner.Spawned : null);
 
         [Button]
         public void CompleteRound() => countdown = 0;

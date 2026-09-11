@@ -18,7 +18,6 @@ namespace DigitalLove.Game.Obstacles
 
         public bool IsObligatory => obligatory;
         public bool ActivatedThisThrow => activatedThisThrow;
-        public bool HitThisThrow => activatedThisThrow;
         public float ClearanceRadius => clearanceRadius;
         public bool FitsVerticalSpan => VerticalSpanFitterProp != null;
 
@@ -59,17 +58,11 @@ namespace DigitalLove.Game.Obstacles
             PulseVisual.SetPulseActive(false);
         }
 
-        public void RegisterHit() => RegisterActivation();
-
         private void Update() => PulseVisual.Tick();
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.rigidbody == null)
-                return;
-
-            BallBehaviour ball = collision.rigidbody.GetComponent<BallBehaviour>();
-            if (ball == null)
+            if (!BallBehaviour.TryGetFromRigidbody(collision.rigidbody, out _))
                 return;
 
             RegisterActivation();

@@ -5752,6 +5752,7 @@ Transform:
   - {fileID: 1869005710}
   - {fileID: 550383218}
   - {fileID: 2059213608}
+  - {fileID: 2059213702}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1235757813
@@ -6947,6 +6948,7 @@ MonoBehaviour:
   levelSelector: {fileID: 1235757813}
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
+  modifierSpawner: {fileID: 2059213703}
   ballsSpawner: {fileID: 1097701444}
   wallStackSpawner: {fileID: 186588927}
   roundEventsHelper: {fileID: 1210227672}
@@ -6966,8 +6968,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Flow::DigitalLove.RoundScoreChecker
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
+  modifierSpawner: {fileID: 2059213703}
   rejectFeedback: {fileID: 882699975}
-  levelSelector: {fileID: 1235757813}
   wallStackSpawner: {fileID: 186588927}
 --- !u!114 &1514311250
 MonoBehaviour:
@@ -6983,6 +6985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: DigitalLove.Game.Flow.RoundState::DigitalLove.Game.RoundCountdownChecker
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
+  modifierSpawner: {fileID: 2059213703}
   rejectFeedback: {fileID: 882699975}
   wallStackSpawner: {fileID: 186588927}
 --- !u!1 &1515094632
@@ -7060,6 +7063,7 @@ MonoBehaviour:
   ballSpawner: {fileID: 1097701444}
   basketSpawner: {fileID: 550383219}
   obstacleSpawner: {fileID: 2059213609}
+  modifierSpawner: {fileID: 2059213703}
   throwZone: {fileID: 1869005711}
   posters:
   - {fileID: 5497837668605531769}
@@ -9323,6 +9327,58 @@ MonoBehaviour:
   lateralHalfExtent: 0.5
   heightHalfExtent: 0.45
   requirementPanel: {fileID: 1458367247}
+--- !u!1 &2059213701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2059213702}
+  - component: {fileID: 2059213703}
+  m_Layer: 0
+  m_Name: Modifiers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2059213702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1235757812}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059213703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059213701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f6a7b8c9d0e1f2a3b4c5d6e7f8091a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Modifiers::DigitalLove.Game.Modifiers.ModifierSpawner
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  lateralHalfExtent: 0.5
+  heightHalfExtent: 0.45
+  roomBoundaryHeightOffset: 0.9
+  roomBoundaryMaxRay: 4
+  clearanceRadius: 0.2
 --- !u!1001 &2096158474
 PrefabInstance:
   m_ObjectHideFlags: 0

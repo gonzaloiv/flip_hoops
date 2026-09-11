@@ -97,6 +97,16 @@ namespace DigitalLove.Game.Balls
             select.Invoke();
         }
 
+        public static bool TryGetFromRigidbody(Rigidbody body, out BallBehaviour ball)
+        {
+            ball = null;
+            if (body == null)
+                return false;
+
+            ball = body.GetComponent<BallBehaviour>();
+            return ball != null;
+        }
+
         public void Invoke_OnUnselect() => OnUnselect();
 
         [Button]

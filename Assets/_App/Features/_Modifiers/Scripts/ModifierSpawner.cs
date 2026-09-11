@@ -15,18 +15,20 @@ namespace DigitalLove.Game.Modifiers
 
         private readonly List<ModifierBehaviour> spawned = new();
         private readonly List<ModifierBehaviour> activationOrder = new();
-        private ModifierPathCellPose pathPose;
+        private ThrowPathCellPose pathPose;
         private ModifierRoomBoundaryPose roomPose;
 
-        private ModifierPathCellPose PathPose =>
-            pathPose ??= new ModifierPathCellPose(lateralHalfExtent, heightHalfExtent);
+        private ThrowPathCellPose PathPose =>
+            pathPose ??= new ThrowPathCellPose(lateralHalfExtent, heightHalfExtent);
 
         private ModifierRoomBoundaryPose RoomPose =>
             roomPose ??= new ModifierRoomBoundaryPose(
                 roomBoundaryHeightOffset,
                 roomBoundaryMaxRay,
                 clearanceRadius,
-                occlusionMask);
+                occlusionMask,
+                lateralHalfExtent,
+                heightHalfExtent);
 
         public IReadOnlyList<ModifierBehaviour> Spawned => spawned;
 
@@ -55,11 +57,11 @@ namespace DigitalLove.Game.Modifiers
         {
             for (int i = 0; i < spawned.Count; i++)
             {
-                if (spawned[i] != null)
-                {
-                    spawned[i].Activated -= OnModifierActivated;
-                    Destroy(spawned[i].gameObject);
-                }
+                if (spawned[i] == null)
+                    continue;
+
+                spawned[i].Activated -= OnModifierActivated;
+                Destroy(spawned[i].gameObject);
             }
 
             spawned.Clear();
@@ -72,13 +74,7 @@ namespace DigitalLove.Game.Modifiers
             spawned.ResetAllForThrow();
         }
 
-        public bool CanCreditMake()
-        {
-            if (!spawned.HasAnyObligatory())
-                return true;
-
-            return spawned.AllObligatorySatisfied();
-        }
+        public bool CanCreditMake() => spawned.CanCreditMake();
 
         public bool HasAnyObligatory() => spawned.HasAnyObligatory();
 
@@ -93,13 +89,10 @@ namespace DigitalLove.Game.Modifiers
                 if (modifier == null)
                     continue;
 
-                ThrowScoreOpKind kind =
-                    modifier.ScoreEffectKind == ModifierScoreEffectKind.FlatAdd
-                        ? ThrowScoreOpKind.FlatAdd
-                        : ThrowScoreOpKind.Multiply;
-                into.Add(new ThrowScoreOp(kind, modifier.ScoreEffectValue));
+                into.Add(new ThrowScoreOp(modifier.ScoreEffectKind, modifier.ScoreEffectValue));
             }
         }
+
         private bool TrySpawnOne(
             ModifierPlacement placement,
             Transform throwZone,
@@ -109,7 +102,7 @@ namespace DigitalLove.Game.Modifiers
                 return false;
 
             ModifierData data = placement.modifier;
-            Vector3Int cell = ClampCell(placement.cell);
+            Vector3Int cell = ThrowPathCellPose.ClampCell(placement.cell);
             if (data.placementMode == ModifierPlacementMode.RoomBoundary)
                 return TrySpawnRoomBoundary(placement, data, throwZone, basket, cell);
 
@@ -134,7 +127,11 @@ namespace DigitalLove.Game.Modifiers
             if (Physics.CheckSphere(position, clearanceRadius, occlusionMask))
                 return false;
 
-            return SpawnAt(placement, data, position, FaceBasket(position, basket));
+            return SpawnAt(
+                placement,
+                data,
+                position,
+                ThrowPathCellPose.FaceBasket(position, basket));
         }
 
         private bool TrySpawnRoomBoundary(
@@ -169,28 +166,10 @@ namespace DigitalLove.Game.Modifiers
 
         private void OnModifierActivated(ModifierBehaviour modifier)
         {
-            if (modifier == null || activationOrder.Contains(modifier))
+            if (modifier == null)
                 return;
 
             activationOrder.Add(modifier);
-        }
-
-        private static Quaternion FaceBasket(Vector3 position, Transform basket)
-        {
-            Vector3 look = basket.position - position;
-            look.y = 0f;
-            if (look.sqrMagnitude < 0.0001f)
-                return Quaternion.identity;
-
-            return Quaternion.LookRotation(look.normalized, Vector3.up);
-        }
-
-        private static Vector3Int ClampCell(Vector3Int cell)
-        {
-            return new Vector3Int(
-                Mathf.Clamp(cell.x, -1, 1),
-                Mathf.Clamp(cell.y, -1, 1),
-                Mathf.Clamp(cell.z, -1, 1));
         }
     }
 }

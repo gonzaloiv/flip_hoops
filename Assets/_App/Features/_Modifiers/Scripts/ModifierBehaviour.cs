@@ -12,7 +12,7 @@ namespace DigitalLove.Game.Modifiers
 
         private bool obligatory;
         private bool activatedThisThrow;
-        private ModifierScoreEffectKind scoreEffectKind;
+        private ThrowScoreOpKind scoreEffectKind;
         private float scoreEffectValue = 1.5f;
         private ObligatoryPulseVisual pulseVisual;
 
@@ -20,7 +20,7 @@ namespace DigitalLove.Game.Modifiers
 
         public bool IsObligatory => obligatory;
         public bool ActivatedThisThrow => activatedThisThrow;
-        public ModifierScoreEffectKind ScoreEffectKind => scoreEffectKind;
+        public ThrowScoreOpKind ScoreEffectKind => scoreEffectKind;
         public float ScoreEffectValue => scoreEffectValue;
 
         private ObligatoryPulseVisual PulseVisual =>
@@ -28,7 +28,7 @@ namespace DigitalLove.Game.Modifiers
 
         public void Configure(
             bool isObligatory,
-            ModifierScoreEffectKind effectKind,
+            ThrowScoreOpKind effectKind,
             float effectValue)
         {
             obligatory = isObligatory;
