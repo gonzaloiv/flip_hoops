@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d736a4711fcff24a8dba8e6835083e6, type: 3}
-  m_Name: Ball.Beach
+  m_Name: Ball.Slingshot
   m_EditorClassIdentifier: DigitalLove.Game.Ball::DigitalLove.Game.Court.BallData
-  id: ball_beach
-  prefab: {fileID: 6850324073459284452, guid: 95a8594debf2f0f42942ba1ef40d7c14, type: 3}
+  id: ball_slingshot
+  prefab: {fileID: 2688817971606658287, guid: 3f8a1c6e9b254d70a4e2c8d1f5b60792, type: 3}

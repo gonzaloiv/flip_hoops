@@ -13,6 +13,8 @@ namespace DigitalLove.Game.Balls
         [SerializeField] private Rigidbody rb;
         [SerializeField] private BallThrowBehaviour throwBehaviour;
         [SerializeField] private int maxQueueValues = 10;
+        [SerializeField, Tooltip("Newest samples ignored on release (finger-open slowdown).")]
+        private int releaseSampleDeadZone = 2;
         [SerializeField, Tooltip("Scales sampled release velocity (m/s) into throw velocity.")]
         private float forceMultiplier = 1.25f;
         [SerializeField] private BallTrail trail;
@@ -89,6 +91,7 @@ namespace DigitalLove.Game.Balls
         {
             isSelected = true;
             ReleaseSampler.Clear();
+            ThrowBehaviour.OnGrab(transform.position);
             if (idleMotion != null)
                 idleMotion.StopIdle();
             select.Invoke();
@@ -102,7 +105,7 @@ namespace DigitalLove.Game.Balls
             isSelected = false;
             hasBeenUnselected = true;
             rb.isKinematic = false;
-            ThrowBehaviour.ApplyThrow(rb, ReleaseSampler.Resolve(), forceMultiplier);
+            ThrowBehaviour.ApplyThrow(rb, ReleaseSampler.Resolve(releaseSampleDeadZone), forceMultiplier);
             unselect.Invoke();
             trail.ShowStreak(isInStreak);
         }
@@ -141,14 +144,18 @@ namespace DigitalLove.Game.Balls
 
         private float ComputeVolume()
         {
+            float radius = PhysicsRadius();
+            return (4f / 3f) * Mathf.PI * radius * radius * radius;
+        }
+
+        private float PhysicsRadius()
+        {
             SphereCollider sphere = FindPhysicsSphere();
             if (sphere == null)
                 return 0f;
-
             Vector3 scale = sphere.transform.lossyScale;
             float maxScale = Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.y), Mathf.Abs(scale.z));
-            float radius = sphere.radius * maxScale;
-            return (4f / 3f) * Mathf.PI * radius * radius * radius;
+            return sphere.radius * maxScale;
         }
 
         private SphereCollider FindPhysicsSphere()

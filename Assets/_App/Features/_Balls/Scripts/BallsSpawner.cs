@@ -81,32 +81,53 @@ namespace DigitalLove.Game.Balls
             }
         }
 
-        // Delayed replacements stay inactive until activate, so they must not count as "thrown".
-        // Recycled pool balls can still have HasBeenUnselected until OnEnable.
         private static bool NeedsRefill(BallSpawnPoint point)
         {
-            return point.ball != null
-                && point.ball.IsActive
-                && point.ball.HasBeenUnselected;
+            if (point.refillPending)
+                return false;
+            if (point.ball == null)
+                return true;
+            return point.ball.HasBeenUnselected;
         }
 
         private void SetupBallForPoint(BallSpawnPoint point, float secsBeforeSpawn = 0)
         {
+            BallBehaviour previous = point.ball;
             BallBehaviour ball = Rent();
             ball.transform.position = point.reference.position;
             ball.GravityDirection = gravityDirection;
             ball.SetThrowTarget(throwTarget);
             point.ball = ball;
+            point.refillPending = secsBeforeSpawn != 0;
+            ScheduleOrActivate(point, ball, secsBeforeSpawn);
+            ReleaseOrphan(previous, ball);
+        }
+
+        private void ScheduleOrActivate(BallSpawnPoint point, BallBehaviour ball, float secsBeforeSpawn)
+        {
             if (secsBeforeSpawn != 0)
-                this.InvokeAfterSecs(secsBeforeSpawn, () => ActivateIfRented(ball));
+                this.InvokeAfterSecs(secsBeforeSpawn, () => ActivatePending(point, ball));
             else
                 ball.SetActive(true);
         }
 
-        private void ActivateIfRented(BallBehaviour ball)
+        private void ActivatePending(BallSpawnPoint point, BallBehaviour ball)
         {
-            if (rented.Contains(ball))
-                ball.SetActive(true);
+            if (point.ball != ball || !rented.Contains(ball))
+            {
+                if (point.ball == ball)
+                    point.refillPending = false;
+                return;
+            }
+
+            point.refillPending = false;
+            ball.SetActive(true);
+        }
+
+        private void ReleaseOrphan(BallBehaviour previous, BallBehaviour next)
+        {
+            if (previous != null && previous != next && !previous.IsActive)
+                Release(previous);
         }
 
         private BallBehaviour Rent()
@@ -141,15 +162,20 @@ namespace DigitalLove.Game.Balls
         private void ClearSpawnPoints()
         {
             foreach (BallSpawnPoint point in points)
+            {
                 point.ball = null;
+                point.refillPending = false;
+            }
         }
 
         private void ClearSpawnPoint(BallBehaviour ball)
         {
             foreach (BallSpawnPoint point in points)
             {
-                if (point.ball == ball)
-                    point.ball = null;
+                if (point.ball != ball)
+                    continue;
+                point.ball = null;
+                point.refillPending = false;
             }
         }
 
@@ -172,5 +198,6 @@ namespace DigitalLove.Game.Balls
     {
         public Transform reference;
         public BallBehaviour ball;
+        [NonSerialized] public bool refillPending;
     }
 }

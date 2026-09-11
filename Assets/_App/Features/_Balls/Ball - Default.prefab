@@ -498,7 +498,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &4111780593419608101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,8 +538,9 @@ MonoBehaviour:
   grabbable: {fileID: 4111780593419608101}
   rb: {fileID: 9163818528921441707}
   throwBehaviour: {fileID: 4829173640582719351}
-  maxQueueValues: 7
-  forceMultiplier: 1.25
+  maxQueueValues: 10
+  releaseSampleDeadZone: 2
+  forceMultiplier: 2
   trail: {fileID: 3208119151612854899}
   idleMotion: {fileID: 2847391056284710936}
   hover:
@@ -740,6 +741,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d46ad500a64438ead1680b9e1201953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DigitalLove.Game.Balls::DigitalLove.Game.Balls.DefaultBallThrow
+  minThrowSpeed: 0.35
+  maxThrowSpeed: 12
+  spinMultiplier: 1
+  consistency: 0.45
+  maxSpinSpeed: 18
 --- !u!114 &7151832531939601433
 MonoBehaviour:
   m_ObjectHideFlags: 0

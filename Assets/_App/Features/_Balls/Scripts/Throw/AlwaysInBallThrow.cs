@@ -6,6 +6,7 @@ namespace DigitalLove.Game.Balls
     {
         [SerializeField] private float entryOffset = 0.175f;
         [SerializeField] private float minSpeed = 4f;
+        [SerializeField] private float maxThrowSpeed = 12f;
 
         private Transform target;
         private Rigidbody rb;
@@ -31,7 +32,7 @@ namespace DigitalLove.Game.Balls
             if (!isFlying)
                 return;
 
-            float speed = Mathf.Max(release.LinearVelocity.magnitude * forceMultiplier, minSpeed);
+            float speed = ClampSpeed(release.LinearVelocity.magnitude * forceMultiplier);
             rb.linearVelocity = DirectionToAim() * speed;
             rb.angularVelocity = release.AngularVelocity;
         }
@@ -41,8 +42,17 @@ namespace DigitalLove.Game.Balls
             if (!ShouldSteer())
                 return;
 
-            float speed = Mathf.Max(rb.linearVelocity.magnitude, minSpeed);
+            float speed = ClampSpeed(Mathf.Max(rb.linearVelocity.magnitude, minSpeed));
             rb.linearVelocity = DirectionToAim() * speed;
+        }
+
+        private float ClampSpeed(float speed)
+        {
+            if (speed < minSpeed)
+                return minSpeed;
+            if (speed > maxThrowSpeed)
+                return maxThrowSpeed;
+            return speed;
         }
 
         private bool ShouldSteer()

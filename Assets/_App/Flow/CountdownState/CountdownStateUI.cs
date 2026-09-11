@@ -64,6 +64,18 @@ namespace DigitalLove.Game
                 wallStackSpawner.LevelsPanel.levelPressed -= handler;
         }
 
+        public void SubscribeRandomPressed(Action handler)
+        {
+            if (wallStackSpawner.LevelsPanel != null)
+                wallStackSpawner.LevelsPanel.randomPressed += handler;
+        }
+
+        public void UnsubscribeRandomPressed(Action handler)
+        {
+            if (wallStackSpawner.LevelsPanel != null)
+                wallStackSpawner.LevelsPanel.randomPressed -= handler;
+        }
+
         public void ShowBasketInstructions(GameLevelData levelData, int levelIndex)
         {
             string initText;

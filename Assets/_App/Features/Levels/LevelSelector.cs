@@ -61,7 +61,13 @@ namespace DigitalLove.Game
 
         public void SetRandom()
         {
-            currentLevelId = chapters.GetRandomLevelData<GameLevelData>().id;
+            string previousId = currentLevelId;
+            for (int attempt = 0; attempt < 8; attempt++)
+            {
+                currentLevelId = chapters.GetRandomLevelData<GameLevelData>().id;
+                if (!string.Equals(currentLevelId, previousId))
+                    return;
+            }
         }
 
         private string ResolveProgressionFrontierLevelId()

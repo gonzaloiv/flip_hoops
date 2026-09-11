@@ -49,11 +49,13 @@ namespace DigitalLove.Game
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             ui.SetLevelsInteraction(true);
             ui.SubscribeLevelPressed(OnLevelPressed);
+            ui.SubscribeRandomPressed(OnRandomPressed);
             SpawnCourt(OnEnterSpawned);
         }
 
         public override void Exit()
         {
+            ui.UnsubscribeRandomPressed(OnRandomPressed);
             ui.UnsubscribeLevelPressed(OnLevelPressed);
             ui.SetLevelsInteraction(false);
             checker.DoStop();
@@ -99,6 +101,19 @@ namespace DigitalLove.Game
                 return;
 
             levelSelector.SetPlayCursor(levelId);
+            RespawnSelectedLevel();
+        }
+
+        private void OnRandomPressed()
+        {
+            if (isSpawning)
+                return;
+            levelSelector.SetRandom();
+            RespawnSelectedLevel();
+        }
+
+        private void RespawnSelectedLevel()
+        {
             levelData = levelSelector.Current;
             checker.DoStop();
             courtSetupHelper.Clear();

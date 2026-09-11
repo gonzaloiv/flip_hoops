@@ -10,8 +10,10 @@ namespace DigitalLove.Game.UI
         [FormerlySerializedAs("rowPrefab")]
         [SerializeField] private LevelItem itemTemplate;
         [SerializeField] private Transform content;
+        [SerializeField] private LevelItem randomItem;
 
         public event Action<string> levelPressed;
+        public event Action randomPressed;
 
         private readonly List<LevelItem> items = new();
         private readonly List<LevelItemData> entries = new();
@@ -49,6 +51,7 @@ namespace DigitalLove.Game.UI
             EnsureItemCount(entries.Count);
             for (int i = 0; i < entries.Count && i < items.Count; i++)
                 items[i].Bind(entries[i], OnItemPressed, interactionEnabled);
+            BindRandomItem();
         }
 
         private void EnsureItemCount(int count)
@@ -72,8 +75,36 @@ namespace DigitalLove.Game.UI
 
             for (int i = 0; i < items.Count; i++)
                 items[i].gameObject.SetActive(i < count);
+
+            if (randomItem != null)
+                randomItem.transform.SetAsLastSibling();
+        }
+
+        private void BindRandomItem()
+        {
+            if (randomItem == null)
+                return;
+            randomItem.gameObject.SetActive(true);
+            randomItem.Bind(RandomEntry(), OnRandomPressed, interactionEnabled);
+        }
+
+        private static LevelItemData RandomEntry()
+        {
+            return new LevelItemData
+            {
+                levelId = string.Empty,
+                identityLabel = "RND",
+                scoreText = string.Empty,
+                stars = 0,
+                passed = false,
+                selected = false,
+                frontier = false,
+                locked = false
+            };
         }
 
         private void OnItemPressed(string levelId) => levelPressed?.Invoke(levelId);
+
+        private void OnRandomPressed(string _) => randomPressed?.Invoke();
     }
 }
