@@ -426,7 +426,7 @@ PrefabInstance:
     - target: {fileID: 550548915678113984, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: throwBehaviour
       value: 
-      objectReference: {fileID: 6940182735419281604}
+      objectReference: {fileID: 8144087432399289463}
     - target: {fileID: 550548915678113984, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: forceMultiplier
       value: 1
@@ -495,6 +495,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5899545647593888788, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      propertyPath: throwBehaviour
+      value: 
+      objectReference: {fileID: 8144087432399289463}
     - target: {fileID: 7482608285683780187, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -520,6 +524,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6940182735419281604}
+    - targetCorrespondingSourceObject: {fileID: 3333988485701845152, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8144087432399289463}
   m_SourcePrefab: {fileID: 100100000, guid: 1173731cb1ba7ba49a9e268b38f064c0, type: 3}
 --- !u!4 &74087704307487369 stripped
 Transform:
@@ -551,3 +558,16 @@ MonoBehaviour:
   band: {fileID: 1561724352617089435}
   aim: {fileID: 3372835463728190546}
   originBillboard: {fileID: 8450613241506978324}
+--- !u!114 &8144087432399289463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916443206272756879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52b30768c850984480a8c97aadf7d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Balls::DigitalLove.Game.Balls.SlingshotBallThrowBridge
+  slingshot: {fileID: 6940182735419281604}

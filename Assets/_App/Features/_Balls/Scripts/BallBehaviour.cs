@@ -12,11 +12,6 @@ namespace DigitalLove.Game.Balls
         [SerializeField] private Grabbable grabbable;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private BallThrowBehaviour throwBehaviour;
-        [SerializeField] private int maxQueueValues = 10;
-        [SerializeField, Tooltip("Newest samples ignored on release (finger-open slowdown).")]
-        private int releaseSampleDeadZone = 2;
-        [SerializeField, Tooltip("Scales sampled release velocity (m/s) into throw velocity.")]
-        private float forceMultiplier = 1.25f;
         [SerializeField] private BallTrail trail;
         [SerializeField] private BallIdleMotion idleMotion;
 
@@ -29,7 +24,7 @@ namespace DigitalLove.Game.Balls
         public UnityEvent becameInactive;
 
         private Vector3 gravityDirection;
-        private BallReleaseSampler releaseSampler;
+        private GrabThrowController grabThrow;
         private bool isSelected;
         private bool hasBeenUnselected;
         private bool hasScored;
@@ -43,24 +38,29 @@ namespace DigitalLove.Game.Balls
         public float Volume => cachedVolume < 0f ? cachedVolume = ComputeVolume() : cachedVolume;
 
         private BallThrowBehaviour ThrowBehaviour => throwBehaviour ??= GetComponent<BallThrowBehaviour>();
-        private BallReleaseSampler ReleaseSampler => releaseSampler ??= new BallReleaseSampler();
+        private GrabThrowController GrabThrow => grabThrow ??= GetComponent<GrabThrowController>();
         private float cachedVolume = -1f;
 
         private void OnEnable()
         {
             grabbable.WhenPointerEventRaised += ListenPointer;
+            GrabThrow.selected.AddListener(OnSelect);
+            GrabThrow.unselected.AddListener(OnUnselect);
 
             isSelected = false;
             hasBeenUnselected = false;
             hasScored = false;
             rb.isKinematic = true;
-            ReleaseSampler.Clear();
+            GrabThrow.Clear();
             trail.Reset();
         }
 
         private void OnDisable()
         {
             grabbable.WhenPointerEventRaised -= ListenPointer;
+            GrabThrow.selected.RemoveListener(OnSelect);
+            GrabThrow.unselected.RemoveListener(OnUnselect);
+            GrabThrow.Clear();
 
             gravityDirection = Vector3.zero;
             becameInactive?.Invoke();
@@ -72,10 +72,7 @@ namespace DigitalLove.Game.Balls
                 OnHover();
             if (pointer.Type == PointerEventType.Unhover)
                 OnUnhover();
-            if (pointer.Type == PointerEventType.Select)
-                OnSelect();
-            if (pointer.Type == PointerEventType.Unselect)
-                OnUnselect();
+
         }
 
         [Button]
@@ -90,8 +87,6 @@ namespace DigitalLove.Game.Balls
         private void OnSelect()
         {
             isSelected = true;
-            ReleaseSampler.Clear();
-            ThrowBehaviour.OnGrab(transform.position);
             if (idleMotion != null)
                 idleMotion.StopIdle();
             select.Invoke();
@@ -114,8 +109,6 @@ namespace DigitalLove.Game.Balls
         {
             isSelected = false;
             hasBeenUnselected = true;
-            rb.isKinematic = false;
-            ThrowBehaviour.ApplyThrow(rb, ReleaseSampler.Resolve(releaseSampleDeadZone), forceMultiplier);
             unselect.Invoke();
             trail.ShowStreak(isInStreak);
         }
@@ -125,10 +118,7 @@ namespace DigitalLove.Game.Balls
         private void FixedUpdate()
         {
             if (isSelected)
-            {
-                ReleaseSampler.Sample(transform, Time.fixedDeltaTime, maxQueueValues);
                 return;
-            }
 
             if (ShouldApplyGravity())
                 rb.AddForce(gravityDirection * GravityData.Force, ForceMode.Force);

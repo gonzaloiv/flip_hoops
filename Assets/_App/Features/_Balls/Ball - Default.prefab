@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 7151832531939601433}
   - component: {fileID: 1276884474229303951}
   - component: {fileID: 1076806796551765884}
+  - component: {fileID: 5899545647593888788}
   m_Layer: 11
   m_Name: Ball - Default
   m_TagString: Untagged
@@ -794,6 +795,30 @@ MonoBehaviour:
   _useClosestPointAsGrabSource: 0
   _releaseDistance: 0
   _resetGrabOnGrabsUpdated: 1
+--- !u!114 &5899545647593888788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333988485701845152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4e5a63f23ace542b3f7363497d1303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DigitalLove.Game.Balls::DigitalLove.Game.Balls.GrabThrowController
+  grabbable: {fileID: 4111780593419608101}
+  body: {fileID: 9163818528921441707}
+  throwBehaviour: {fileID: 4829173640582719351}
+  maxQueueValues: 10
+  releaseSampleDeadZone: 2
+  forceMultiplier: 1.25
+  selected:
+    m_PersistentCalls:
+      m_Calls: []
+  unselected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3793315736553346107
 GameObject:
   m_ObjectHideFlags: 0

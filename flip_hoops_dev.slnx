@@ -1,5 +1,7 @@
 ﻿<Solution>
+  <Project Path="MegaFiers.csproj" />
   <Project Path="DigitalLove.TTS.csproj" />
+  <Project Path="MegaFiers.Editor.csproj" />
   <Project Path="DigitalLove.UI.DesignSystem.Localization.csproj" />
   <Project Path="DigitalLove.XR.Core.csproj" />
   <Project Path="DigitalLove.Game.Basket.csproj" />
@@ -11,10 +13,11 @@
   <Project Path="Vendor.GameAnalytics.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.csproj" />
   <Project Path="DigitalLove.Audio.Runtime.csproj" />
+  <Project Path="DigitalLove.Interactables.OculusInteraction.csproj" />
   <Project Path="DigitalLove.UI.Behaviours.csproj" />
   <Project Path="DigitalLove.UI.DesignSystem.csproj" />
   <Project Path="DigitalLove.VFX.Animation.csproj" />
-  <Project Path="DigitalLove.Game.Balls.csproj" />
+  <Project Path="MegaFiers.MegaShape.Editor.csproj" />
   <Project Path="DigitalLove.DataAccess.Leaderboards.csproj" />
   <Project Path="Klak.Motion.csproj" />
   <Project Path="DigitalLove.FlowControl.csproj" />
@@ -23,17 +26,19 @@
   <Project Path="DigitalLove.Global.Editor.csproj" />
   <Project Path="DOTween.Modules.csproj" />
   <Project Path="Klak.Motion.Editor.csproj" />
+  <Project Path="DigitalLove.Interactables.OculusInteraction.Samples.csproj" />
   <Project Path="DigitalLove.Game.Furniture.csproj" />
   <Project Path="DigitalLove.Game.Court.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Vendor.UnityGif.csproj" />
   <Project Path="DigitalLove.Game.Obstacles.csproj" />
-  <Project Path="DigitalLove.Interactables.OculusInteraction.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj" />
   <Project Path="DigitalLove.Player.csproj" />
   <Project Path="DigitalLove.Analytics.csproj" />
   <Project Path="DigitalLove.XR.OVR.csproj" />
   <Project Path="DigitalLove.Casual.Levels.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.csproj" />
+  <Project Path="DigitalLove.Game.Balls.csproj" />
   <Project Path="DigitalLove.Game.Flow.RoundCompleteState.csproj" />
   <Project Path="DigitalLove.Localization.csproj" />
   <Project Path="DigitalLove.VFX.Fader.csproj" />
@@ -41,7 +46,6 @@
   <Project Path="DigitalLove.Casual.Analytics.csproj" />
   <Project Path="DigitalLove.Timeline.csproj" />
   <Project Path="DigitalLove.XR.MRUK.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="DigitalLove.Game.Modifiers.csproj" />
   <Project Path="DigitalLove.HomeMenu.csproj" />
   <Project Path="DigitalLove.Game.Flow.CountdownState.csproj" />
@@ -63,12 +67,14 @@
   <Project Path="DigitalLove.Audio.TheRadio.csproj" />
   <Project Path="Unity.XR.Hands.Samples.VisualizerSample.csproj" />
   <Project Path="DigitalLove.VFX.Materials.csproj" />
-  <Project Path="DigitalLove.Casual.Flow.csproj" />
+  <Project Path="DigitalLove.VFX.MegaFiers.csproj" />
   <Project Path="DigitalLove.VFX.ShadowLike.csproj" />
   <Project Path="Simple360Render.Runtime.csproj" />
   <Project Path="ChrisNolet.QuickOutline.csproj" />
   <Project Path="DigitalLove.Interactables.MRUK.csproj" />
+  <Project Path="DigitalLove.Player.integrations.csproj" />
   <Project Path="DigitalLove.Timeline.Samples.csproj" />
+  <Project Path="DigitalLove.Casual.Flow.csproj" />
   <Project Path="DigitalLove.VFX.Capture360.csproj" />
   <Project Path="DigitalLove.VFX.Particles.csproj" />
   <Project Path="Vendor.UniGif.Samples.csproj" />
