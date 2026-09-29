@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using DigitalLove.Casual.Levels;
 using DigitalLove.DataAccess;
 using DigitalLove.Game.Levels;
-using DigitalLove.Game.UI;
+using DigitalLove.Casual.UI;
 
 namespace DigitalLove.Game
 {
@@ -43,10 +43,7 @@ namespace DigitalLove.Game
                 identityLabel = $"{index + 1:00}",
                 scoreText = scoreText,
                 stars = stars,
-                passed = passed,
-                selected = string.Equals(level.id, selectedId),
-                frontier = string.Equals(level.id, frontierId),
-                locked = !levelSelector.IsPressable(level.id)
+                status = LevelItemData.BuildStatus(level, cookie, levelSelector.IsPressable(level.id), frontierId, selectedId)
             };
         }
 

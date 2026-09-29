@@ -1,5 +1,6 @@
 using DigitalLove.XR.MRUtilityKit;
 using UnityEngine;
+using DigitalLove.Casual.UI;
 
 namespace DigitalLove.Game.UI
 {
@@ -17,7 +18,6 @@ namespace DigitalLove.Game.UI
             if (!onTheWallSpawner.HasBeenSpawned)
                 onTheWallSpawner.SpawnInFrontOfCameraWhenReady();
             Panel.Show(currentCaseIndex, totalCases);
-            levelsPanel?.Show();
         }
     }
 }

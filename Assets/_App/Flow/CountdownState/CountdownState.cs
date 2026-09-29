@@ -49,13 +49,11 @@ namespace DigitalLove.Game
             progressionEventsHelper.SendLevelStartedEvent(levelId: levelData.GetIdWithRound(play));
             ui.SetLevelsInteraction(true);
             ui.SubscribeLevelPressed(OnLevelPressed);
-            ui.SubscribeRandomPressed(OnRandomPressed);
             SpawnCourt(OnEnterSpawned);
         }
 
         public override void Exit()
         {
-            ui.UnsubscribeRandomPressed(OnRandomPressed);
             ui.UnsubscribeLevelPressed(OnLevelPressed);
             ui.SetLevelsInteraction(false);
             checker.DoStop();

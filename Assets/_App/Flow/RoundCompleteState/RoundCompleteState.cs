@@ -8,7 +8,7 @@ using DigitalLove.Game.Balls;
 using DigitalLove.Game.Basket;
 using DigitalLove.Game.Court;
 using DigitalLove.Game.Levels;
-using DigitalLove.Game.UI;
+using DigitalLove.Casual.UI;
 using DigitalLove.Global;
 using DigitalLove.Localization;
 using Reflex.Attributes;
@@ -44,7 +44,7 @@ namespace DigitalLove.Game
             bool wasAlreadyPassed = HasPassCookie(levelData.id);
             bool isHighestScore = SetNewScore(levelData);
             ApplyPlayCursorAfterRound(wasAlreadyPassed);
-            levelsPanel?.Refresh(LevelItemDataBuilder.Build(levelSelector, memoryDataClient.Get<PlayerData>()));
+            levelsPanel?.Show(LevelItemDataBuilder.Build(levelSelector, memoryDataClient.Get<PlayerData>()));
             UpdatePlayerData();
             ShowUI(isHighestScore);
             CountDown();

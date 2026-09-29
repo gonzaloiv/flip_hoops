@@ -49,31 +49,19 @@ namespace DigitalLove.Game
             LevelsPanel panel = wallStackSpawner.LevelsPanel;
             if (panel == null)
                 return;
-            panel.Refresh(LevelItemDataBuilder.Build(levelSelector, playerData));
+            panel.Show(LevelItemDataBuilder.Build(levelSelector, playerData));
         }
 
         public void SubscribeLevelPressed(Action<string> handler)
         {
             if (wallStackSpawner.LevelsPanel != null)
-                wallStackSpawner.LevelsPanel.levelPressed += handler;
+                wallStackSpawner.LevelsPanel.pressed += handler;
         }
 
         public void UnsubscribeLevelPressed(Action<string> handler)
         {
             if (wallStackSpawner.LevelsPanel != null)
-                wallStackSpawner.LevelsPanel.levelPressed -= handler;
-        }
-
-        public void SubscribeRandomPressed(Action handler)
-        {
-            if (wallStackSpawner.LevelsPanel != null)
-                wallStackSpawner.LevelsPanel.randomPressed += handler;
-        }
-
-        public void UnsubscribeRandomPressed(Action handler)
-        {
-            if (wallStackSpawner.LevelsPanel != null)
-                wallStackSpawner.LevelsPanel.randomPressed -= handler;
+                wallStackSpawner.LevelsPanel.pressed -= handler;
         }
 
         public void ShowBasketInstructions(GameLevelData levelData, int levelIndex)
